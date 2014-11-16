@@ -1,4 +1,4 @@
-package org.scotsbots.robot;
+package org.scotsbots.dummy_robot;
 
 import java.util.Calendar;
 
@@ -27,7 +27,7 @@ public class Logger
 	{
 		if(shouldLog)
 		{
-			System.out.println("[Log][" + Calendar.MINUTE + "mi " + Calendar.SECOND + "sec " + Calendar.MILLISECOND + "ms] " + contents);
+			System.out.println("[Log] [" + Calendar.MINUTE + "mi " + Calendar.SECOND + "sec " + Calendar.MILLISECOND + "ms] " + contents);
 			switch(currentLine)
 			{
 				case 1:

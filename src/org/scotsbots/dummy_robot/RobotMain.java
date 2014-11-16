@@ -7,7 +7,7 @@
 /* Howell SCOTS Bots 2015 - Pre Season                                        */
 /*----------------------------------------------------------------------------*/
 
-package org.scotsbots.robot;
+package org.scotsbots.dummy_robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
@@ -27,7 +27,7 @@ public class RobotMain extends IterativeRobot
 
     public void teleopPeriodic() 
     {
-        
+        Logger.log("Running Teleop.");
     }
 
     public void testPeriodic() 

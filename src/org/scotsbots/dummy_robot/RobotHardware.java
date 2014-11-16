@@ -1,4 +1,4 @@
-package org.scotsbots.robot;
+package org.scotsbots.dummy_robot;
 
 public class RobotHardware 
 {
