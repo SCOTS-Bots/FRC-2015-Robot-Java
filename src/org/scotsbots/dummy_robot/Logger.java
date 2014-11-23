@@ -11,19 +11,17 @@ public class Logger
 	
 	private static int currentLine = 1;
 	
-	/**
-	 * Creates a log file named with date and time.
-	 */
-	public static void log(String contents)
+	public static void log(String contents, Exception e)
 	{
-		log("log" + Calendar.HOUR + "_" + Calendar.MINUTE + ".txt", contents);
+		log(contents);
+		log(e.getMessage());
 	}
 	
 	/**
-	 * Creates a log file with specified name.
+	 * Logs to lcd and console with time stamp.
 	 * @param name - name of file.
 	 */
-	public static void log(String name, String contents)
+	public static void log(String contents)
 	{
 		if(shouldLog)
 		{

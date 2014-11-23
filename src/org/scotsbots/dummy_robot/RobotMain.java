@@ -27,12 +27,18 @@ public class RobotMain extends IterativeRobot
 
     public void teleopPeriodic() 
     {
-        Logger.log("Running Teleop.");
+    	try
+    	{
+    		RobotHardware.drivetrain.tankDrive(Gamepad.primary.joystick, Gamepad.secondary.joystick);
+    	} 
+    	catch(Exception e) 
+    	{
+    		Logger.log("Drivetrain threw an exception.", e);
+    	}
     }
 
     public void testPeriodic() 
-    {
-    
+    {    
     }
     
     public void disabledInit() 
