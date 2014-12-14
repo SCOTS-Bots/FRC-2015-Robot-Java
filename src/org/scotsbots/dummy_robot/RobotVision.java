@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class RobotVision
 {
 	private static Timer timer = new Timer();
-	private static final String BEAGELIP = "10.2.45.3:3000";
+	private static final String BEAGELIP = "192.168.1.103";
 
 	public static void initialize()
 	{

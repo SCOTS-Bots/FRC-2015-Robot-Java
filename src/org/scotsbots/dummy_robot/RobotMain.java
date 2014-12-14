@@ -18,6 +18,7 @@ public class RobotMain extends IterativeRobot
     	Logger.startLogging();
     	Logger.log("Robot starting up.");
     	RobotHardware.initialize();
+    	RobotVision.initialize();
     }
 
     public void autonomousPeriodic() 
