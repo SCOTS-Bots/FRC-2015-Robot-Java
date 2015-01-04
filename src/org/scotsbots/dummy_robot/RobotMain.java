@@ -4,21 +4,22 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-/* Howell SCOTS Bots 2015 - Pre Season                                        */
+/* Howell SCOTS Bots 2015 - Competition Season                                */
 /*----------------------------------------------------------------------------*/
 
 package org.scotsbots.dummy_robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class RobotMain extends IterativeRobot 
 {
     public void robotInit() 
     {
-    	Logger.startLogging();
-    	Logger.log("Robot starting up.");
+    	//Logger.startLogging();
+    	//Logger.log("Robot starting up.");
     	RobotHardware.initialize();
-    	RobotVision.initialize();
+    	//RobotVision.initialize();
     }
 
     public void autonomousPeriodic() 
@@ -34,12 +35,13 @@ public class RobotMain extends IterativeRobot
     	} 
     	catch(Exception e) 
     	{
-    		Logger.log("Drivetrain threw an exception.", e);
+    		//Logger.log("Drivetrain threw an exception.", e);
     	}
     }
 
     public void testPeriodic() 
-    {    
+    {
+    	LiveWindow.run();
     }
     
     public void disabledInit() 

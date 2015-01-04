@@ -1,14 +1,9 @@
 package org.scotsbots.dummy_robot;
 
-import java.io.InputStream;
-
-import javax.microedition.io.Connector;
-import javax.microedition.io.SocketConnection;
-
-import edu.wpi.first.wpilibj.Timer;
-
 public class RobotVision
 {
+	//This is the old 2014 code that no longer works for 2015. Will edit later. -Domenic
+	/*
 	private static Timer timer = new Timer();
 	private static final String BEAGELIP = "192.168.1.103";
 
@@ -111,5 +106,5 @@ public class RobotVision
 			}
 		}
 	}
-
+	*/
 }

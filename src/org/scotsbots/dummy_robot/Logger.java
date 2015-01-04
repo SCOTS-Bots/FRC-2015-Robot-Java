@@ -2,13 +2,14 @@ package org.scotsbots.dummy_robot;
 
 import java.util.Calendar;
 
-import edu.wpi.first.wpilibj.DriverStationLCD;
+import edu.wpi.first.wpilibj.DriverStation;
 
 public class Logger 
 {
+	//This is the old 2014 code that no longer works for 2015. Will edit later. -Domenic
+	/*
 	public static boolean shouldLog = false;
 	public static DriverStationLCD lcd = DriverStationLCD.getInstance();
-	
 	private static int currentLine = 1;
 	
 	public static void log(String contents, Exception e)
@@ -17,10 +18,10 @@ public class Logger
 		log(e.getMessage());
 	}
 	
-	/**
+	
 	 * Logs to lcd and console with time stamp.
 	 * @param name - name of file.
-	 */
+	 
 	public static void log(String contents)
 	{
 		if(shouldLog)
@@ -56,12 +57,13 @@ public class Logger
 		}
 	}
 	
-	/**
+	
 	 * Clears the lcd and gets everything ready for logging.
-	 */
+	 
 	public static void startLogging()
 	{
 		lcd.clear();
 		shouldLog = true;
 	}
+	*/
 }

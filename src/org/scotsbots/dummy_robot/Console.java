@@ -8,7 +8,7 @@ public class Console
 	 */
 	public static void main(String[] args)
 	{
-		Logger.log("Testing log.");
-		Logger.log("Testing log 2.");
+		//Logger.log("Testing log.");
+		//Logger.log("Testing log 2.");
 	}
 }
