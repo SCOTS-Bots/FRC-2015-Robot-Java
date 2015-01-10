@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * Originally adapted from Adambots code.
+ * 
  * @author Howell Robotics
  *
  */
@@ -90,11 +91,11 @@ public class Gamepad
 	 */
 	private static final int AXIS_DPAD_HORIZONTAL = 6;
 
-	private Gamepad(int port) 
+	private Gamepad(int port)
 	{
 		joystick = new Joystick(port);
 	}
-	
+
 	public static Gamepad primary = new Gamepad(1);
 	public static Gamepad secondary = new Gamepad(2);
 
@@ -106,6 +107,51 @@ public class Gamepad
 	public static double createDeadzone(double triggerValue)
 	{
 		return Math.abs(triggerValue) < 0.15 ? 0 : triggerValue;
+	}
+
+	public double getTriggers()
+	{
+		return createDeadzone(joystick.getRawAxis(AXIS_TRIGGERS) * 2) / 2;
+	}
+
+	/**
+	 * Corresponds to HORIZONTAL input on the LEFT joystick.
+	 *
+	 * @return The X coordinate of the left joystick (-1 is LEFT, 1 is RIGHT)
+	 */
+	public double getLeftX()
+	{
+		return createDeadzone(joystick.getRawAxis(AXIS_LEFT_X));
+	}
+
+	/**
+	 * Corresponds to VERTICAL input on the LEFT joystick.
+	 *
+	 * @return The Y coordinate of the LEFT joystick (-1 is UP, 1 is DOWN)
+	 */
+	public double getLeftY()
+	{
+		return createDeadzone(joystick.getRawAxis(AXIS_LEFT_Y));
+	}
+
+	/**
+	 * Corresponds to HORIZONTAL input on the RIGHT joystick
+	 *
+	 * @return The X coordinate of the RIGHT joystick (-1 is LEFT, 1 is RIGHT)
+	 */
+	public double getRightX()
+	{
+		return createDeadzone(joystick.getRawAxis(AXIS_RIGHT_X));
+	}
+
+	/**
+	 * Corresponds to VERTICAL input on the RIGHT joystick
+	 *
+	 * @return The Y coordinate of the RIGHT joystick (-1 is UP, 1 is DOWN)
+	 */
+	public double getRightY()
+	{
+		return createDeadzone(joystick.getRawAxis(AXIS_RIGHT_Y));
 	}
 
 	public boolean getDPadLeft()

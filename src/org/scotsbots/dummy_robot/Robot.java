@@ -9,38 +9,58 @@
 
 package org.scotsbots.dummy_robot;
 
+import org.scotsbots.dummy_robot.operation.OperationTeleop;
+import org.scotsbots.dummy_robot.operation.RobotOperation;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
+/**
+ * Main Class for our 2015 Robot
+ * @author Domenic
+ *
+ */
 public class Robot extends IterativeRobot 
 {
     public void robotInit() 
     {
     	Logger.riolog("S.C.O.T.S. Bots 2015 Robot starting up.");
     	RobotHardware.initialize();
+    	RobotOperation.initialize();
     	//RobotVision.initialize();
     }
-
+    
+    public void autonomousInit()
+    {
+    	RobotOperation.reset();
+    }
+    
     public void autonomousPeriodic() 
     {
 
     }
-
+    
+    public void teleopInit()
+    {
+    	RobotOperation.reset();
+    	OperationTeleop.initialize();
+    }
+    
     public void teleopPeriodic() 
     {
-    	try
-    	{
-    		RobotHardware.drivetrain.tankDrive(-Gamepad.primary.joystick.getY(), Gamepad.primary.joystick.getRawAxis(3), true);
-    	} 
-    	catch(Exception e) 
-    	{
-    		Logger.riolog("Drivetrain threw an exception.", e);
-    	}
+		RobotOperation.logSmartDashboard();
+		OperationTeleop.update();
     }
 
+    public void testInit()
+    {
+    	RobotOperation.reset();
+    }
+    
     public void testPeriodic() 
     {
     	LiveWindow.run();
+    	RobotOperation.logSmartDashboard();
     }
     
     public void disabledInit() 
