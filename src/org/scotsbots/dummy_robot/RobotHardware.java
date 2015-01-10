@@ -33,13 +33,17 @@ public class RobotHardware
 -	*/
 	
 	public static RobotDrive drivetrain;
-	public static Jaguar leftDriveMotor;
-	public static Jaguar rightDriveMotor;
+	public static Jaguar rearLeftMotor;
+	public static Jaguar frontLeftMotor;
+	public static Jaguar rearRightMotor;
+	public static Jaguar frontRightMotor;
 	
 	public static void initialize()
 	{
-		leftDriveMotor = new Jaguar(1);
-		rightDriveMotor = new Jaguar(2);
-		drivetrain = new RobotDrive(leftDriveMotor.getChannel(), rightDriveMotor.getChannel());
+		rearLeftMotor = new Jaguar(0);
+		frontLeftMotor = new Jaguar(1);
+		rearRightMotor = new Jaguar(2);
+		frontRightMotor = new Jaguar(3);
+		drivetrain = new RobotDrive(rearLeftMotor, frontLeftMotor, rearRightMotor, frontRightMotor);
 	}
 }

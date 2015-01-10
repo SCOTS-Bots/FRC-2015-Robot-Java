@@ -66,4 +66,23 @@ public class Logger
 		shouldLog = true;
 	}
 	*/
+	
+	public static void riolog(String contents, boolean isErr)
+	{
+		if(isErr)
+			System.err.println("[ERRLog] [" + Calendar.MINUTE + "mi " + Calendar.SECOND + "sec " + Calendar.MILLISECOND + "ms] " + contents);
+		else
+			System.out.println("[Log] [" + Calendar.MINUTE + "mi " + Calendar.SECOND + "sec " + Calendar.MILLISECOND + "ms] " + contents);
+	}
+	
+	public static void riolog(String contents)
+	{
+		riolog(contents, false);
+	}
+	
+	public static void riolog(String contents, Exception e)
+	{
+		riolog(contents, true);
+		e.printStackTrace();
+	}
 }

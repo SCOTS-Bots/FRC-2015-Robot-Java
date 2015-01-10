@@ -12,12 +12,11 @@ package org.scotsbots.dummy_robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-public class RobotMain extends IterativeRobot 
+public class Robot extends IterativeRobot 
 {
     public void robotInit() 
     {
-    	//Logger.startLogging();
-    	//Logger.log("Robot starting up.");
+    	Logger.riolog("S.C.O.T.S. Bots 2015 Robot starting up.");
     	RobotHardware.initialize();
     	//RobotVision.initialize();
     }
@@ -31,11 +30,11 @@ public class RobotMain extends IterativeRobot
     {
     	try
     	{
-    		RobotHardware.drivetrain.tankDrive(Gamepad.primary.joystick, Gamepad.secondary.joystick);
+    		RobotHardware.drivetrain.tankDrive(-Gamepad.primary.joystick.getY(), Gamepad.primary.joystick.getRawAxis(3), true);
     	} 
     	catch(Exception e) 
     	{
-    		//Logger.log("Drivetrain threw an exception.", e);
+    		Logger.riolog("Drivetrain threw an exception.", e);
     	}
     }
 
