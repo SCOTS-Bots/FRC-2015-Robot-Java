@@ -37,7 +37,7 @@ public class Robot extends IterativeRobot
     	autoChooser = new SendableChooser();
     	RobotHardware.initialize();
     	RobotOperation.initialize();
-    	//RobotVision.initialize();
+    	RobotVision.initialize();
     	OperationAutonomous.initializeAutons();
 		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
     }
@@ -62,6 +62,7 @@ public class Robot extends IterativeRobot
     
     public void teleopPeriodic() 
     {
+    	RobotVision.stream();
 		RobotOperation.logSmartDashboard();
 		OperationTeleop.update();
     }

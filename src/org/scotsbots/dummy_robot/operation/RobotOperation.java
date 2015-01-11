@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -47,16 +48,25 @@ public class RobotOperation
 	public static void driveTank()
 	{
 		RobotHardware.drivetrain.tankDrive(-Gamepad.primary.getLeftY(), Gamepad.primary.getRightY(), true);
+        Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
 	public static void driveSingleStickArcade()
 	{
 		RobotHardware.drivetrain.arcadeDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getRightY());
+        Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
 	public static void driveDoubleStickArcade()
 	{
-		RobotHardware.drivetrain.arcadeDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getLeftX());
+		RobotHardware.drivetrain.arcadeDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getLeftX());        
+		Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
+	}
+	
+	public static void driveMecanum()
+	{
+		RobotHardware.drivetrain.mecanumDrive_Cartesian(Gamepad.primary.getLeftX(), Gamepad.primary.getLeftY(), Gamepad.primary.getRightX(), 0);       
+        Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
 	/**
