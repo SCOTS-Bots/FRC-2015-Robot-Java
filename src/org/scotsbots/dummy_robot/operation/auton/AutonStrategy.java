@@ -2,8 +2,8 @@ package org.scotsbots.dummy_robot.operation.auton;
 
 import java.util.ArrayList;
 
-import org.scotsbots.dummy_robot.Logger;
 import org.scotsbots.dummy_robot.Robot;
+import org.scotsbots.dummy_robot.utils.Logger;
 
 /**
  * An abstract class for creating autonomous strategies. Make sure to add the auton strat to the list.

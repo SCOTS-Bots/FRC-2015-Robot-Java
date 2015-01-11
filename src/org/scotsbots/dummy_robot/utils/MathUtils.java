@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.scotsbots.dummy_robot;
+package org.scotsbots.dummy_robot.utils;
 
 /**
  * This class is from the AdamBots github. Thanks for letting me math.

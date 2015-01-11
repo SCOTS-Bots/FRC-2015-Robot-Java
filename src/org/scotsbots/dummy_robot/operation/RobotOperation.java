@@ -1,8 +1,8 @@
 package org.scotsbots.dummy_robot.operation;
 
-import org.scotsbots.dummy_robot.Gamepad;
-import org.scotsbots.dummy_robot.MathUtils;
 import org.scotsbots.dummy_robot.RobotHardware;
+import org.scotsbots.dummy_robot.utils.Gamepad;
+import org.scotsbots.dummy_robot.utils.MathUtils;
 
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.PIDController;
