@@ -12,6 +12,8 @@ import org.scotsbots.dummy_robot.utils.Logger;
  */
 public abstract class AutonStrategy 
 {
+	public int step = 1;
+	
 	static ArrayList<AutonStrategy>autons = new ArrayList<AutonStrategy>();
 	
 	public static void addAuton(AutonStrategy e)
@@ -43,4 +45,5 @@ public abstract class AutonStrategy
 	public abstract void update(); 
 	public abstract String getName();
 	public abstract boolean isDefault();
+	public abstract int amountSteps();
 }

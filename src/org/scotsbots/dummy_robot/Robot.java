@@ -38,9 +38,10 @@ public class Robot extends IterativeRobot
     	autoChooser = new SendableChooser();
     	RobotHardware.initialize();
     	RobotOperation.initialize();
-    	RobotVision.initialize();
+    	//RobotVision.initialize();
     	OperationAutonomous.initializeAutons();
 		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
+		Logger.riolog("S.C.O.T.S. Bots 2015 Robot intialized.");
     }
     
     public void autonomousInit()
@@ -53,7 +54,10 @@ public class Robot extends IterativeRobot
     
     public void autonomousPeriodic() 
     {
-    	selectedAuton.update();
+    	if(selectedAuton.step <= selectedAuton.amountSteps())
+    	{
+    		selectedAuton.update();
+    	}
     }
     
     public void teleopInit()
@@ -64,7 +68,7 @@ public class Robot extends IterativeRobot
     
     public void teleopPeriodic() 
     {
-    	RobotVision.stream();
+    	//RobotVision.stream();
 		RobotOperation.logSmartDashboard();
 		OperationTeleop.update();
     }
@@ -82,5 +86,6 @@ public class Robot extends IterativeRobot
     
     public void disabledInit() 
     {
+		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
     }
 }

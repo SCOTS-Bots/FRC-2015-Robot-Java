@@ -14,7 +14,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RobotOperation 
 {
-	public static PIDController encoderControl;
+	public static PIDController encoderControl = new PIDController(4, 0, 0, new PIDSource() 
+	{
+		public double pidGet() 
+		{
+			return getDistance();
+		}
+	}, new PIDOutput() 
+	{
+		public void pidWrite(double d) 
+		{
+			RobotHardware.drivetrain.tankDrive(d, d);
+		}
+	});
 
 	/**
 	 * Sets up Encoders and adds monitors to LiveWindow.
@@ -23,7 +35,6 @@ public class RobotOperation
 	{
 		RobotHardware.leftDriveEncoder.setDistancePerPulse(0.042);
 		RobotHardware.rightDriveEncoder.setDistancePerPulse(0.042);
-		encoderControl.enable();
 		
 		LiveWindow.addActuator("Drive Train", "Front Left Motor", (Jaguar)RobotHardware.frontLeftMotor);
 		LiveWindow.addActuator("Drive Train", "Back Left Motor", (Jaguar)RobotHardware.rearLeftMotor);
@@ -75,26 +86,19 @@ public class RobotOperation
 	 */
 	public static boolean drive(double distance)
 	{
-		encoderControl = new PIDController(4, 0, 0, new PIDSource() 
-		{
-			public double pidGet() 
-			{
-				return getDistance();
-			}
-		}, new PIDOutput() 
-		{
-			public void pidWrite(double d) 
-			{
-				RobotHardware.drivetrain.tankDrive(d, d);
-			}
-		});
 		
+		encoderControl.enable();
 		encoderControl.setAbsoluteTolerance(0.01);
 		encoderControl.setSetpoint(distance);
 		if(encoderControl.onTarget())
 		{
 			return true;
 		}
+		else
+		{
+	        Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
+		}
+		
 		return false;
 	}
 	
@@ -105,7 +109,10 @@ public class RobotOperation
 	{
 		RobotHardware.leftDriveEncoder.reset();
 		RobotHardware.rightDriveEncoder.reset();
-		encoderControl.reset();
+		if(encoderControl != null)
+		{
+			encoderControl.reset();
+		}
 	}
 	
 	/**

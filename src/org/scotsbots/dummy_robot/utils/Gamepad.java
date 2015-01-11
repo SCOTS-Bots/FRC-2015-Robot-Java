@@ -15,12 +15,12 @@ public class Gamepad
 	/**
 	 * Primary Driver Controller Port Number.
 	 */
-	private static final int DRIVER_PRIMARY = 1;
+	private static final int DRIVER_PRIMARY = 0;
 
 	/**
 	 * Secondary Driver Controller Port Number.
 	 */
-	private static final int DRIVER_SECONDARY = 2;
+	private static final int DRIVER_SECONDARY = 1;
 
 	/**
 	 * XBOX 360 South Face Button
