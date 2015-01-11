@@ -44,7 +44,6 @@ public class RobotOperation
 		SmartDashboard.putNumber("Right Distance", RobotHardware.rightDriveEncoder.getRate());
 	}
 	
-
 	public static void driveTank()
 	{
 		RobotHardware.drivetrain.tankDrive(-Gamepad.primary.getLeftY(), Gamepad.primary.getRightY(), true);
@@ -61,10 +60,10 @@ public class RobotOperation
 	}
 	
 	/**
-	 * Drives straight using encoders.
+	 * Drives straight using encoders. Returns true if arrived at setpoint.
 	 * @param distance
 	 */
-	public static void drive(double distance)
+	public static boolean drive(double distance)
 	{
 		encoderControl = new PIDController(4, 0, 0, new PIDSource() 
 		{
@@ -82,6 +81,11 @@ public class RobotOperation
 		
 		encoderControl.setAbsoluteTolerance(0.01);
 		encoderControl.setSetpoint(distance);
+		if(encoderControl.onTarget())
+		{
+			return true;
+		}
+		return false;
 	}
 	
 	/**

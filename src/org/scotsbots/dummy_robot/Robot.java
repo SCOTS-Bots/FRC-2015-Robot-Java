@@ -9,11 +9,16 @@
 
 package org.scotsbots.dummy_robot;
 
+import org.scotsbots.dummy_robot.operation.OperationAutonomous;
 import org.scotsbots.dummy_robot.operation.OperationTeleop;
 import org.scotsbots.dummy_robot.operation.RobotOperation;
+import org.scotsbots.dummy_robot.operation.auton.AutonStrategy;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Main Class for our 2015 Robot
@@ -22,22 +27,30 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class Robot extends IterativeRobot 
 {
+	public static SendableChooser autoChooser;
+	public static AutonStrategy selectedAuton = null;
+	
     public void robotInit() 
     {
-    	Logger.riolog("S.C.O.T.S. Bots 2015 Robot starting up.");
+    	Logger.riolog("S.C.O.T.S. Bots 2015 Robot intializing...");
+    	autoChooser = new SendableChooser();
     	RobotHardware.initialize();
     	RobotOperation.initialize();
     	//RobotVision.initialize();
+    	OperationAutonomous.initializeAutons();
+		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
     }
     
     public void autonomousInit()
     {
     	RobotOperation.reset();
+    	selectedAuton = (AutonStrategy) autoChooser.getSelected();
+    	selectedAuton.intialize();
     }
     
     public void autonomousPeriodic() 
     {
-
+    	selectedAuton.update();
     }
     
     public void teleopInit()

@@ -1,24 +1,24 @@
 package org.scotsbots.dummy_robot.operation;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.scotsbots.dummy_robot.operation.auton.AutonStrategy;
+import org.scotsbots.dummy_robot.operation.auton.AutonStrategyTest;
 
+/**
+ * Carries out autonomous mode.
+ * @author Domenic
+ *
+ */
 public class OperationAutonomous
 {
-	static List<OperationAutonomous>autons = new ArrayList<OperationAutonomous>();
+	public static AutonStrategy autonStrategyTest;
 	
-	public static void initialize()
+	/**
+	 * Create and add all auton strategies here.
+	 */
+	public static void initializeAutons()
 	{
-		
+		autonStrategyTest = new AutonStrategyTest();
+		AutonStrategy.addAuton(autonStrategyTest);		
 	}
-	
-	public static void update()
-	{
-		
-	}
-	
-	public static void addAuton(OperationAutonomous e)
-	{
-		autons.add(e);
-	}
+
 }
