@@ -64,12 +64,12 @@ public class Gamepad
 	/**
 	 * XBOX 360 Left Horizontal Axis (Left=-1, Right=1)
 	 */
-	private static final int AXIS_LEFT_X = 1;
+	private static final int AXIS_LEFT_X = 0;
 
 	/**
 	 * XBOX 360 Left Vertical Axis (Up=-1, Down=1)
 	 */
-	private static final int AXIS_LEFT_Y = 2;
+	private static final int AXIS_LEFT_Y = 1;
 
 	/**
 	 * XBOX 360 Trigger Axis (right - left)
@@ -79,12 +79,12 @@ public class Gamepad
 	/**
 	 * XBOX 360 Right Horizontal Axis (Left=-1, Right=1)
 	 */
-	private static final int AXIS_RIGHT_X = 4;
+	private static final int AXIS_RIGHT_X = 2;
 
 	/**
 	 * XBOX 360 Right Vertical Axis (Up=-1, Down=1)
 	 */
-	private static final int AXIS_RIGHT_Y = 5;
+	private static final int AXIS_RIGHT_Y = 3;
 
 	/**
 	 * XBOX 360 Horizontal D-PAD

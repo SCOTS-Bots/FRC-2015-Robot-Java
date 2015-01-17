@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,11 +37,17 @@ public class RobotOperation
 		RobotHardware.leftDriveEncoder.setDistancePerPulse(0.042);
 		RobotHardware.rightDriveEncoder.setDistancePerPulse(0.042);
 		
+		//Four motor control
+		/*
 		LiveWindow.addActuator("Drive Train", "Front Left Motor", (Jaguar)RobotHardware.frontLeftMotor);
 		LiveWindow.addActuator("Drive Train", "Back Left Motor", (Jaguar)RobotHardware.rearLeftMotor);
 		LiveWindow.addActuator("Drive Train", "Front Right Motor", (Jaguar)RobotHardware.frontRightMotor);
 		LiveWindow.addActuator("Drive Train", "Back Right Motor", (Jaguar)RobotHardware.rearRightMotor);
-
+		 */
+		
+		LiveWindow.addActuator("Drive Train", "Front Left Motor", (Talon)RobotHardware.leftMotors);
+		LiveWindow.addActuator("Drive Train", "Front Left Motor", (Talon)RobotHardware.rightMotors);
+		
 		LiveWindow.addSensor("Drive Train", "Left Encoder", RobotHardware.leftDriveEncoder);
 		LiveWindow.addSensor("Drive Train", "Right Encoder", RobotHardware.rightDriveEncoder);
 	}
@@ -58,7 +65,7 @@ public class RobotOperation
 	
 	public static void driveTank()
 	{
-		RobotHardware.drivetrain.tankDrive(-Gamepad.primary.getLeftY(), Gamepad.primary.getRightY(), true);
+		RobotHardware.drivetrain.tankDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getRightY());
         Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	

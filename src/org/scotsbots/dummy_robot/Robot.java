@@ -17,7 +17,6 @@ import org.scotsbots.dummy_robot.operation.auton.AutonStrategy;
 import org.scotsbots.dummy_robot.utils.Logger;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
