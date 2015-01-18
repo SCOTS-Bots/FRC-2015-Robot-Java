@@ -10,6 +10,10 @@
 
 package org.scotsbots.dummy_robot;
 
+import org.scotsbots.dummy_robot.hardware.RobotHardware;
+import org.scotsbots.dummy_robot.hardware.RobotHardwareCompbot;
+import org.scotsbots.dummy_robot.hardware.RobotHardwarePracticebot;
+import org.scotsbots.dummy_robot.hardware.RobotHardwareWoodbot;
 import org.scotsbots.dummy_robot.operation.OperationAutonomous;
 import org.scotsbots.dummy_robot.operation.OperationTeleop;
 import org.scotsbots.dummy_robot.operation.RobotOperation;
@@ -30,12 +34,15 @@ public class Robot extends IterativeRobot
 {
 	public static SendableChooser autoChooser;
 	public static AutonStrategy selectedAuton = null;
+	public static RobotHardware bot;
 	
     public void robotInit() 
     {
     	Logger.riolog("S.C.O.T.S. Bots 2015 Robot intializing...");
     	autoChooser = new SendableChooser();
-    	RobotHardware.initialize();
+    	//TODO Change instance for diff. robots.
+    	bot = new RobotHardwareWoodbot();
+    	bot.initialize();
     	RobotOperation.initialize();
     	//RobotVision.initialize();
     	OperationAutonomous.initializeAutons();
@@ -48,7 +55,6 @@ public class Robot extends IterativeRobot
     	RobotOperation.reset();
     	selectedAuton = (AutonStrategy) autoChooser.getSelected();
     	selectedAuton.intialize();
-    	//test commit
     }
     
     public void autonomousPeriodic() 
@@ -57,6 +63,7 @@ public class Robot extends IterativeRobot
     	{
     		selectedAuton.update();
     	}
+		RobotOperation.logSmartDashboard();
     }
     
     public void teleopInit()

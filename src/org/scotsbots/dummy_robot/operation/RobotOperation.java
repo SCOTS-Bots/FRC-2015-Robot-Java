@@ -1,7 +1,11 @@
 package org.scotsbots.dummy_robot.operation;
 
-import org.scotsbots.dummy_robot.RobotHardware;
+import org.scotsbots.dummy_robot.Robot;
+import org.scotsbots.dummy_robot.hardware.RobotHardware;
+import org.scotsbots.dummy_robot.hardware.RobotHardwarePracticebot;
+import org.scotsbots.dummy_robot.hardware.RobotHardwareWoodbot;
 import org.scotsbots.dummy_robot.utils.Gamepad;
+import org.scotsbots.dummy_robot.utils.Logger;
 import org.scotsbots.dummy_robot.utils.MathUtils;
 
 import edu.wpi.first.wpilibj.Jaguar;
@@ -25,7 +29,7 @@ public class RobotOperation
 	{
 		public void pidWrite(double d) 
 		{
-			RobotHardware.drivetrain.tankDrive(d, d);
+			Robot.bot.drivetrain.tankDrive(d, d);
 		}
 	});
 
@@ -34,22 +38,32 @@ public class RobotOperation
 	 */
 	public static void initialize()
 	{
-		RobotHardware.leftDriveEncoder.setDistancePerPulse(0.042);
-		RobotHardware.rightDriveEncoder.setDistancePerPulse(0.042);
+		if(Robot.bot instanceof RobotHardwarePracticebot)
+		{
+			Robot.bot.leftDriveEncoder.setDistancePerPulse(0.042);
+			Robot.bot.rightDriveEncoder.setDistancePerPulse(0.042);
+		}
 		
-		//Four motor control
-		/*
-		LiveWindow.addActuator("Drive Train", "Front Left Motor", (Jaguar)RobotHardware.frontLeftMotor);
-		LiveWindow.addActuator("Drive Train", "Back Left Motor", (Jaguar)RobotHardware.rearLeftMotor);
-		LiveWindow.addActuator("Drive Train", "Front Right Motor", (Jaguar)RobotHardware.frontRightMotor);
-		LiveWindow.addActuator("Drive Train", "Back Right Motor", (Jaguar)RobotHardware.rearRightMotor);
-		 */
+		if(Robot.bot instanceof RobotHardwareWoodbot)
+		{
+			RobotHardwareWoodbot hardware = (RobotHardwareWoodbot)Robot.bot;
+			
+			LiveWindow.addActuator("Drive Train", "Front Left Motor", (Jaguar)hardware.frontLeftMotor);
+			LiveWindow.addActuator("Drive Train", "Back Left Motor", (Jaguar)hardware.rearLeftMotor);
+			LiveWindow.addActuator("Drive Train", "Front Right Motor", (Jaguar)hardware.frontRightMotor);
+			LiveWindow.addActuator("Drive Train", "Back Right Motor", (Jaguar)hardware.rearRightMotor);
+		}
 		
-		LiveWindow.addActuator("Drive Train", "Front Left Motor", (Talon)RobotHardware.leftMotors);
-		LiveWindow.addActuator("Drive Train", "Front Left Motor", (Talon)RobotHardware.rightMotors);
-		
-		LiveWindow.addSensor("Drive Train", "Left Encoder", RobotHardware.leftDriveEncoder);
-		LiveWindow.addSensor("Drive Train", "Right Encoder", RobotHardware.rightDriveEncoder);
+		if(Robot.bot instanceof RobotHardwarePracticebot)
+		{
+			RobotHardwarePracticebot hardware = (RobotHardwarePracticebot)Robot.bot;
+			
+			LiveWindow.addActuator("Drive Train", "Front Left Motor", (Talon)hardware.leftMotors);
+			LiveWindow.addActuator("Drive Train", "Front Left Motor", (Talon)hardware.rightMotors);
+			
+			LiveWindow.addSensor("Drive Train", "Left Encoder", hardware.leftDriveEncoder);
+			LiveWindow.addSensor("Drive Train", "Right Encoder", hardware.rightDriveEncoder);
+		}
 	}
 	
 	/**
@@ -57,33 +71,40 @@ public class RobotOperation
 	 */
 	public static void logSmartDashboard()
 	{
-		SmartDashboard.putNumber("Left Distance", RobotHardware.leftDriveEncoder.getDistance());
-		SmartDashboard.putNumber("Right Distance", RobotHardware.rightDriveEncoder.getDistance());
-		SmartDashboard.putNumber("Left Speed", RobotHardware.leftDriveEncoder.getRate());
-		SmartDashboard.putNumber("Right Distance", RobotHardware.rightDriveEncoder.getRate());
+		SmartDashboard.putNumber("Left Distance", Robot.bot.leftDriveEncoder.getDistance());
+		SmartDashboard.putNumber("Right Distance", Robot.bot.rightDriveEncoder.getDistance());
+		SmartDashboard.putNumber("Left Speed", Robot.bot.leftDriveEncoder.getRate());
+		SmartDashboard.putNumber("Right Speed", Robot.bot.rightDriveEncoder.getRate());
+		
+		if(Robot.bot instanceof RobotHardwareWoodbot)
+		{
+			RobotHardwareWoodbot hardware = (RobotHardwareWoodbot)Robot.bot;				
+			SmartDashboard.putBoolean("Magnet?", !hardware.halsensor.get());
+		}
+		
 	}
 	
 	public static void driveTank()
 	{
-		RobotHardware.drivetrain.tankDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getRightY());
+		Robot.bot.drivetrain.tankDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getRightY(), false);
         Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
 	public static void driveSingleStickArcade()
 	{
-		RobotHardware.drivetrain.arcadeDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getRightY());
+		Robot.bot.drivetrain.arcadeDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getRightY());
         Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
 	public static void driveDoubleStickArcade()
 	{
-		RobotHardware.drivetrain.arcadeDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getLeftX());        
+		Robot.bot.drivetrain.arcadeDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getLeftX());        
 		Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
 	public static void driveMecanum()
 	{
-		RobotHardware.drivetrain.mecanumDrive_Cartesian(Gamepad.primary.getLeftX(), Gamepad.primary.getLeftY(), Gamepad.primary.getRightX(), 0);       
+		Robot.bot.drivetrain.mecanumDrive_Cartesian(Gamepad.primary.getLeftX(), Gamepad.primary.getLeftY(), Gamepad.primary.getRightX(), 0);       
         Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
@@ -114,8 +135,8 @@ public class RobotOperation
 	 */
 	public static void reset()
 	{
-		RobotHardware.leftDriveEncoder.reset();
-		RobotHardware.rightDriveEncoder.reset();
+		Robot.bot.leftDriveEncoder.reset();
+		Robot.bot.rightDriveEncoder.reset();
 		if(encoderControl != null)
 		{
 			encoderControl.reset();
@@ -128,6 +149,6 @@ public class RobotOperation
 	 */
 	public static double getDistance()
 	{
-		return (RobotHardware.leftDriveEncoder.getDistance() + RobotHardware.rightDriveEncoder.getDistance())/2;
+		return (Robot.bot.leftDriveEncoder.getDistance() + Robot.bot.rightDriveEncoder.getDistance())/2;
 	}
 }

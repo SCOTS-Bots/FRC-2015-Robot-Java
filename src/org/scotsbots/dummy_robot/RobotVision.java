@@ -18,7 +18,7 @@ public class RobotVision
 	public static void initialize()
 	{
 		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-        camera = new AxisCamera("10.1.91.100");
+        camera = new AxisCamera("10.47.76.100");
 	}
 	
 	public static void stream()

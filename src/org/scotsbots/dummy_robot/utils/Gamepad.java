@@ -96,8 +96,8 @@ public class Gamepad
 		joystick = new Joystick(port);
 	}
 
-	public static Gamepad primary = new Gamepad(1);
-	public static Gamepad secondary = new Gamepad(2);
+	public static Gamepad primary = new Gamepad(0);
+	public static Gamepad secondary = new Gamepad(1);
 
 	/**
 	 * Returns the value of the trigger with a deadzone.

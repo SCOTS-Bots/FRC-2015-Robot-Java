@@ -1,5 +1,9 @@
 package org.scotsbots.dummy_robot.operation;
 
+import org.scotsbots.dummy_robot.Robot;
+import org.scotsbots.dummy_robot.hardware.RobotHardwarePracticebot;
+import org.scotsbots.dummy_robot.utils.Gamepad;
+
 /** 
  * Carries out teleop mode.
  * @author Domenic
@@ -15,5 +19,11 @@ public class OperationTeleop
 	public static void update()
 	{    	
 		RobotOperation.driveTank();
+		
+		if(Robot.bot instanceof RobotHardwarePracticebot)
+		{
+			RobotHardwarePracticebot hardware = (RobotHardwarePracticebot)Robot.bot;			
+			hardware.winchMotor.set(Gamepad.secondary.getLeftY());
+		}
 	}
 }
