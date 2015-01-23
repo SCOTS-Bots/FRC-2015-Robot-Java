@@ -1,4 +1,4 @@
-package org.scotsbots.dummy_robot;
+package org.scotsbots.robot;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.DrawMode;

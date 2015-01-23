@@ -8,7 +8,7 @@
 /* Howell SCOTS Bots 2015 - Competition Season                                */
 /*----------------------------------------------------------------------------*/
 
-package org.scotsbots.dummy_robot;
+package org.scotsbots.robot;
 
 import org.scotsbots.dummy_robot.hardware.RobotHardware;
 import org.scotsbots.dummy_robot.hardware.RobotHardwareCompbot;
@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot
     	Logger.riolog("S.C.O.T.S. Bots 2015 Robot intializing...");
     	autoChooser = new SendableChooser();
     	//TODO Change instance for diff. robots.
-    	bot = new RobotHardwareWoodbot();
+    	bot = new RobotHardwarePracticebot();
     	bot.initialize();
     	RobotOperation.initialize();
     	//RobotVision.initialize();

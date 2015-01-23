@@ -1,12 +1,12 @@
 package org.scotsbots.dummy_robot.operation;
 
-import org.scotsbots.dummy_robot.Robot;
 import org.scotsbots.dummy_robot.hardware.RobotHardware;
 import org.scotsbots.dummy_robot.hardware.RobotHardwarePracticebot;
 import org.scotsbots.dummy_robot.hardware.RobotHardwareWoodbot;
 import org.scotsbots.dummy_robot.utils.Gamepad;
 import org.scotsbots.dummy_robot.utils.Logger;
 import org.scotsbots.dummy_robot.utils.MathUtils;
+import org.scotsbots.robot.Robot;
 
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.PIDController;
