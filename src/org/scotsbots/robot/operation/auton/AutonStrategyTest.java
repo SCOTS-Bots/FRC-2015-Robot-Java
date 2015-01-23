@@ -1,7 +1,7 @@
-package org.scotsbots.dummy_robot.operation.auton;
+package org.scotsbots.robot.operation.auton;
 
-import org.scotsbots.dummy_robot.operation.RobotOperation;
-import org.scotsbots.dummy_robot.utils.Logger;
+import org.scotsbots.robot.operation.RobotOperation;
+import org.scotsbots.robot.utils.Logger;
 
 public class AutonStrategyTest extends AutonStrategy
 {

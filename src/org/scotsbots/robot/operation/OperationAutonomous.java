@@ -1,7 +1,7 @@
-package org.scotsbots.dummy_robot.operation;
+package org.scotsbots.robot.operation;
 
-import org.scotsbots.dummy_robot.operation.auton.AutonStrategy;
-import org.scotsbots.dummy_robot.operation.auton.AutonStrategyTest;
+import org.scotsbots.robot.operation.auton.AutonStrategy;
+import org.scotsbots.robot.operation.auton.AutonStrategyTest;
 
 /**
  * Carries out autonomous mode.

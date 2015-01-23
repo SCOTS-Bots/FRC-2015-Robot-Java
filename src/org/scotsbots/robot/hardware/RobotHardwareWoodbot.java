@@ -1,4 +1,4 @@
-package org.scotsbots.dummy_robot.hardware;
+package org.scotsbots.robot.hardware;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;

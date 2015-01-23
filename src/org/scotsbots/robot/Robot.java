@@ -10,15 +10,15 @@
 
 package org.scotsbots.robot;
 
-import org.scotsbots.dummy_robot.hardware.RobotHardware;
-import org.scotsbots.dummy_robot.hardware.RobotHardwareCompbot;
-import org.scotsbots.dummy_robot.hardware.RobotHardwarePracticebot;
-import org.scotsbots.dummy_robot.hardware.RobotHardwareWoodbot;
-import org.scotsbots.dummy_robot.operation.OperationAutonomous;
-import org.scotsbots.dummy_robot.operation.OperationTeleop;
-import org.scotsbots.dummy_robot.operation.RobotOperation;
-import org.scotsbots.dummy_robot.operation.auton.AutonStrategy;
-import org.scotsbots.dummy_robot.utils.Logger;
+import org.scotsbots.robot.hardware.RobotHardware;
+import org.scotsbots.robot.hardware.RobotHardwareCompbot;
+import org.scotsbots.robot.hardware.RobotHardwarePracticebot;
+import org.scotsbots.robot.hardware.RobotHardwareWoodbot;
+import org.scotsbots.robot.operation.OperationAutonomous;
+import org.scotsbots.robot.operation.OperationTeleop;
+import org.scotsbots.robot.operation.RobotOperation;
+import org.scotsbots.robot.operation.auton.AutonStrategy;
+import org.scotsbots.robot.utils.Logger;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;

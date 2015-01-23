@@ -1,8 +1,8 @@
-package org.scotsbots.dummy_robot.operation;
+package org.scotsbots.robot.operation;
 
-import org.scotsbots.dummy_robot.hardware.RobotHardwarePracticebot;
-import org.scotsbots.dummy_robot.utils.Gamepad;
 import org.scotsbots.robot.Robot;
+import org.scotsbots.robot.hardware.RobotHardwarePracticebot;
+import org.scotsbots.robot.utils.Gamepad;
 
 /** 
  * Carries out teleop mode.

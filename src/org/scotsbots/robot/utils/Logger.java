@@ -1,4 +1,4 @@
-package org.scotsbots.dummy_robot.utils;
+package org.scotsbots.robot.utils;
 
 import java.util.Calendar;
 
