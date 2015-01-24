@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot
     	Logger.riolog("S.C.O.T.S. Bots 2015 Robot intializing...");
     	autoChooser = new SendableChooser();
     	//TODO Change instance for diff. robots.
-    	bot = new RobotHardwarePracticebot();
+    	bot = new RobotHardwareCompbot();
     	bot.initialize();
     	RobotOperation.initialize();
     	//RobotVision.initialize();

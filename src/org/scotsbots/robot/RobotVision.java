@@ -6,7 +6,6 @@ import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ShapeMode;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.vision.AxisCamera;
 
 public class RobotVision
@@ -23,10 +22,9 @@ public class RobotVision
 	
 	public static void stream()
 	{	        
-        camera.getImage(frame);
 		NIVision.Rect rect = new NIVision.Rect(10, 10, 100, 100);
+		camera.getImage(frame);
         NIVision.imaqDrawShapeOnImage(frame, frame, rect, DrawMode.DRAW_VALUE, ShapeMode.SHAPE_OVAL, 0.0f);
         CameraServer.getInstance().setImage(frame);
-        Timer.delay(0.005);		// wait for a motor update time
 	}
 }
