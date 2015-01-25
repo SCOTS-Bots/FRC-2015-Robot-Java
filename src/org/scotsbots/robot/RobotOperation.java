@@ -1,6 +1,5 @@
-package org.scotsbots.robot.operation;
+package org.scotsbots.robot;
 
-import org.scotsbots.robot.Robot;
 import org.scotsbots.robot.hardware.RobotHardware;
 import org.scotsbots.robot.hardware.RobotHardwarePracticebot;
 import org.scotsbots.robot.hardware.RobotHardwareWoodbot;

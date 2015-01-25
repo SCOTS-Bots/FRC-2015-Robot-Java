@@ -13,6 +13,8 @@ public abstract class RobotHardware
 	public Encoder rightDriveEncoder;
 	
 	public abstract void initialize();
+	public abstract void teleop();
+	public abstract void addAutons();
 
 	public RobotHardware()
 	{

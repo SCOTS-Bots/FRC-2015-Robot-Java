@@ -1,6 +1,6 @@
 package org.scotsbots.robot.operation.auton;
 
-import org.scotsbots.robot.operation.RobotOperation;
+import org.scotsbots.robot.RobotOperation;
 import org.scotsbots.robot.utils.Logger;
 
 public class AutonStrategyTest extends AutonStrategy

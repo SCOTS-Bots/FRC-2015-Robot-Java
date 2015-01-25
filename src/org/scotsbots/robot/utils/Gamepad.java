@@ -25,41 +25,41 @@ public class Gamepad
 	/**
 	 * XBOX 360 South Face Button
 	 */
-	private static final int BUTTON_A = 0;
+	private static final int BUTTON_A = 1;
 
 	/**
 	 * XBOX 360 East Face Button
 	 */
-	private static final int BUTTON_B = 1;
+	private static final int BUTTON_B = 2;
 
 	/**
 	 * XBOX 360 West Face Button
 	 */
-	private static final int BUTTON_X = 2;
+	private static final int BUTTON_X = 3;
 
 	/**
 	 * XBOX 360 North Face Button
 	 */
-	private static final int BUTTON_Y = 3;
+	private static final int BUTTON_Y = 4;
 	/**
 	 * XBOX 360 Left Bumper (Top)
 	 */
-	private static final int BUTTON_LB = 4;
+	private static final int BUTTON_LB = 5;
 
 	/**
 	 * XBOX 360 Right Bumper (Top)
 	 */
-	private static final int BUTTON_RB = 5;
+	private static final int BUTTON_RB = 6;
 
 	/**
 	 * XBOX 360 Back Button
 	 */
-	private static final int BUTTON_BACK = 6;
+	private static final int BUTTON_BACK = 7;
 
 	/**
 	 * XBOX 360 Start Button
 	 */
-	private static final int BUTTON_START = 7;
+	private static final int BUTTON_START = 8;
 
 	/**
 	 * XBOX 360 Left Horizontal Axis (Left=-1, Right=1)

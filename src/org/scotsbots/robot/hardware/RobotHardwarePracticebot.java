@@ -1,5 +1,11 @@
 package org.scotsbots.robot.hardware;
 
+import org.scotsbots.robot.Robot;
+import org.scotsbots.robot.RobotOperation;
+import org.scotsbots.robot.operation.auton.AutonStrategy;
+import org.scotsbots.robot.operation.auton.AutonStrategyTest;
+import org.scotsbots.robot.utils.Gamepad;
+
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
@@ -24,5 +30,19 @@ public class RobotHardwarePracticebot extends RobotHardware
 		
 		drivetrain.setInvertedMotor(MotorType.kRearLeft, true);
 		drivetrain.setInvertedMotor(MotorType.kRearRight, true);
+	}
+
+	@Override
+	public void teleop()
+	{
+		RobotOperation.driveTank(); //Change this when switching drive mode
+
+		winchMotor.set(Gamepad.secondary.getLeftY() / 2);		
+	}
+
+	@Override
+	public void addAutons()
+	{
+		AutonStrategy.addAuton(new AutonStrategyTest());				
 	}
 }

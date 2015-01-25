@@ -11,12 +11,7 @@
 package org.scotsbots.robot;
 
 import org.scotsbots.robot.hardware.RobotHardware;
-import org.scotsbots.robot.hardware.RobotHardwareCompbot;
-import org.scotsbots.robot.hardware.RobotHardwarePracticebot;
 import org.scotsbots.robot.hardware.RobotHardwareWoodbot;
-import org.scotsbots.robot.operation.OperationAutonomous;
-import org.scotsbots.robot.operation.OperationTeleop;
-import org.scotsbots.robot.operation.RobotOperation;
 import org.scotsbots.robot.operation.auton.AutonStrategy;
 import org.scotsbots.robot.utils.Logger;
 
@@ -34,7 +29,7 @@ public class Robot extends IterativeRobot
 {
 	public static SendableChooser autoChooser;
 	public static AutonStrategy selectedAuton = null;
-	public static RobotHardware bot;
+	public static RobotHardware bot = null;
 	
     public void robotInit() 
     {
@@ -45,7 +40,7 @@ public class Robot extends IterativeRobot
     	bot.initialize();
     	RobotOperation.initialize();
     	//RobotVision.initialize();
-    	OperationAutonomous.initializeAutons();
+    	bot.addAutons();
 		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
 		Logger.riolog("S.C.O.T.S. Bots 2015 Robot intialized.");
     }
@@ -69,14 +64,13 @@ public class Robot extends IterativeRobot
     public void teleopInit()
     {
     	RobotOperation.reset();
-    	OperationTeleop.initialize();
     }
     
     public void teleopPeriodic() 
     {
     	//RobotVision.stream();
 		RobotOperation.logSmartDashboard();
-		OperationTeleop.update();
+		bot.teleop();
     }
 
     public void testInit()

@@ -1,7 +1,14 @@
 package org.scotsbots.robot.hardware;
 
+import org.scotsbots.robot.RobotOperation;
+import org.scotsbots.robot.operation.auton.AutonStrategy;
+import org.scotsbots.robot.operation.auton.AutonStrategyTest;
+import org.scotsbots.robot.utils.Gamepad;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -21,7 +28,7 @@ public class RobotHardwareWoodbot extends RobotHardware
 	public Servo horizontalCamera;
 	public Servo verticalCamera;
 	
-	public Solenoid solenoid;
+	public DoubleSolenoid solenoid;
 	
 	public void initialize() 
 	{
@@ -42,6 +49,27 @@ public class RobotHardwareWoodbot extends RobotHardware
 		horizontalCamera = new Servo(8);
 		verticalCamera = new Servo(9);
 		
-		solenoid = new Solenoid(0);
+		solenoid = new DoubleSolenoid(0,1);
+	}
+
+	@Override
+	public void teleop()
+	{	
+		RobotOperation.driveTank(); //Change this when switching drive mode
+
+		if(Gamepad.secondary.getA())
+		{
+			solenoid.set(Value.kForward);
+		}
+		else
+		{
+			solenoid.set(Value.kReverse);
+		}
+	}
+
+	@Override
+	public void addAutons()
+	{
+		AutonStrategy.addAuton(new AutonStrategyTest());		
 	}
 }
