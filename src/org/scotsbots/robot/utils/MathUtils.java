@@ -73,16 +73,29 @@ public class MathUtils
 
 	// // SIGN
 	// ------------------------------------------------------------------
+	/**
+	 * 
+	 * @param n
+	 * @return- changes a double to it's opposite value
+	 */
 	public static double sign(double n)
 	{
 		return (n > 0.0) ? 1.0 : ((n < 0.0) ? -1.0 : 0.0);
 	}
-
+	/**
+	 * 
+	 * @param n
+	 * @return- changes a float to it's opposite value
+	 */
 	public static float sign(float n)
 	{
 		return (n > 0.0f) ? 1.0f : ((n < 0.0f) ? -1.0f : 0.0f);
 	}
-
+	/**
+	 * 
+	 * @param n
+	 * @return- changes an int to it's opposite value
+	 */
 	public static int sign(int n)
 	{
 		return (n > 0) ? 1 : ((n < 0) ? -1 : 0);
@@ -103,6 +116,11 @@ public class MathUtils
 
 	// // RANDOM NUMBER GENERATOR
 	// -----------------------------------------------
+	/**
+	 * 
+	 * @param high
+	 * @return- a generated random number 
+	 */
 	public static double rand(int high)
 	{
 		long t;

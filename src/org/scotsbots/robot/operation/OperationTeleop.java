@@ -18,7 +18,7 @@ public class OperationTeleop
 	
 	public static void update()
 	{    	
-		RobotOperation.driveTank();
+		RobotOperation.driveTank(); //Change this when switching drive mode
 		
 		if(Robot.bot instanceof RobotHardwarePracticebot)
 		{

@@ -84,24 +84,36 @@ public class RobotOperation
 		
 	}
 	
+	/**
+	 * Drives tank drive using left joystick and right joystick
+	 */
 	public static void driveTank()
 	{
 		Robot.bot.drivetrain.tankDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getRightY(), false);
         Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
-	public static void driveSingleStickArcade()
+	/**
+	 * Drives the robot in arcade using the left up/down and the right up/down
+	 */
+	public static void driveDoubleStickArcade()
 	{
-		Robot.bot.drivetrain.arcadeDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getRightY());
+		Robot.bot.drivetrain.arcadeDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getRightX());
         Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
-	public static void driveDoubleStickArcade()
+	/**
+	 * Drives the robot in arcade using the left up/down and left left/right
+	 */
+	public static void driveSingleStickArcade()
 	{
 		Robot.bot.drivetrain.arcadeDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getLeftX());        
 		Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
+	/**
+	 * Drives mecanum using left left/right, left up/down, and right left/right.
+	 */
 	public static void driveMecanum()
 	{
 		Robot.bot.drivetrain.mecanumDrive_Cartesian(Gamepad.primary.getLeftX(), Gamepad.primary.getLeftY(), Gamepad.primary.getRightX(), 0);       
