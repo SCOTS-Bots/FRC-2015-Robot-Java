@@ -89,7 +89,7 @@ public class RobotOperation
 	 */
 	public static void driveTank()
 	{
-		Robot.bot.drivetrain.tankDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getRightY(), false);
+		Robot.bot.drivetrain.tankDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getRightY(), true);
         Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
