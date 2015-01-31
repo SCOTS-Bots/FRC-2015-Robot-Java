@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Victor;
 
+//SSID Not yet configured
 public class RobotHardwareCompbot extends RobotHardware
 {
 	public static Victor rightMotors;

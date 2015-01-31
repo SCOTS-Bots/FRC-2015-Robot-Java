@@ -5,22 +5,12 @@ import edu.wpi.first.wpilibj.Joystick;
 /**
  * Originally adapted from Adambots code.
  * 
- * @author Howell Robotics
+ * @author Nathan Fenner - Modified by Domenic
  *
  */
 public class Gamepad
 {
 	public Joystick joystick;
-
-	/**
-	 * Primary Driver Controller Port Number.
-	 */
-	private static final int DRIVER_PRIMARY = 0;
-
-	/**
-	 * Secondary Driver Controller Port Number.
-	 */
-	private static final int DRIVER_SECONDARY = 1;
 
 	/**
 	 * XBOX 360 South Face Button

@@ -3,6 +3,11 @@ package org.scotsbots.robot.hardware;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 
+/**
+ * Base class for creating a robot.
+ * @author Domenic
+ *
+ */
 public abstract class RobotHardware
 {	
 	public RobotHardware bot;
@@ -15,6 +20,11 @@ public abstract class RobotHardware
 	public abstract void initialize();
 	public abstract void teleop();
 	public abstract void addAutons();
+
+	public boolean usesCamera()
+	{
+		return false;
+	}
 
 	public RobotHardware()
 	{

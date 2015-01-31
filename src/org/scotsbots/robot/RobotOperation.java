@@ -1,11 +1,8 @@
 package org.scotsbots.robot;
 
-import org.scotsbots.robot.hardware.RobotHardware;
 import org.scotsbots.robot.hardware.RobotHardwarePracticebot;
 import org.scotsbots.robot.hardware.RobotHardwareWoodbot;
 import org.scotsbots.robot.utils.Gamepad;
-import org.scotsbots.robot.utils.Logger;
-import org.scotsbots.robot.utils.MathUtils;
 
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.PIDController;
@@ -16,6 +13,12 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+
+/**
+ * Static class for basic robot operation calls.
+ * @author Domenic
+ *
+ */
 public class RobotOperation 
 {
 	public static PIDController encoderControl = new PIDController(4, 0, 0, new PIDSource() 

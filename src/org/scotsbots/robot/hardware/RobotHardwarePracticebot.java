@@ -1,6 +1,5 @@
 package org.scotsbots.robot.hardware;
 
-import org.scotsbots.robot.Robot;
 import org.scotsbots.robot.RobotOperation;
 import org.scotsbots.robot.operation.auton.AutonStrategy;
 import org.scotsbots.robot.operation.auton.AutonStrategyTest;
@@ -11,6 +10,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.Talon;
 
+//SSID 9999
 public class RobotHardwarePracticebot extends RobotHardware
 {
 	public Talon rightMotors;
@@ -37,7 +37,7 @@ public class RobotHardwarePracticebot extends RobotHardware
 	{
 		RobotOperation.driveTank(); //Change this when switching drive mode
 
-		winchMotor.set(Gamepad.secondary.getLeftY() / 2);		
+		winchMotor.set(Gamepad.secondary.getLeftY() / 2); //currently at half power	
 	}
 
 	@Override

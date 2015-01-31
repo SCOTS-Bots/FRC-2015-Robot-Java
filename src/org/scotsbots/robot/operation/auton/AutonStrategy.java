@@ -8,7 +8,6 @@ import org.scotsbots.robot.utils.Logger;
 /**
  * An abstract class for creating autonomous strategies. Make sure to add the auton strat to the list.
  * @author Domenic
- *
  */
 public abstract class AutonStrategy 
 {

@@ -8,6 +8,11 @@ import com.ni.vision.NIVision.ShapeMode;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.vision.AxisCamera;
 
+/**
+ * Handles extremely basic vision on Smarddashboard.
+ * @author Domenic
+ *
+ */
 public class RobotVision
 {
 	int session;

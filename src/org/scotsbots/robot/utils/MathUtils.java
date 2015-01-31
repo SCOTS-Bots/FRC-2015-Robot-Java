@@ -5,7 +5,8 @@
 package org.scotsbots.robot.utils;
 
 /**
- * This class is from the AdamBots github. Thanks for letting me math.
+ * Has a collection of math functions and constants.
+ * Originally adapted from Adambots code.
  * @author Ben - Modified by Domenic
  */
 public class MathUtils

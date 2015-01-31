@@ -5,7 +5,6 @@ import org.scotsbots.robot.operation.auton.AutonStrategy;
 import org.scotsbots.robot.operation.auton.AutonStrategyTest;
 import org.scotsbots.robot.utils.Gamepad;
 
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -14,8 +13,8 @@ import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.Solenoid;
 
+//SSID 8888
 public class RobotHardwareWoodbot extends RobotHardware
 {
 	public Jaguar rearLeftMotor;
@@ -55,7 +54,7 @@ public class RobotHardwareWoodbot extends RobotHardware
 	@Override
 	public void teleop()
 	{	
-		RobotOperation.driveTank(); //Change this when switching drive mode
+		RobotOperation.driveDoubleStickArcade(); //Change this when switching drive mode
 
 		if(Gamepad.secondary.getA())
 		{
@@ -71,5 +70,11 @@ public class RobotHardwareWoodbot extends RobotHardware
 	public void addAutons()
 	{
 		AutonStrategy.addAuton(new AutonStrategyTest());		
+	}
+	
+	@Override
+	public boolean usesCamera()
+	{
+		return true;
 	}
 }

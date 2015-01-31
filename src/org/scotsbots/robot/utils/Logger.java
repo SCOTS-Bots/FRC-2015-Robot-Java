@@ -2,8 +2,6 @@ package org.scotsbots.robot.utils;
 
 import java.util.Calendar;
 
-import edu.wpi.first.wpilibj.DriverStation;
-
 public class Logger 
 {
 	//This is the old 2014 code that no longer works for 2015. Will edit later. -Domenic
