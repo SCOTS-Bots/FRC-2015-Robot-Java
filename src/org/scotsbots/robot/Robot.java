@@ -12,6 +12,7 @@ package org.scotsbots.robot;
 
 import org.scotsbots.robot.hardware.RobotHardware;
 import org.scotsbots.robot.hardware.RobotHardwarePracticebot;
+import org.scotsbots.robot.hardware.RobotHardwareWoodbot;
 import org.scotsbots.robot.operation.auton.AutonStrategy;
 import org.scotsbots.robot.utils.Logger;
 
@@ -35,7 +36,7 @@ public class Robot extends IterativeRobot
     {
     	Logger.riolog("S.C.O.T.S. Bots 2015 Robot intializing...");
     	autoChooser = new SendableChooser();
-    	bot = new RobotHardwarePracticebot();   //This changes which bot it loads.
+    	bot = new RobotHardwareWoodbot();   //This changes which bot it loads.
     	bot.initialize();
     	RobotOperation.initialize();
     	if(bot.usesCamera())
@@ -92,5 +93,6 @@ public class Robot extends IterativeRobot
     public void disabledInit() 
     {
 		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
+		RobotOperation.reset();
     }
 }

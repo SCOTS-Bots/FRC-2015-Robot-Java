@@ -23,10 +23,7 @@ public class RobotHardwarePracticebot extends RobotHardware
 		rightMotors = new Talon(1);
 		leftMotors = new Talon(2);
 		drivetrain = new RobotDrive(rightMotors, leftMotors);
-		winchMotor = new Talon(0);
-		
-		leftDriveEncoder = new Encoder(7, 8, false, Encoder.EncodingType.k4X);
-		rightDriveEncoder = new Encoder(9, 10, false, Encoder.EncodingType.k4X);	
+		winchMotor = new Talon(0);	
 		
 		drivetrain.setInvertedMotor(MotorType.kRearLeft, true);
 		drivetrain.setInvertedMotor(MotorType.kRearRight, true);
@@ -44,5 +41,11 @@ public class RobotHardwarePracticebot extends RobotHardware
 	public void addAutons()
 	{
 		AutonStrategy.addAuton(new AutonStrategyTest());				
+	}
+
+	@Override
+	public String getName()
+	{
+		return "Practice Bot";
 	}
 }

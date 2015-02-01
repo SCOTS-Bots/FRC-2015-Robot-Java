@@ -13,14 +13,14 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
 /**
  * Static class for basic robot operation calls.
  * @author Domenic
  *
  */
 public class RobotOperation 
-{
+{	
+	/* TODO uncomment after encoders
 	public static PIDController encoderControl = new PIDController(4, 0, 0, new PIDSource() 
 	{
 		public double pidGet() 
@@ -34,17 +34,20 @@ public class RobotOperation
 			Robot.bot.drivetrain.tankDrive(d, d);
 		}
 	});
-
+	*/
+	
 	/**
 	 * Sets up Encoders and adds monitors to LiveWindow.
 	 */
 	public static void initialize()
-	{
+	{	
+		/* Encoder stuff
 		if(Robot.bot instanceof RobotHardwarePracticebot)
 		{
 			Robot.bot.leftDriveEncoder.setDistancePerPulse(0.042);
 			Robot.bot.rightDriveEncoder.setDistancePerPulse(0.042);
 		}
+		*/
 		
 		if(Robot.bot instanceof RobotHardwareWoodbot)
 		{
@@ -62,9 +65,6 @@ public class RobotOperation
 			
 			LiveWindow.addActuator("Drive Train", "Front Left Motor", (Talon)hardware.leftMotors);
 			LiveWindow.addActuator("Drive Train", "Front Left Motor", (Talon)hardware.rightMotors);
-			
-			LiveWindow.addSensor("Drive Train", "Left Encoder", hardware.leftDriveEncoder);
-			LiveWindow.addSensor("Drive Train", "Right Encoder", hardware.rightDriveEncoder);
 		}
 	}
 	
@@ -72,18 +72,20 @@ public class RobotOperation
 	 * Displays operation info on smart dashboard.
 	 */
 	public static void logSmartDashboard()
-	{
-		SmartDashboard.putNumber("Left Distance", Robot.bot.leftDriveEncoder.getDistance());
-		SmartDashboard.putNumber("Right Distance", Robot.bot.rightDriveEncoder.getDistance());
-		SmartDashboard.putNumber("Left Speed", Robot.bot.leftDriveEncoder.getRate());
-		SmartDashboard.putNumber("Right Speed", Robot.bot.rightDriveEncoder.getRate());
-		
+	{		
+		SmartDashboard.putString("Current Robot", Robot.bot.getName());
 		if(Robot.bot instanceof RobotHardwareWoodbot)
 		{
 			RobotHardwareWoodbot hardware = (RobotHardwareWoodbot)Robot.bot;				
 			SmartDashboard.putBoolean("Magnet?", !hardware.halsensor.get());
 		}
 		
+		Robot.bot.accelerometer.startLiveWindowMode();
+		
+		SmartDashboard.putNumber("Gyro Angle", Robot.bot.gyro.getAngle());
+		SmartDashboard.putNumber("Accelerometer X", Robot.bot.accelerometer.getX());
+		SmartDashboard.putNumber("Accelerometer Y", Robot.bot.accelerometer.getY());
+
 	}
 	
 	/**
@@ -122,10 +124,40 @@ public class RobotOperation
         Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
+	static double time = 0;
 	/**
-	 * Drives straight using encoders. Returns true if arrived at setpoint.
+	 * Drives straight using gyro. Checks if there from accelerometer.
 	 * @param distance
 	 */
+	public static boolean drive(double timeToTravel)
+	{
+		if(time/100 <= timeToTravel)
+		{
+			Robot.bot.drivetrain.drive(-1.0, 0);
+		}
+		else
+		{
+			return true;
+		}
+		time++;
+		return false;
+	}
+		
+	public static void turn(float angle)
+	{
+	    double targetHeading = Robot.bot.gyro.getAngle() + angle;
+	    while (Math.abs(targetHeading - Robot. bot.gyro.getAngle()) > 0.5)
+	    {
+	        Robot.bot.drivetrain.arcadeDrive(0.0, (angle < 0.0)? -0.5: 0.5);
+	    }
+	}
+	
+	public static void reset()
+	{
+		time = 0;
+	}
+	
+	/*
 	public static boolean drive(double distance)
 	{
 		
@@ -144,9 +176,6 @@ public class RobotOperation
 		return false;
 	}
 	
-	/**
-	 *	Resets encoders and PIDController.
-	 */
 	public static void reset()
 	{
 		Robot.bot.leftDriveEncoder.reset();
@@ -157,12 +186,9 @@ public class RobotOperation
 		}
 	}
 	
-	/**
-	 * Gets average distance between the two encoders.
-	 * @return
-	 */
 	public static double getDistance()
 	{
 		return (Robot.bot.leftDriveEncoder.getDistance() + Robot.bot.rightDriveEncoder.getDistance())/2;
 	}
+	*/
 }
