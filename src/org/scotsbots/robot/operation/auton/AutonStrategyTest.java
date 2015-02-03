@@ -19,16 +19,8 @@ public class AutonStrategyTest extends AutonStrategy
 	{
 		if(step == 1)
 		{
-			if(RobotOperation.drive(1))
-			{
-				Timer.delay(2);
-				step = 2;
-			}
-		}
-		if(step == 2)
-		{
 			RobotOperation.turn(90);
-			step = 3;			
+			step = 2;			
 		}
 	}
 

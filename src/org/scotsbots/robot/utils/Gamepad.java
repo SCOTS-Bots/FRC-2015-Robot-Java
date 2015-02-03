@@ -15,17 +15,17 @@ public class Gamepad
 	/**
 	 * XBOX 360 South Face Button
 	 */
-	private static final int BUTTON_A = 1;
+	private static final int BUTTON_A = 2;
 
 	/**
 	 * XBOX 360 East Face Button
 	 */
-	private static final int BUTTON_B = 2;
+	private static final int BUTTON_B = 3;
 
 	/**
 	 * XBOX 360 West Face Button
 	 */
-	private static final int BUTTON_X = 3;
+	private static final int BUTTON_X = 1;
 
 	/**
 	 * XBOX 360 North Face Button

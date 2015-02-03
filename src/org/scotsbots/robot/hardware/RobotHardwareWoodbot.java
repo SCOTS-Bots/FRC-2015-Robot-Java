@@ -4,8 +4,10 @@ import org.scotsbots.robot.RobotOperation;
 import org.scotsbots.robot.operation.auton.AutonStrategy;
 import org.scotsbots.robot.operation.auton.AutonStrategyTest;
 import org.scotsbots.robot.utils.Gamepad;
+import org.scotsbots.robot.utils.Logger;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -21,8 +23,6 @@ public class RobotHardwareWoodbot extends RobotHardware
 {
 	public Jaguar rearLeftMotor;
 	public Jaguar frontLeftMotor;
-	public Jaguar rearRightMotor;
-	public Jaguar frontRightMotor;
 	
 	public DigitalInput halsensor;
 	
@@ -31,13 +31,19 @@ public class RobotHardwareWoodbot extends RobotHardware
 	
 	public DoubleSolenoid solenoid;
 	
+	public Jaguar liftMotor;
+	public Jaguar liftMotor2;
+	public Encoder liftEncoder;
+	
 	public void initialize() 
 	{
 		rearLeftMotor = new Jaguar(0);
 		frontLeftMotor = new Jaguar(1);
-		rearRightMotor = new Jaguar(2);
-		frontRightMotor = new Jaguar(3);
-		drivetrain = new RobotDrive(rearLeftMotor, frontLeftMotor,rearRightMotor, frontRightMotor);	
+		liftMotor = new Jaguar(2);
+		liftMotor2 = new Jaguar(3);
+		liftEncoder = new Encoder(6, 7, false, EncodingType.k4X);
+		
+		drivetrain = new RobotDrive(rearLeftMotor, frontLeftMotor);	
 		
 		drivetrain.setInvertedMotor(MotorType.kFrontLeft, true);
 		drivetrain.setInvertedMotor(MotorType.kFrontRight, true);
@@ -51,11 +57,15 @@ public class RobotHardwareWoodbot extends RobotHardware
 		
 		gyro = new Gyro(1);
 		accelerometer = new BuiltInAccelerometer();
+		
+		liftEncoder.reset();
 	}
 
 	@Override
 	public void teleop()
 	{	
+		boolean lifting = false;
+		
 		RobotOperation.driveDoubleStickArcade(); //Change this when switching drive mode
 
 		if(Gamepad.secondary.getA())
@@ -66,6 +76,30 @@ public class RobotHardwareWoodbot extends RobotHardware
 		{
 			solenoid.set(Value.kReverse);
 		}
+		
+		if(Gamepad.secondary.getB())
+		{
+			lifting = !lifting;
+		}
+
+		if(lifting && Math.abs(liftEncoder.getRaw()) < 2)
+		{
+			liftMotor.set(0.5);
+			liftMotor2.set(0.5);
+			
+		}
+		if(lifting && Math.abs(liftEncoder.getRaw()) > 2)
+		{
+			liftMotor.set(0);
+			liftMotor2.set(0);
+			lifting = false;
+		}
+		if(!lifting)
+		{
+			liftMotor.set(0);
+			liftMotor2.set(0);
+		}
+		Logger.riolog("" + liftEncoder.getRaw());
 	}
 
 	@Override
