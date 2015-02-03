@@ -9,6 +9,6 @@ Programming Team
 Programming Mentor - Eric Miller <br>
 Lead Programmer - Domenic Portuesi <br>
 Programmer - Austin Johanningsmeier <br>
-Programmer - Justin Miller <br> <br>
+Programmer - Justin Williams<br> <br>
 
 Please feel free to use any of our teams code. Any questions or help needed email me @ dportuesi@gmail.com.
