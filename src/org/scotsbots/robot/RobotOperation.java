@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class RobotOperation 
 {	
-	/* TODO uncomment after encoders
 	public static PIDController encoderControl = new PIDController(4, 0, 0, new PIDSource() 
 	{
 		public double pidGet() 
@@ -34,20 +33,21 @@ public class RobotOperation
 			Robot.bot.drivetrain.tankDrive(d, d);
 		}
 	});
-	*/
+	
 	
 	/**
 	 * Sets up Encoders and adds monitors to LiveWindow.
 	 */
 	public static void initialize()
 	{	
-		/* Encoder stuff
+		Robot.bot.gyro.initGyro();
+		
 		if(Robot.bot instanceof RobotHardwarePracticebot)
 		{
 			Robot.bot.leftDriveEncoder.setDistancePerPulse(0.042);
 			Robot.bot.rightDriveEncoder.setDistancePerPulse(0.042);
 		}
-		*/
+		
 		
 		if(Robot.bot instanceof RobotHardwareWoodbot)
 		{
@@ -129,7 +129,7 @@ public class RobotOperation
 	 * Drives straight using gyro. Checks if there from accelerometer.
 	 * @param distance
 	 */
-	public static boolean drive(double timeToTravel)
+	public static boolean driveTimed(double timeToTravel)
 	{
 		if(time/100 <= timeToTravel)
 		{
@@ -152,15 +152,8 @@ public class RobotOperation
 	    }
 	}
 	
-	public static void reset()
-	{
-		time = 0;
-	}
-	
-	/*
 	public static boolean drive(double distance)
-	{
-		
+	{		
 		encoderControl.enable();
 		encoderControl.setAbsoluteTolerance(0.01);
 		encoderControl.setSetpoint(distance);
@@ -184,11 +177,11 @@ public class RobotOperation
 		{
 			encoderControl.reset();
 		}
+		time = 0;
 	}
 	
 	public static double getDistance()
 	{
 		return (Robot.bot.leftDriveEncoder.getDistance() + Robot.bot.rightDriveEncoder.getDistance())/2;
 	}
-	*/
 }

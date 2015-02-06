@@ -4,7 +4,7 @@ import org.scotsbots.robot.RobotOperation;
 
 import edu.wpi.first.wpilibj.Timer;
 
-public class AutonStrategyDrive extends AutonStrategy
+public class AutonStrategyDriveEncoded extends AutonStrategy
 {
 	@Override
 	public void intialize()
@@ -18,7 +18,7 @@ public class AutonStrategyDrive extends AutonStrategy
 		if(step == 1)
 		{
 			Timer.delay(3);
-			RobotOperation.driveTimed(3);
+			RobotOperation.drive(6);
 			step = 2;
 		}
 	}
@@ -26,13 +26,13 @@ public class AutonStrategyDrive extends AutonStrategy
 	@Override
 	public String getName()
 	{
-		return "Drive Straight Timed";
+		return "Drive Straight Encoded";
 	}
 
 	@Override
 	public boolean isDefault()
 	{
-		return true;
+		return false;
 	}
 
 	@Override

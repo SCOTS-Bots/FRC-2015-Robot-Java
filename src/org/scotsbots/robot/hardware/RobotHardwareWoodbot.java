@@ -2,7 +2,7 @@ package org.scotsbots.robot.hardware;
 
 import org.scotsbots.robot.RobotOperation;
 import org.scotsbots.robot.operation.auton.AutonStrategy;
-import org.scotsbots.robot.operation.auton.AutonStrategyTest;
+import org.scotsbots.robot.operation.auton.AutonStrategyDrive;
 import org.scotsbots.robot.utils.Gamepad;
 import org.scotsbots.robot.utils.Logger;
 
@@ -105,7 +105,7 @@ public class RobotHardwareWoodbot extends RobotHardware
 	@Override
 	public void addAutons()
 	{
-		AutonStrategy.addAuton(new AutonStrategyTest());		
+		AutonStrategy.addAuton(new AutonStrategyDrive());		
 	}
 	
 	@Override

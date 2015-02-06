@@ -11,6 +11,7 @@
 package org.scotsbots.robot;
 
 import org.scotsbots.robot.hardware.RobotHardware;
+import org.scotsbots.robot.hardware.RobotHardwareCompbot;
 import org.scotsbots.robot.hardware.RobotHardwarePracticebot;
 import org.scotsbots.robot.hardware.RobotHardwareWoodbot;
 import org.scotsbots.robot.operation.auton.AutonStrategy;
@@ -36,7 +37,7 @@ public class Robot extends IterativeRobot
     {
     	Logger.riolog("S.C.O.T.S. Bots 2015 Robot intializing...");
     	autoChooser = new SendableChooser();
-    	bot = new RobotHardwareWoodbot();   //This changes which bot it loads.
+    	bot = new RobotHardwareCompbot();   //This changes which bot it loads.
     	bot.initialize();
     	RobotOperation.initialize();
     	if(bot.usesCamera())

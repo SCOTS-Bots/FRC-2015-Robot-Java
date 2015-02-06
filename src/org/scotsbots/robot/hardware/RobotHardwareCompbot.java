@@ -2,16 +2,19 @@ package org.scotsbots.robot.hardware;
 
 import org.scotsbots.robot.RobotOperation;
 import org.scotsbots.robot.operation.auton.AutonStrategy;
-import org.scotsbots.robot.operation.auton.AutonStrategyTest;
+import org.scotsbots.robot.operation.auton.AutonStrategyDrive;
+import org.scotsbots.robot.operation.auton.AutonStrategyDriveEncoded;
 import org.scotsbots.robot.utils.Gamepad;
+import org.scotsbots.robot.utils.Logger;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Victor;
 
-//SSID Not yet configured
+//SSID 4776
 public class RobotHardwareCompbot extends RobotHardware
 {
 	public static Victor rightMotors;
@@ -19,20 +22,23 @@ public class RobotHardwareCompbot extends RobotHardware
 	
 	public static Victor winchMotor;
 	public static Victor clampMotor;
-	public static BuiltInAccelerometer accelerometer;
 	
 	@Override
 	public void initialize()
 	{
-		rightMotors = new Victor(1);
-		leftMotors = new Victor(2);
+		rightMotors = new Victor(3);
+		leftMotors = new Victor(4);
 		
-		drivetrain = new RobotDrive(rightMotors, leftMotors);
+		drivetrain = new RobotDrive(leftMotors, rightMotors);
 		
-		winchMotor = new Victor(3);
-		clampMotor = new Victor(4);
+		winchMotor = new Victor(5);
+		clampMotor = new Victor(6);
 		
 		gyro = new Gyro(1);
+		accelerometer = new BuiltInAccelerometer();
+		
+		leftDriveEncoder = new Encoder(6,7, false, EncodingType.k4X);
+		rightDriveEncoder = new Encoder(8,9, false, EncodingType.k4X);
 	}
 
 	@Override
@@ -46,7 +52,7 @@ public class RobotHardwareCompbot extends RobotHardware
 	@Override
 	public void addAutons()
 	{
-		AutonStrategy.addAuton(new AutonStrategyTest());		
+		AutonStrategy.addAuton(new AutonStrategyDriveEncoded());		
 	}
 
 	@Override
