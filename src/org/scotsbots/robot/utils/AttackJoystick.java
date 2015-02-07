@@ -65,4 +65,9 @@ public class AttackJoystick
 	{
 		return joystick.getRawButton(BUTTON_TRIGGER);
 	}
+	
+	public boolean getButton(int button)
+	{
+		return joystick.getRawButton(button);
+	}
 }

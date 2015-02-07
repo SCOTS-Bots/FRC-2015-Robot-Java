@@ -49,10 +49,12 @@ public class RobotOperationCompbot
 		
 	}
 	
-	/**
-	 * Open or close arm solenoid.
-	 */
-	public static void toggleArms()
+	public static void openArms()
+	{
+		
+	}
+	
+	public static void closeArms()
 	{
 		
 	}
@@ -62,6 +64,11 @@ public class RobotOperationCompbot
 	 * @param speed between 1 and -1
 	 */
 	public static void moveLift(int speed)
+	{
+		
+	}
+	
+	public static void moveArms(int speed)
 	{
 		
 	}

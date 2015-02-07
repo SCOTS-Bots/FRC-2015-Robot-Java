@@ -152,6 +152,16 @@ public class Gamepad
 		return joystick.getPOV() > 80 && joystick.getPOV() < 100;
 	}
 
+	public boolean getDPadUp()
+	{
+		return joystick.getPOV() > 345 && joystick.getPOV() < 15;
+	}
+	
+	public boolean getDPadDown()
+	{
+		return joystick.getPOV() > 165 && joystick.getPOV() < 195;
+	}
+	
 	/**
 	 *
 	 * @return Is the left bumper pressed? [top one]
