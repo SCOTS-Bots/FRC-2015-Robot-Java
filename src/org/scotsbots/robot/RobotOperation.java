@@ -89,39 +89,73 @@ public class RobotOperation
 	}
 	
 	/**
-	 * Drives tank drive using left joystick and right joystick
+	 * Drives tank drive.
+	 * @param joystickSet 0 - Only gamepads, 1 - attacks and gamepad
 	 */
-	public static void driveTank()
+	public static void driveTank(int joystickSet)
 	{
-		Robot.bot.drivetrain.tankDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getRightY(), true);
+		if(joystickSet == 0)
+		{
+			Robot.bot.drivetrain.tankDrive(Gamepad.primaryGamepad.getLeftY(), Gamepad.primaryGamepad.getRightY(), true);
+		}
+		if(joystickSet == 1)
+		{
+			Robot.bot.drivetrain.tankDrive(Gamepad.primaryLeftAttackJoystick.getY(), Gamepad.primaryRightAttackJoystick.getY(), true);
+		}
+		
         Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
 	/**
 	 * Drives the robot in arcade using the left up/down and the right up/down
+	 * @param joystickSet 0 - Only gamepads, 1 - attacks and gamepad
 	 */
-	public static void driveDoubleStickArcade()
+	public static void driveDoubleStickArcade(int joystickSet)
 	{
-		Robot.bot.drivetrain.arcadeDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getRightX());
+		if(joystickSet == 0)
+		{
+			Robot.bot.drivetrain.arcadeDrive(Gamepad.primaryGamepad.getLeftY(), Gamepad.primaryGamepad.getRightX());
+		}
+		if(joystickSet == 1)
+		{
+			Robot.bot.drivetrain.arcadeDrive(Gamepad.primaryLeftAttackJoystick.getY(), Gamepad.primaryRightAttackJoystick.getX());
+		}
+		
         Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
 	/**
 	 * Drives the robot in arcade using the left up/down and left left/right
+	 * @param joystickSet 0 - Only gamepads, 1 - attacks and gamepad
 	 */
-	public static void driveSingleStickArcade()
+	public static void driveSingleStickArcade(int joystickSet)
 	{
-		Robot.bot.drivetrain.arcadeDrive(Gamepad.primary.getLeftY(), Gamepad.primary.getLeftX());        
+		if(joystickSet == 0)
+		{
+			Robot.bot.drivetrain.arcadeDrive(Gamepad.primaryGamepad.getLeftY(), Gamepad.primaryGamepad.getLeftX()); 
+		}
+		if(joystickSet == 1)
+		{
+			Robot.bot.drivetrain.arcadeDrive(Gamepad.primaryLeftAttackJoystick.getY(), Gamepad.primaryLeftAttackJoystick.getX());
+		}
 		Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
 	/**
 	 * Drives mecanum using left left/right, left up/down, and right left/right.
+	 * @param joystickSet 0 - Only gamepads, 1 - attacks and gamepad
 	 */
-	public static void driveMecanum()
+	public static void driveMecanum(int joystickSet)
 	{
-		Robot.bot.drivetrain.mecanumDrive_Cartesian(Gamepad.primary.getLeftX(), Gamepad.primary.getLeftY(), Gamepad.primary.getRightX(), 0);       
-        Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
+		if(joystickSet == 0)
+		{
+			Robot.bot.drivetrain.mecanumDrive_Cartesian(Gamepad.primaryGamepad.getLeftX(), Gamepad.primaryGamepad.getLeftY(), Gamepad.primaryGamepad.getRightX(), 0);       
+		}
+		if(joystickSet == 1)
+		{
+			Robot.bot.drivetrain.mecanumDrive_Cartesian(Gamepad.primaryLeftAttackJoystick.getX(), Gamepad.primaryLeftAttackJoystick.getY(), Gamepad.primaryRightAttackJoystick.getX(), 0);       
+		}
+		Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
 	static double time = 0;
@@ -171,6 +205,8 @@ public class RobotOperation
 	
 	public static void reset()
 	{
+		Robot.bot.gyro.initGyro();
+
 		Robot.bot.leftDriveEncoder.reset();
 		Robot.bot.rightDriveEncoder.reset();
 		if(encoderControl != null)

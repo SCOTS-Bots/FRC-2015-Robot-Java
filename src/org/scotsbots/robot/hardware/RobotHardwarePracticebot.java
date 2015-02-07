@@ -32,9 +32,9 @@ public class RobotHardwarePracticebot extends RobotHardware
 	@Override
 	public void teleop()
 	{
-		RobotOperation.driveTank(); //Change this when switching drive mode
+		RobotOperation.driveTank(1); //Change this when switching drive mode
 
-		winchMotor.set(Gamepad.secondary.getLeftY() / 2); //currently at half power	
+		winchMotor.set(Gamepad.secondaryAttackJoystick.getLeftY() / 2); //currently at half power	
 	}
 
 	@Override

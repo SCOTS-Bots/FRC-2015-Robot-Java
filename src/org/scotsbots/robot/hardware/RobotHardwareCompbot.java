@@ -21,20 +21,20 @@ public class RobotHardwareCompbot extends RobotHardware
 	public static Victor leftMotors;
 	
 	public static Victor winchMotor;
-	public static Victor clampMotor;
+	public static Victor armMotors;
 	
 	@Override
 	public void initialize()
 	{
-		rightMotors = new Victor(3);
-		leftMotors = new Victor(4);
+		rightMotors = new Victor(0);
+		leftMotors = new Victor(1);
 		
 		drivetrain = new RobotDrive(leftMotors, rightMotors);
 		
-		winchMotor = new Victor(5);
-		clampMotor = new Victor(6);
+		winchMotor = new Victor(2);
+		armMotors = new Victor(3);
 		
-		gyro = new Gyro(1);
+		gyro = new Gyro(0);
 		accelerometer = new BuiltInAccelerometer();
 		
 		leftDriveEncoder = new Encoder(6,7, false, EncodingType.k4X);
@@ -44,9 +44,9 @@ public class RobotHardwareCompbot extends RobotHardware
 	@Override
 	public void teleop()
 	{
-		RobotOperation.driveTank(); //Change this when switching drive mode
-		winchMotor.set(Gamepad.secondary.getLeftY() / 2); //currently at half power	
-		clampMotor.set(Gamepad.secondary.getRightY());
+		RobotOperation.driveTank(1); //Change this when switching drive mode
+		winchMotor.set(Gamepad.secondaryAttackJoystick.getLeftY() / 2); //currently at half power	
+		armMotors.set(Gamepad.secondaryAttackJoystick.getRightY());
 	}
 
 	@Override

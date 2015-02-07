@@ -66,9 +66,9 @@ public class RobotHardwareWoodbot extends RobotHardware
 	{	
 		boolean lifting = false;
 		
-		RobotOperation.driveDoubleStickArcade(); //Change this when switching drive mode
+		RobotOperation.driveDoubleStickArcade(0); //Change this when switching drive mode
 
-		if(Gamepad.secondary.getA())
+		if(Gamepad.secondaryGamepad.getA())
 		{
 			solenoid.set(Value.kForward);
 		}
@@ -77,7 +77,7 @@ public class RobotHardwareWoodbot extends RobotHardware
 			solenoid.set(Value.kReverse);
 		}
 		
-		if(Gamepad.secondary.getB())
+		if(Gamepad.secondaryGamepad.getB())
 		{
 			lifting = !lifting;
 		}
