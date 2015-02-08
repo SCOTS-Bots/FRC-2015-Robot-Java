@@ -94,6 +94,5 @@ public class Robot extends IterativeRobot
     public void disabledInit() 
     {
 		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
-		RobotOperation.reset();
     }
 }

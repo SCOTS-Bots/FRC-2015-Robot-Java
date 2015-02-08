@@ -1,17 +1,29 @@
 package org.scotsbots.robot;
 
-public class RobotOperationCompbot
+import org.scotsbots.robot.hardware.RobotHardwareCompbot;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+
+public class RobotOperationCompbot extends RobotHardwareCompbot
 {
-	//TODO Create arm position constants
+	//TODO Create and modify arm position constants
+	public static final int POSITION_0 = 0;
+	public static final int POSITION_1 = 979;
+	public static final int POSITION_2 = 2026;
+	public static final int POSITION_3 = 3044;
+	public static final int POSITION_4 = 3936;
+	public static final int MAX_HEIGHT = 4250;
+	
+	public static int currentSetPosition = POSITION_0;
 	
 	/**
 	 * Resets robot to pre-defined state.
 	 */
 	public static void reset()
 	{
-		//reset lift encoder
-		//set arms closed
-		//set arms to position TODO 0 or 1.
+		liftEncoder.reset();
+		closeArms();
+		setLiftPosition(POSITION_0);
 	}
 	
 	/**
@@ -30,15 +42,87 @@ public class RobotOperationCompbot
 	 */
 	public static void raiseLiftPosition()
 	{
-		
+		switch(currentSetPosition)
+		{
+			case POSITION_0: 
+			{
+				setLiftPosition(POSITION_1);
+				currentSetPosition = POSITION_1;
+				break;
+			}
+			case POSITION_1: 
+			{
+				setLiftPosition(POSITION_2);
+				currentSetPosition = POSITION_2;
+				break;
+			}
+			case POSITION_2: 
+			{
+				setLiftPosition(POSITION_3);
+				currentSetPosition = POSITION_3;
+				break;
+			}
+			case POSITION_3: 
+			{
+				setLiftPosition(POSITION_4);
+				currentSetPosition = POSITION_4;
+				break;
+			}
+			case POSITION_4:
+			{
+				break;
+			}
+		}
 	}
 	
 	/**
 	 * Gets current postion of arm and lowers one position.
 	 */
-	public static void lowerLifPosition()
+	public static void lowerLiftPosition()
 	{
-		//if going to lowest postion, use hall effect sensor to stop and reset encoder.
+		switch(currentSetPosition)
+		{
+			case POSITION_4: 
+			{
+				setLiftPosition(POSITION_3);
+				currentSetPosition = POSITION_3;
+				break;
+			}
+			case POSITION_3: 
+			{
+				setLiftPosition(POSITION_2);
+				currentSetPosition = POSITION_2;
+				break;
+			}
+			case POSITION_2: 
+			{
+				setLiftPosition(POSITION_1);
+				currentSetPosition = POSITION_1;
+				break;
+			}
+			case POSITION_1: 
+			{
+				setLiftPosition(POSITION_0);
+				currentSetPosition = POSITION_0;
+				break;
+			}
+			case POSITION_0:
+			{
+				break;
+			}
+		}	
+	}
+	
+	public static void setLiftPosition(int encoderVal)
+	{
+		if(encoderVal > liftEncoder.get())
+		{
+			moveLift(-0.75);	
+		}
+		if(encoderVal < liftEncoder.get())
+		{
+			moveLift(0.75);
+		}
 	}
 	
 	/**
@@ -51,26 +135,26 @@ public class RobotOperationCompbot
 	
 	public static void openArms()
 	{
-		
+		armSolenoid.set(Value.kForward);
 	}
 	
 	public static void closeArms()
 	{
-		
+		armSolenoid.set(Value.kReverse);
 	}
 	
 	/**
 	 * Moves lift at speed.
 	 * @param speed between 1 and -1
 	 */
-	public static void moveLift(int speed)
+	public static void moveLift(double speed)
 	{
-		
+		liftMotor.set(speed);
 	}
 	
-	public static void moveArms(int speed)
+	public static void moveArms(double speed)
 	{
-		
+		armMotors.set(speed);
 	}
 	
 	/**

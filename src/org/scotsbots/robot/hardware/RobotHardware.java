@@ -18,9 +18,13 @@ public abstract class RobotHardware
 	public RobotDrive drivetrain;
 	public Gyro gyro;
 	public BuiltInAccelerometer accelerometer;
-	
 	public Encoder leftDriveEncoder;
 	public Encoder rightDriveEncoder;
+	
+	/**
+	 * Single encoder for measuring driving.
+	 */
+	public Encoder driveEncoder;
 	
 	public abstract void initialize();
 	public abstract void teleop();

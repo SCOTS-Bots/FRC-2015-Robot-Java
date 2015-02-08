@@ -18,7 +18,7 @@ public class AutonStrategyDriveEncoded extends AutonStrategy
 		if(step == 1)
 		{
 			Timer.delay(3);
-			RobotOperation.drive(6);
+			RobotOperation.driveEncoded(6);
 			step = 2;
 		}
 	}

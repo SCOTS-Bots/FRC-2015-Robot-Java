@@ -7,6 +7,7 @@ import org.scotsbots.robot.utils.Gamepad;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.Talon;
 
@@ -18,6 +19,9 @@ public class RobotHardwarePracticebot extends RobotHardware
 	
 	public Talon winchMotor;
 	
+	public Encoder leftDriveEncoder;
+	public Encoder rightDriveEncoder;
+	
 	public void initialize()
 	{
 		rightMotors = new Talon(1);
@@ -27,6 +31,9 @@ public class RobotHardwarePracticebot extends RobotHardware
 		
 		drivetrain.setInvertedMotor(MotorType.kRearLeft, true);
 		drivetrain.setInvertedMotor(MotorType.kRearRight, true);
+		
+		leftDriveEncoder = new Encoder(6,7, false, EncodingType.k4X);
+		rightDriveEncoder = new Encoder(8,9, false, EncodingType.k4X);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package org.scotsbots.robot.utils;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Joystick.AxisType;
 
 /**
  * Originally adapted from Adambots code.
@@ -64,17 +65,17 @@ public class Gamepad
 	/**
 	 * XBOX 360 Trigger Axis (right - left)
 	 */
-	private static final int AXIS_TRIGGERS = 3;
+	private static final int AXIS_TRIGGERS = 4;
 
 	/**
 	 * XBOX 360 Right Horizontal Axis (Left=-1, Right=1)
 	 */
-	private static final int AXIS_RIGHT_X = 4;
+	private static final int AXIS_RIGHT_X = 2;
 
 	/**
 	 * XBOX 360 Right Vertical Axis (Up=-1, Down=1)
 	 */
-	private static final int AXIS_RIGHT_Y = 5;
+	private static final int AXIS_RIGHT_Y = 3;
 
 	private Gamepad(int port)
 	{
@@ -154,7 +155,7 @@ public class Gamepad
 
 	public boolean getDPadUp()
 	{
-		return joystick.getPOV() > 345 && joystick.getPOV() < 15;
+		return joystick.getPOV() > 345 || joystick.getPOV() < 15;
 	}
 	
 	public boolean getDPadDown()

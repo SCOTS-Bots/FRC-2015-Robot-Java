@@ -6,23 +6,41 @@ import org.scotsbots.robot.operation.auton.AutonStrategy;
 import org.scotsbots.robot.operation.auton.AutonStrategyDrive;
 import org.scotsbots.robot.operation.auton.AutonStrategyDriveEncoded;
 import org.scotsbots.robot.utils.Gamepad;
-import org.scotsbots.robot.utils.Logger;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Victor;
 
 //SSID 4776
 public class RobotHardwareCompbot extends RobotHardware
 {
-	public static Victor rightMotors;
-	public static Victor leftMotors;
+	public Victor rightMotors;
+	public Victor leftMotors;
 	
-	public static Victor winchMotor;
+	public static Victor liftMotor;
 	public static Victor armMotors;
+	
+	public static DoubleSolenoid armSolenoid;
+	
+	public static Encoder liftEncoder;
+	
+	public static Servo transmission;
+	
+	public static DigitalInput liftBottomLimit;
+	public static DigitalInput armBottomLimit;
+	public static DigitalInput armUpperLimit;
+	
+	public double liftSpeedRatio;
+	public int liftGear;
+	
+	public double driverSpeedRatio;
 	
 	@Override
 	public void initialize()
@@ -32,41 +50,61 @@ public class RobotHardwareCompbot extends RobotHardware
 		
 		drivetrain = new RobotDrive(leftMotors, rightMotors);
 		
-		winchMotor = new Victor(2);
+		liftMotor = new Victor(2);
 		armMotors = new Victor(3);
+		
+		armSolenoid = new DoubleSolenoid(0,1);
+		
+		liftEncoder = new Encoder(5, 6, false, EncodingType.k4X);
+		driveEncoder = new Encoder(8, 9, false, EncodingType.k4X);
+		
+		transmission = new Servo(7);
+		
+		liftBottomLimit = new DigitalInput(0);
+		armBottomLimit = new DigitalInput(1);
+		armUpperLimit = new DigitalInput(2);
 		
 		gyro = new Gyro(0);
 		accelerometer = new BuiltInAccelerometer();
 		
-		leftDriveEncoder = new Encoder(6,7, false, EncodingType.k4X);
-		rightDriveEncoder = new Encoder(8,9, false, EncodingType.k4X);
+		liftSpeedRatio = 0.5; //Half power default
+		liftGear = 1;
+		driverSpeedRatio = 1;
+		
+		drivetrain.setInvertedMotor(MotorType.kRearLeft, false);
+		drivetrain.setInvertedMotor(MotorType.kRearRight, false);
 	}
 
 	@Override
 	public void teleop()
 	{
-		RobotOperation.driveTank(1); //Change this when switching drive mode
-		winchMotor.set(Gamepad.secondaryAttackJoystick.getLeftY() / 2); //currently at half power	
-		armMotors.set(Gamepad.secondaryAttackJoystick.getRightY());
+		RobotOperation.driveTank(1, driverSpeedRatio); //Change this when switching drive mode
+		
+		RobotOperationCompbot.moveLift(Gamepad.secondaryAttackJoystick.getLeftY() * liftSpeedRatio);
+		RobotOperationCompbot.moveArms(Gamepad.secondaryAttackJoystick.getRightY());
+		
+		if(Gamepad.secondaryAttackJoystick.getDPadRight())
+		{
+			liftSpeedRatio = 0.5;
+		}
+		
+		if(Gamepad.secondaryAttackJoystick.getDPadLeft())
+		{
+			liftSpeedRatio = 0.25;
+		}
 		
 		if(Gamepad.secondaryAttackJoystick.getDPadUp())
 		{
-			RobotOperationCompbot.moveLift(1);
-			//check encoder for upper limit
+			liftGear = 2;
+			transmission.set(1);
 		}
+		
 		if(Gamepad.secondaryAttackJoystick.getDPadDown())
 		{
-			RobotOperationCompbot.moveLift(-1);
-			//check encoder for lower limit
+			liftGear = 1;
+			transmission.set(0);
 		}
-		if(Gamepad.secondaryAttackJoystick.getRightY() > 0.1)
-		{
-			RobotOperationCompbot.moveArms(1);
-		}
-		if(Gamepad.secondaryAttackJoystick.getRightY() < -0.1)
-		{
-			RobotOperationCompbot.moveArms(-1);
-		}
+
 		if(Gamepad.secondaryAttackJoystick.getRB())
 		{			
 			RobotOperationCompbot.closeArms();
@@ -76,14 +114,38 @@ public class RobotHardwareCompbot extends RobotHardware
 			RobotOperationCompbot.openArms();
 		}
 		
+		if(Gamepad.secondaryAttackJoystick.getY())
+		{
+			RobotOperationCompbot.raiseLiftPosition();
+		}
+		if(Gamepad.secondaryAttackJoystick.getA())
+		{
+			RobotOperationCompbot.lowerLiftPosition();
+		}
+		
 		//driver
 		if(Gamepad.primaryRightAttackJoystick.getButton(4))
 		{
-			//set half speed
+			driverSpeedRatio = 0.5;
 		}
 		if(Gamepad.primaryRightAttackJoystick.getButton(5))
 		{
-			//set full speed
+			driverSpeedRatio = 1;
+		}
+		
+		//failsafe
+		if(!liftBottomLimit.get())
+		{
+			 liftEncoder.reset();
+			 if(liftMotor.getSpeed() > 0)
+			 {
+				 liftMotor.set(0);
+			 }
+		}
+		
+		if(liftEncoder.get() == RobotOperationCompbot.MAX_HEIGHT)
+		{
+			liftMotor.set(0);
 		}
 	}
 

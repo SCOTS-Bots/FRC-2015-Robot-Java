@@ -1,5 +1,6 @@
 package org.scotsbots.robot;
 
+import org.scotsbots.robot.hardware.RobotHardwareCompbot;
 import org.scotsbots.robot.hardware.RobotHardwarePracticebot;
 import org.scotsbots.robot.hardware.RobotHardwareWoodbot;
 import org.scotsbots.robot.utils.Gamepad;
@@ -40,14 +41,17 @@ public class RobotOperation
 	 */
 	public static void initialize()
 	{	
-		Robot.bot.gyro.initGyro();
+		Robot.bot.gyro.initGyro();		
 		
-		if(Robot.bot instanceof RobotHardwarePracticebot)
+		if(Robot.bot.leftDriveEncoder != null && Robot.bot.rightDriveEncoder != null)
 		{
 			Robot.bot.leftDriveEncoder.setDistancePerPulse(0.042);
 			Robot.bot.rightDriveEncoder.setDistancePerPulse(0.042);
+		}		
+		if(Robot.bot.driveEncoder != null)
+		{
+			Robot.bot.driveEncoder.setDistancePerPulse(0.042);
 		}
-		
 		
 		if(Robot.bot instanceof RobotHardwareWoodbot)
 		{
@@ -74,10 +78,22 @@ public class RobotOperation
 	public static void logSmartDashboard()
 	{		
 		SmartDashboard.putString("Current Robot", Robot.bot.getName());
+		
 		if(Robot.bot instanceof RobotHardwareWoodbot)
 		{
 			RobotHardwareWoodbot hardware = (RobotHardwareWoodbot)Robot.bot;				
 			SmartDashboard.putBoolean("Magnet?", !hardware.halsensor.get());
+		}
+		
+		if(Robot.bot instanceof RobotHardwareCompbot)
+		{
+			RobotHardwareCompbot hardware = (RobotHardwareCompbot)Robot.bot;
+			SmartDashboard.putNumber("Winch Encoder", hardware.liftEncoder.get());
+			SmartDashboard.putBoolean("Lift bottom?", !hardware.liftBottomLimit.get());
+			SmartDashboard.putNumber("Lift Gear", hardware.liftGear);
+			SmartDashboard.putNumber("Lift Speed Ratio", hardware.liftSpeedRatio);
+			SmartDashboard.putNumber("Drive Speed Ratio", hardware.driverSpeedRatio);
+			SmartDashboard.putNumber("Current Set Position", RobotOperationCompbot.currentSetPosition);
 		}
 		
 		Robot.bot.accelerometer.startLiveWindowMode();
@@ -94,13 +110,23 @@ public class RobotOperation
 	 */
 	public static void driveTank(int joystickSet)
 	{
+		driveTank(joystickSet, 1);
+	}
+	
+	/**
+	 * Drives in tank, multiplies speed by speed ratio.
+	 * @param joystickSet 0 - Only gamepads, 1 - attacks and gamepad
+	 * @param speedRatio range of motor power
+	 */
+	public static void driveTank(int joystickSet, double speedRatio)
+	{
 		if(joystickSet == 0)
 		{
-			Robot.bot.drivetrain.tankDrive(Gamepad.primaryGamepad.getLeftY(), Gamepad.primaryGamepad.getRightY(), true);
+			Robot.bot.drivetrain.tankDrive(Gamepad.primaryGamepad.getLeftY() * speedRatio, Gamepad.primaryGamepad.getRightY() * speedRatio, true);
 		}
 		if(joystickSet == 1)
 		{
-			Robot.bot.drivetrain.tankDrive(Gamepad.primaryLeftAttackJoystick.getY(), Gamepad.primaryRightAttackJoystick.getY(), true);
+			Robot.bot.drivetrain.tankDrive(Gamepad.primaryLeftAttackJoystick.getY()* speedRatio, Gamepad.primaryRightAttackJoystick.getY()* speedRatio, true);
 		}
 		
         Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
@@ -186,38 +212,73 @@ public class RobotOperation
 	    }
 	}
 	
-	public static boolean drive(double distance)
+	/**
+	 * Drives using drive encoders if they exist.
+	 * @param distance
+	 * @return
+	 */
+	public static boolean driveEncoded(double distance)
 	{		
-		encoderControl.enable();
-		encoderControl.setAbsoluteTolerance(0.01);
-		encoderControl.setSetpoint(distance);
-		if(encoderControl.onTarget())
+		//Checks for dual or single drive encoders
+		if((Robot.bot.leftDriveEncoder != null && Robot.bot.rightDriveEncoder != null) || Robot.bot.driveEncoder != null)
 		{
-			return true;
+			encoderControl.enable();
+			encoderControl.setAbsoluteTolerance(0.01);
+			encoderControl.setSetpoint(distance);
+			if(encoderControl.onTarget())
+			{
+				return true;
+			}
+			else
+			{
+		        Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
+			}
 		}
-		else
-		{
-	        Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
-		}
-		
 		return false;
 	}
 	
 	public static void reset()
 	{
+		RobotOperationCompbot.reset();
+		
 		Robot.bot.gyro.initGyro();
 
-		Robot.bot.leftDriveEncoder.reset();
-		Robot.bot.rightDriveEncoder.reset();
-		if(encoderControl != null)
+		if(Robot.bot.leftDriveEncoder != null && Robot.bot.rightDriveEncoder != null)
 		{
-			encoderControl.reset();
+			Robot.bot.leftDriveEncoder.reset();
+			Robot.bot.rightDriveEncoder.reset();
+			
+			if(encoderControl != null)
+			{
+				encoderControl.reset();
+			}
+		}	
+		if(Robot.bot.driveEncoder != null)
+		{
+			Robot.bot.driveEncoder.reset();
+			
+			if(encoderControl != null)
+			{
+				encoderControl.reset();
+			}
 		}
 		time = 0;
 	}
 	
+	/**
+	 * Gets distance of drive encoder(s).
+	 * @return
+	 */
 	public static double getDistance()
 	{
-		return (Robot.bot.leftDriveEncoder.getDistance() + Robot.bot.rightDriveEncoder.getDistance())/2;
+		if(Robot.bot.leftDriveEncoder != null && Robot.bot.rightDriveEncoder != null)
+		{
+			return (Robot.bot.leftDriveEncoder.getDistance() + Robot.bot.rightDriveEncoder.getDistance())/2;
+		}
+		if(Robot.bot.driveEncoder != null)
+		{
+			return Robot.bot.driveEncoder.getDistance();
+		}
+		return -1;
 	}
 }
