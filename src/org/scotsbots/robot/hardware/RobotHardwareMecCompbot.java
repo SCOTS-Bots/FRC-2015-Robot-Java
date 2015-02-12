@@ -45,12 +45,12 @@ public class RobotHardwareMecCompbot extends RobotHardware
 	@Override
 	public void initialize()
 	{
-		rightFrontMotor = new Victor(1);
-		rightBackMotor = new Victor(2);
-		leftFrontMotor = new Victor(8);
-		leftBackMotor = new Victor(9);
+		rightFrontMotor = new Victor(10);
+		rightBackMotor = new Victor(11);
+		leftFrontMotor = new Victor(12);
+		leftBackMotor = new Victor(13);
 		
-		drivetrain = new RobotDrive(leftFrontMotor,leftBackMotor,rightFrontMotor,rightBackMotor);
+		drivetrain = new RobotDrive(leftBackMotor,leftFrontMotor,rightBackMotor,rightFrontMotor);
 		
 		liftMotor = new Victor(2);
 		armMotors = new Victor(3);

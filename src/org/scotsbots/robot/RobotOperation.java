@@ -175,11 +175,11 @@ public class RobotOperation
 	{
 		if(joystickSet == 0)
 		{
-			Robot.bot.drivetrain.mecanumDrive_Cartesian(Gamepad.primaryGamepad.getLeftX(), Gamepad.primaryGamepad.getLeftY(), Gamepad.primaryGamepad.getRightX(), 0);       
+			Robot.bot.drivetrain.mecanumDrive_Cartesian(Gamepad.primaryGamepad.getLeftX(), Gamepad.primaryGamepad.getLeftY(), Gamepad.primaryGamepad.getRightX(), Robot.bot.gyro.getAngle());       
 		}
 		if(joystickSet == 1)
 		{
-			Robot.bot.drivetrain.mecanumDrive_Cartesian(Gamepad.primaryLeftAttackJoystick.getX(), Gamepad.primaryLeftAttackJoystick.getY(), Gamepad.primaryRightAttackJoystick.getX(), 0);       
+			Robot.bot.drivetrain.mecanumDrive_Cartesian(Gamepad.primaryLeftAttackJoystick.getX(), Gamepad.primaryLeftAttackJoystick.getY(), Gamepad.primaryRightAttackJoystick.getX(), Robot.bot.gyro.getAngle());       
 		}
 		Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
