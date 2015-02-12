@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 
 //ssid 4776
 public class RobotHardwareMecCompbot extends RobotHardware
@@ -78,7 +77,7 @@ public class RobotHardwareMecCompbot extends RobotHardware
 	@Override
 	public void teleop()
 	{
-		RobotOperation.driveMecanum(0); //Change this when switching drive mode
+		RobotOperation.driveMecanum(1); //Change this when switching drive mode
 		
 		RobotOperationCompbot.moveLift(Gamepad.secondaryAttackJoystick.getLeftY() * liftSpeedRatio);
 		RobotOperationCompbot.moveArms(Gamepad.secondaryAttackJoystick.getRightY());
