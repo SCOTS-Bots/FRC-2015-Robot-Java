@@ -3,8 +3,8 @@ package org.scotsbots.robot.hardware;
 import org.scotsbots.robot.RobotOperation;
 import org.scotsbots.robot.RobotOperationCompbot;
 import org.scotsbots.robot.operation.auton.AutonStrategy;
-import org.scotsbots.robot.operation.auton.AutonStrategyDrive;
 import org.scotsbots.robot.operation.auton.AutonStrategyDriveEncoded;
+import org.scotsbots.robot.operation.auton.AutonStrategyNothing;
 import org.scotsbots.robot.utils.Gamepad;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
@@ -35,7 +35,6 @@ public class RobotHardwareCompbot extends RobotHardware
 	
 	public static DigitalInput liftBottomLimit;
 	public static DigitalInput armBottomLimit;
-	public static DigitalInput armUpperLimit;
 	
 	public double liftSpeedRatio;
 	public int liftGear;
@@ -45,52 +44,57 @@ public class RobotHardwareCompbot extends RobotHardware
 	@Override
 	public void initialize()
 	{
-		rightMotors = new Victor(0);
+		//PWM
+		liftMotor = new Victor(0); //2);
 		leftMotors = new Victor(1);
-		
-		drivetrain = new RobotDrive(leftMotors, rightMotors);
-		
-		liftMotor = new Victor(2);
+		rightMotors = new Victor(2); //0);
 		armMotors = new Victor(3);
+
+		//CAN
+		armSolenoid = new DoubleSolenoid(4,5);
 		
-		armSolenoid = new DoubleSolenoid(0,1);
+		//DIO
+		liftBottomLimit = new DigitalInput(2);
 		
-		liftEncoder = new Encoder(5, 6, false, EncodingType.k4X);
-		driveEncoder = new Encoder(8, 9, false, EncodingType.k4X);
-		
+		//DIO 3
+		liftEncoder = new Encoder(0, 1, false, EncodingType.k4X);
 		transmission = new Servo(7);
-		
-		liftBottomLimit = new DigitalInput(0);
-		armBottomLimit = new DigitalInput(1);
-		armUpperLimit = new DigitalInput(2);
-		
+		driveEncoder = new Encoder(8, 9, false, EncodingType.k4X);
+
+		//ANALOG
 		gyro = new Gyro(0);
+		
+		//roboRio
 		accelerometer = new BuiltInAccelerometer();
 		
-		liftSpeedRatio = 0.5; //Half power default
+		//Stuff
+		drivetrain = new RobotDrive(leftMotors, rightMotors);
+
+		liftSpeedRatio = 1; //Half power default
 		liftGear = 1;
 		driverSpeedRatio = 1;
 		
-		drivetrain.setInvertedMotor(MotorType.kRearLeft, false);
-		drivetrain.setInvertedMotor(MotorType.kRearRight, false);
+		drivetrain.setInvertedMotor(MotorType.kRearLeft, true);
+		drivetrain.setInvertedMotor(MotorType.kRearRight, true);
 	}
 
 	@Override
 	public void teleop()
 	{
-		RobotOperation.driveTank(1, driverSpeedRatio); //Change this when switching drive mode
-		
+		RobotOperation.driveTank(1, driverSpeedRatio); //Change this when switching drive mode		
 		RobotOperationCompbot.moveLift(Gamepad.secondaryAttackJoystick.getLeftY() * liftSpeedRatio);
-		RobotOperationCompbot.moveArms(Gamepad.secondaryAttackJoystick.getRightY());
+	
+		//Arm extension
+		//RobotOperationCompbot.moveArms(Gamepad.secondaryAttackJoystick.getRightY());
 		
 		if(Gamepad.secondaryAttackJoystick.getDPadRight())
 		{
-			liftSpeedRatio = 0.5;
+			liftSpeedRatio = 1;
 		}
 		
 		if(Gamepad.secondaryAttackJoystick.getDPadLeft())
 		{
-			liftSpeedRatio = 0.25;
+			liftSpeedRatio = 0.5;
 		}
 		
 		if(Gamepad.secondaryAttackJoystick.getDPadUp())
@@ -152,6 +156,7 @@ public class RobotHardwareCompbot extends RobotHardware
 	@Override
 	public void addAutons()
 	{
+		AutonStrategy.addAuton(new AutonStrategyNothing());
 		AutonStrategy.addAuton(new AutonStrategyDriveEncoded());		
 	}
 

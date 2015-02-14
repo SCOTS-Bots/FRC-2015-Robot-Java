@@ -155,7 +155,7 @@ public class Gamepad
 
 	public boolean getDPadUp()
 	{
-		return joystick.getPOV() > 345 || joystick.getPOV() < 15;
+		return joystick.getPOV() > 345 || (joystick.getPOV() < 15 && joystick.getPOV() >= 0);
 	}
 	
 	public boolean getDPadDown()
