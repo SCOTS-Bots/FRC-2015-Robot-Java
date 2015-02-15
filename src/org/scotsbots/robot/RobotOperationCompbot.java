@@ -3,6 +3,7 @@ package org.scotsbots.robot;
 import org.scotsbots.robot.hardware.RobotHardwareCompbot;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Timer;
 
 public class RobotOperationCompbot extends RobotHardwareCompbot
 {
@@ -86,25 +87,21 @@ public class RobotOperationCompbot extends RobotHardwareCompbot
 			case POSITION_4: 
 			{
 				setLiftPosition(POSITION_3);
-				currentSetPosition = POSITION_3;
 				break;
 			}
 			case POSITION_3: 
 			{
 				setLiftPosition(POSITION_2);
-				currentSetPosition = POSITION_2;
 				break;
 			}
 			case POSITION_2: 
 			{
 				setLiftPosition(POSITION_1);
-				currentSetPosition = POSITION_1;
 				break;
 			}
 			case POSITION_1: 
 			{
 				setLiftPosition(POSITION_0);
-				currentSetPosition = POSITION_0;
 				break;
 			}
 			case POSITION_0:
@@ -124,6 +121,7 @@ public class RobotOperationCompbot extends RobotHardwareCompbot
 		{
 			moveLift(0.75);
 		}
+		currentSetPosition = encoderVal;
 	}
 	
 	/**
@@ -131,7 +129,9 @@ public class RobotOperationCompbot extends RobotHardwareCompbot
 	 */
 	public static void setToteDown()
 	{
-		
+		setLiftPosition(POSITION_1);
+		Timer.delay(2);
+		openArms();
 	}
 	
 	public static void openArms()
@@ -156,21 +156,5 @@ public class RobotOperationCompbot extends RobotHardwareCompbot
 	public static void moveArms(double speed)
 	{
 		armMotors.set(speed);
-	}
-	
-	/**
-	 * Extends arms to hall effect sensor.
-	 */
-	public static void extendArms()
-	{
-		
-	}
-	
-	/**
-	 * Retracts arm to hall effect sensor
-	 */
-	public static void retractArms()
-	{
-		
 	}
 }

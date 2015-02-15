@@ -81,6 +81,8 @@ public class RobotHardwareCompbot extends RobotHardware
 	@Override
 	public void teleop()
 	{
+		int debounce = 0;
+		
 		RobotOperation.driveTank(1, driverSpeedRatio); //Change this when switching drive mode		
 		RobotOperationCompbot.moveLift(Gamepad.secondaryAttackJoystick.getLeftY() * liftSpeedRatio);
 	
@@ -120,17 +122,33 @@ public class RobotHardwareCompbot extends RobotHardware
 		
 		if(Gamepad.secondaryAttackJoystick.getY())
 		{
-			RobotOperationCompbot.raiseLiftPosition();
+			if(debounce == 1)
+			{
+				RobotOperationCompbot.raiseLiftPosition();
+			}
+			debounce++;
+			if(debounce == 1000)
+			{
+				debounce = 0;
+			}
 		}
 		if(Gamepad.secondaryAttackJoystick.getA())
 		{
-			RobotOperationCompbot.lowerLiftPosition();
+			if(debounce == 1)
+			{
+				RobotOperationCompbot.lowerLiftPosition();
+			}
+			debounce++;
+			if(debounce == 1000)
+			{
+				debounce = 0;
+			}
 		}
 		
 		//driver
 		if(Gamepad.primaryRightAttackJoystick.getButton(4))
 		{
-			driverSpeedRatio = 0.5;
+			driverSpeedRatio = 0.75;
 		}
 		if(Gamepad.primaryRightAttackJoystick.getButton(5))
 		{
