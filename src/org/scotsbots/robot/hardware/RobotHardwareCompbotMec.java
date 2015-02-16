@@ -22,23 +22,48 @@ import edu.wpi.first.wpilibj.Victor;
 //SSID 4776
 public class RobotHardwareCompbotMec extends RobotHardware
 {
-	public Talon rightRearMotors;
-	public Talon rightFrontMotors;
-	public Talon leftFrontMotors;
-	public Talon leftRearMotors;
-		
+	//needs to change tank to mec
+	public Victor rightMotors;
+	public Victor leftMotors;
+	
+	//public static Victor liftMotor;
+	//public static Victor armMotors;
+	
+	//public static DoubleSolenoid armSolenoid;
+	
+	//public static Encoder liftEncoder;
+	
+	//public static Servo transmission;
+	
+	//public static DigitalInput liftBottomLimit;
+	//public static DigitalInput armBottomLimit;
+	
+	//public double liftSpeedRatio;
+	//public int liftGear;
+	
 	public double driverSpeedRatio;
 	
 	@Override
 	public void initialize()
 	{
 		//PWM
-		rightRearMotors = new Talon(1);
-		rightFrontMotors = new Talon(0);
-		leftFrontMotors = new Talon(2);
-		leftRearMotors = new Talon(3);
-		
+		//liftMotor = new Victor(0); 
+		leftMotors = new Victor(1);
+		rightMotors = new Victor(2); 
+		//armMotors = new Victor(3);
 
+		//CAN
+		//armSolenoid = new DoubleSolenoid(4,5);
+		
+		//DIO
+		//liftBottomLimit = new DigitalInput(2);
+		
+		//DIO 3
+		//liftEncoder = new Encoder(0, 1, false, EncodingType.k4X);
+		//transmission = new Servo(7);
+		driveEncoder = new Encoder(8, 9, false, EncodingType.k4X);
+
+		
 		//ANALOG
 		gyro = new Gyro(0);
 		
@@ -46,16 +71,110 @@ public class RobotHardwareCompbotMec extends RobotHardware
 		accelerometer = new BuiltInAccelerometer();
 		
 		//Stuff
-		drivetrain = new RobotDrive(leftRearMotors, leftFrontMotors,rightRearMotors,rightFrontMotors);
+		drivetrain = new RobotDrive(leftMotors, rightMotors);
+
+		//liftSpeedRatio = 1; //Half power default
+		//liftGear = 1;
+		driverSpeedRatio = 1;
 		
-		//drivetrain.setInvertedMotor(MotorType.kRearLeft, true);
-		//drivetrain.setInvertedMotor(MotorType.kRearRight, true);
+		drivetrain.setInvertedMotor(MotorType.kRearLeft, true);
+		drivetrain.setInvertedMotor(MotorType.kRearRight, true);
 	}
 
 	@Override
 	public void teleop()
-	{		
-		RobotOperation.driveMecanum(0, driverSpeedRatio); //Change this when switching drive mode		
+	{
+		int debounce = 0;
+		
+		RobotOperation.driveTank(1, driverSpeedRatio); //Change this when switching drive mode		
+		//RobotOperationCompbot.moveLift(Gamepad.secondaryAttackJoystick.getLeftY() * liftSpeedRatio);
+	
+		//Arm extension
+		//RobotOperationCompbot.moveArms(Gamepad.secondaryAttackJoystick.getRightY());
+		
+		if(Gamepad.secondaryAttackJoystick.getDPadRight())
+		{
+			//liftSpeedRatio = 1;
+		}
+		
+		if(Gamepad.secondaryAttackJoystick.getDPadLeft())
+		{
+			//liftSpeedRatio = 0.5;
+		}
+		
+		if(Gamepad.secondaryAttackJoystick.getDPadUp())
+		{
+			//liftGear = 2;
+			//transmission.set(1);
+		}
+		
+		if(Gamepad.secondaryAttackJoystick.getDPadDown())
+		{
+			//liftGear = 1;
+			//transmission.set(0);
+		}
+
+		if(Gamepad.secondaryAttackJoystick.getRB())
+		{			
+			RobotOperationCompbot.closeArms();
+		}
+		if(Gamepad.secondaryAttackJoystick.getLB())
+		{
+			RobotOperationCompbot.openArms();
+		}
+		
+		if(Gamepad.secondaryAttackJoystick.getY())
+		{
+			if(debounce == 1)
+			{
+				RobotOperationCompbot.raiseLiftPosition();
+			}
+			debounce++;
+			if(debounce == 1000)
+			{
+				debounce = 0;
+			}
+		}
+		if(Gamepad.secondaryAttackJoystick.getA())
+		{
+			if(debounce == 1)
+			{
+				RobotOperationCompbot.lowerLiftPosition();
+			}
+			debounce++;
+			if(debounce == 1000)
+			{
+				debounce = 0;
+			}
+		}
+		
+		//driver
+		if(Gamepad.primaryRightAttackJoystick.getButton(4))
+		{
+			driverSpeedRatio = 0.75;
+		}
+		if(Gamepad.primaryRightAttackJoystick.getButton(5))
+		{
+			driverSpeedRatio = 1;
+		}
+		
+		//failsafe
+		/*
+		  if(!liftBottomLimit.get())
+		 
+		{
+			 liftEncoder.reset();
+			 if(liftMotor.getSpeed() > 0)
+			 {
+				 liftMotor.set(0);
+			 }
+		}
+		
+		if(liftEncoder.get() == RobotOperationCompbot.MAX_HEIGHT)
+		{
+			liftMotor.set(0);
+		}
+		*/
 	}
 
 	@Override
@@ -68,6 +187,6 @@ public class RobotHardwareCompbotMec extends RobotHardware
 	@Override
 	public String getName()
 	{
-		return "Competition Bot - Mec";
+		return "Mec Bot";
 	}
 }

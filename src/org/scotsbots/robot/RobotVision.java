@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.vision.AxisCamera;
 
 /**
- * Handles extremely basic vision on Smarddashboard.
+ * Handles extremely basic vision on Smartdashboard.
  * @author Domenic
  *
  */

@@ -9,7 +9,7 @@ public class RobotOperationCompbot extends RobotHardwareCompbot
 {
 	//TODO Create and modify arm position constants
 	public static final int POSITION_0 = 0;
-	public static final int POSITION_1 = 979;
+	public static final int POSITION_1 = 787;
 	public static final int POSITION_2 = 2026;
 	public static final int POSITION_3 = 3044;
 	public static final int POSITION_4 = 3936;
@@ -87,21 +87,25 @@ public class RobotOperationCompbot extends RobotHardwareCompbot
 			case POSITION_4: 
 			{
 				setLiftPosition(POSITION_3);
+				currentSetPosition = POSITION_3;
 				break;
 			}
 			case POSITION_3: 
 			{
 				setLiftPosition(POSITION_2);
+				currentSetPosition = POSITION_2;
 				break;
 			}
 			case POSITION_2: 
 			{
 				setLiftPosition(POSITION_1);
+				currentSetPosition = POSITION_1;
 				break;
 			}
 			case POSITION_1: 
 			{
 				setLiftPosition(POSITION_0);
+				currentSetPosition = POSITION_0;
 				break;
 			}
 			case POSITION_0:
@@ -113,15 +117,15 @@ public class RobotOperationCompbot extends RobotHardwareCompbot
 	
 	public static void setLiftPosition(int encoderVal)
 	{
-		if(encoderVal > liftEncoder.get())
-		{
-			moveLift(-0.75);	
-		}
-		if(encoderVal < liftEncoder.get())
-		{
-			moveLift(0.75);
-		}
-		currentSetPosition = encoderVal;
+			while(encoderVal > liftEncoder.get())
+			{
+				moveLift(-0.75);	
+			}
+			while(encoderVal < liftEncoder.get())
+			{
+				moveLift(0.75);
+			}
+			//currentSetPosition = encoderVal;
 	}
 	
 	/**

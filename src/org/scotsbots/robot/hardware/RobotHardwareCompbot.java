@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 
 //SSID 4776
@@ -40,6 +41,8 @@ public class RobotHardwareCompbot extends RobotHardware
 	public int liftGear;
 	
 	public double driverSpeedRatio;
+	
+	public int debounceComp;
 	
 	@Override
 	public void initialize()
@@ -73,6 +76,7 @@ public class RobotHardwareCompbot extends RobotHardware
 		liftSpeedRatio = 1; //Half power default
 		liftGear = 1;
 		driverSpeedRatio = 1;
+		debounceComp = 0;
 		
 		drivetrain.setInvertedMotor(MotorType.kRearLeft, true);
 		drivetrain.setInvertedMotor(MotorType.kRearRight, true);
@@ -81,10 +85,10 @@ public class RobotHardwareCompbot extends RobotHardware
 	@Override
 	public void teleop()
 	{
-		int debounce = 0;
-		
 		RobotOperation.driveTank(1, driverSpeedRatio); //Change this when switching drive mode		
 		RobotOperationCompbot.moveLift(Gamepad.secondaryAttackJoystick.getLeftY() * liftSpeedRatio);
+		
+		//add position checker (ex. after manually passing pos 1 sets current position to pos 1)
 	
 		//Arm extension
 		//RobotOperationCompbot.moveArms(Gamepad.secondaryAttackJoystick.getRightY());
@@ -122,33 +126,34 @@ public class RobotHardwareCompbot extends RobotHardware
 		
 		if(Gamepad.secondaryAttackJoystick.getY())
 		{
-			if(debounce == 1)
+			if(debounceComp == 0)
 			{
 				RobotOperationCompbot.raiseLiftPosition();
 			}
-			debounce++;
-			if(debounce == 1000)
+			debounceComp++;
+			if(debounceComp == 5)
 			{
-				debounce = 0;
+				debounceComp = 0;
 			}
 		}
+		
 		if(Gamepad.secondaryAttackJoystick.getA())
 		{
-			if(debounce == 1)
+			if(debounceComp == 0)
 			{
 				RobotOperationCompbot.lowerLiftPosition();
 			}
-			debounce++;
-			if(debounce == 1000)
+			debounceComp++;
+			if(debounceComp == 5)
 			{
-				debounce = 0;
+				debounceComp = 0;
 			}
 		}
 		
 		//driver
 		if(Gamepad.primaryRightAttackJoystick.getButton(4))
 		{
-			driverSpeedRatio = 0.75;
+			driverSpeedRatio = 0.5;
 		}
 		if(Gamepad.primaryRightAttackJoystick.getButton(5))
 		{
