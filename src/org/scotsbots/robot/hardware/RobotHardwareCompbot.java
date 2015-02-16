@@ -59,15 +59,13 @@ public class RobotHardwareCompbot extends RobotHardware
 		armSolenoid = new DoubleSolenoid(4,5);
 		
 		//DIO
+		liftEncoder = new Encoder(0, 1, false, EncodingType.k4X);
 		liftBottomLimit = new DigitalInput(2);
 		liftTopLimit = new DigitalInput(3);
 		backupLiftBottomLimit = new DigitalInput(4);
-		
-		//DIO 3
-		liftEncoder = new Encoder(0, 1, false, EncodingType.k4X);
 		transmission = new Servo(7);
 		driveEncoder = new Encoder(8, 9, false, EncodingType.k4X);
-
+		
 		//ANALOG
 		gyro = new Gyro(0);
 		
