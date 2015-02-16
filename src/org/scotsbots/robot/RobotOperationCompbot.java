@@ -22,8 +22,13 @@ public class RobotOperationCompbot extends RobotHardwareCompbot
 	 */
 	public static void reset()
 	{
+		//setLiftPosition(POSITION_0);
+		/*while((!liftBottomLimit.get() || !backupLiftBottomLimit.get()))// && (0 < liftEncoder.get()))
+		{
+			moveLift(0.75);	
+		}*/
 		liftEncoder.reset();
-		setLiftPosition(POSITION_0);
+		setLiftPosition(POSITION_0);  
 		closeArms();
 	}
 	
@@ -35,8 +40,10 @@ public class RobotOperationCompbot extends RobotHardwareCompbot
 		//if arms extended, retract
 		//if arms open, close arms
 		//lower arms to position 1.
+		
+		setLiftPosition(POSITION_0);
+		closeArms();
 		setLiftPosition(POSITION_1);
-		//raise to position two
 	}
 	
 	/**

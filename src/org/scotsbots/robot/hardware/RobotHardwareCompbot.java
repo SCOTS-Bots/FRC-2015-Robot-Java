@@ -35,6 +35,8 @@ public class RobotHardwareCompbot extends RobotHardware
 	public static Servo transmission;
 	
 	public static DigitalInput liftBottomLimit;
+	public static DigitalInput backupLiftBottomLimit;
+	public static DigitalInput liftTopLimit;
 	public static DigitalInput armBottomLimit;
 	
 	public double liftSpeedRatio;
@@ -58,6 +60,8 @@ public class RobotHardwareCompbot extends RobotHardware
 		
 		//DIO
 		liftBottomLimit = new DigitalInput(2);
+		liftTopLimit = new DigitalInput(3);
+		backupLiftBottomLimit = new DigitalInput(4);
 		
 		//DIO 3
 		liftEncoder = new Encoder(0, 1, false, EncodingType.k4X);
@@ -151,6 +155,13 @@ public class RobotHardwareCompbot extends RobotHardware
 			}
 		}
 		
+		//picks up tote
+		if(Gamepad.secondaryAttackJoystick.getX())
+		{
+			RobotOperationCompbot.pickupTote();
+		}
+		
+		
 		//driver
 		if(Gamepad.primaryRightAttackJoystick.getButton(4))
 		{
@@ -162,10 +173,19 @@ public class RobotHardwareCompbot extends RobotHardware
 		}
 		
 		//failsafe
-		if(!liftBottomLimit.get())
+		if(!liftBottomLimit.get() || !backupLiftBottomLimit.get())
 		{
 			 liftEncoder.reset();
 			 if(liftMotor.getSpeed() > 0)
+			 {
+				 liftMotor.set(0);
+			 }
+		}
+		
+		if(!liftTopLimit.get())
+		{
+			 liftEncoder.reset();
+			 if(liftMotor.getSpeed() < 0)
 			 {
 				 liftMotor.set(0);
 			 }

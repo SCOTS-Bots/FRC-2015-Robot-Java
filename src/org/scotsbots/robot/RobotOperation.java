@@ -89,7 +89,8 @@ public class RobotOperation
 		{
 			RobotHardwareCompbot hardware = (RobotHardwareCompbot)Robot.bot;
 			SmartDashboard.putNumber("Winch Encoder", hardware.liftEncoder.get());
-			SmartDashboard.putBoolean("Lift bottom?", !hardware.liftBottomLimit.get());
+			SmartDashboard.putBoolean("Lift bottom?", (!hardware.liftBottomLimit.get() || !hardware.backupLiftBottomLimit.get()));
+			SmartDashboard.putBoolean("Lift top?", (!hardware.liftTopLimit.get()));
 			SmartDashboard.putNumber("Lift Gear", hardware.liftGear);
 			SmartDashboard.putNumber("Lift Speed Ratio", hardware.liftSpeedRatio);
 			SmartDashboard.putNumber("Drive Speed Ratio", hardware.driverSpeedRatio);
