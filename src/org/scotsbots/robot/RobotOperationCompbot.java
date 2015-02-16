@@ -47,79 +47,65 @@ public class RobotOperationCompbot extends RobotHardwareCompbot
 	}
 	
 	/**
-	 * Gets current postion of arm and raises one position.
+	 * Gets current position of arm and raises one position.
 	 */
 	public static void raiseLiftPosition()
 	{
-		switch(currentSetPosition)
+		if(liftEncoder.get() > POSITION_4)
 		{
-			case POSITION_0: 
-			{
-				setLiftPosition(POSITION_1);
-				currentSetPosition = POSITION_1;
-				break;
-			}
-			case POSITION_1: 
-			{
-				setLiftPosition(POSITION_2);
-				currentSetPosition = POSITION_2;
-				break;
-			}
-			case POSITION_2: 
-			{
-				setLiftPosition(POSITION_3);
-				currentSetPosition = POSITION_3;
-				break;
-			}
-			case POSITION_3: 
-			{
-				setLiftPosition(POSITION_4);
-				currentSetPosition = POSITION_4;
-				break;
-			}
-			case POSITION_4:
-			{
-				break;
-			}
+			;
+		}
+		else if(liftEncoder.get() > POSITION_3)
+		{
+			setLiftPosition(POSITION_4);
+			//currentSetPosition = POSITION_4;
+		}
+		else if(liftEncoder.get() > POSITION_2)
+		{
+			setLiftPosition(POSITION_3);
+			//currentSetPosition = POSITION_3;
+		}
+		else if(liftEncoder.get() > POSITION_1)
+		{
+			setLiftPosition(POSITION_2);
+			//currentSetPosition = POSITION_2;
+		}
+		else if(liftEncoder.get() > POSITION_0)
+		{
+			setLiftPosition(POSITION_1);
+			//currentSetPosition = POSITION_1;
 		}
 	}
 	
 	/**
-	 * Gets current postion of arm and lowers one position.
+	 * Gets current position of arm and lowers one position.
 	 */
 	public static void lowerLiftPosition()
 	{
-		switch(currentSetPosition)
+		if(liftEncoder.get() < POSITION_0)
 		{
-			case POSITION_4: 
-			{
-				setLiftPosition(POSITION_3);
-				currentSetPosition = POSITION_3;
-				break;
-			}
-			case POSITION_3: 
-			{
-				setLiftPosition(POSITION_2);
-				currentSetPosition = POSITION_2;
-				break;
-			}
-			case POSITION_2: 
-			{
-				setLiftPosition(POSITION_1);
-				currentSetPosition = POSITION_1;
-				break;
-			}
-			case POSITION_1: 
-			{
-				setLiftPosition(POSITION_0);
-				currentSetPosition = POSITION_0;
-				break;
-			}
-			case POSITION_0:
-			{
-				break;
-			}
-		}	
+			;
+		}
+		else if(liftEncoder.get() < POSITION_1)
+		{
+			setLiftPosition(POSITION_0);
+			//currentSetPosition = POSITION_0;
+		}
+		else if(liftEncoder.get() < POSITION_2)
+		{
+			setLiftPosition(POSITION_1);
+			//currentSetPosition = POSITION_1;
+		}
+		else if(liftEncoder.get() < POSITION_3)
+		{
+			setLiftPosition(POSITION_2);
+			//currentSetPosition = POSITION_2;
+		}
+		else if(liftEncoder.get() < POSITION_4)
+		{
+			setLiftPosition(POSITION_3);
+			//currentSetPosition = POSITION_3;
+		}
 	}
 	
 	public static void setLiftPosition(int encoderVal)
@@ -132,7 +118,7 @@ public class RobotOperationCompbot extends RobotHardwareCompbot
 			{
 				moveLift(0.75);
 			}
-			//currentSetPosition = encoderVal;
+			currentSetPosition = encoderVal;
 	}
 	
 	/**
