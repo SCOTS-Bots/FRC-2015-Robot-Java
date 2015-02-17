@@ -5,6 +5,7 @@ import org.scotsbots.robot.RobotOperationCompbot;
 import org.scotsbots.robot.operation.auton.AutonStrategy;
 import org.scotsbots.robot.operation.auton.AutonStrategyDriveEncoded;
 import org.scotsbots.robot.operation.auton.AutonStrategyNothing;
+import org.scotsbots.robot.operation.auton.AutonStrategyDrive;
 import org.scotsbots.robot.utils.Gamepad;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
@@ -38,6 +39,8 @@ public class RobotHardwareCompbot extends RobotHardware
 	public static DigitalInput backupLiftBottomLimit;
 	public static DigitalInput liftTopLimit;
 	public static DigitalInput armBottomLimit;
+	public static Encoder distanceFrontToBack;
+	public static Encoder distanceLeftToRight;
 	
 	public double liftSpeedRatio;
 	public int liftGear;
@@ -54,6 +57,7 @@ public class RobotHardwareCompbot extends RobotHardware
 		leftMotors = new Victor(1);
 		rightMotors = new Victor(2); //0);
 		armMotors = new Victor(3);
+		transmission = new Servo(7);
 
 		//CAN
 		armSolenoid = new DoubleSolenoid(4,5);
@@ -63,8 +67,14 @@ public class RobotHardwareCompbot extends RobotHardware
 		liftBottomLimit = new DigitalInput(2);
 		liftTopLimit = new DigitalInput(3);
 		backupLiftBottomLimit = new DigitalInput(4);
-		transmission = new Servo(7);
-		driveEncoder = new Encoder(8, 9, false, EncodingType.k4X);
+		
+		distanceLeftToRight = new Encoder(5, 6, false, EncodingType.k4X);
+		distanceFrontToBack = new Encoder(7, 8, false, EncodingType.k4X);
+		
+		distanceFrontToBack.setDistancePerPulse(2.36); //inches per pulse
+		distanceLeftToRight.setDistancePerPulse(2.36); //inches per pulse
+		//driveEncoder = new Encoder(8, 9, false, EncodingType.k4X);
+		
 		
 		//ANALOG
 		gyro = new Gyro(0);
@@ -199,7 +209,8 @@ public class RobotHardwareCompbot extends RobotHardware
 	public void addAutons()
 	{
 		AutonStrategy.addAuton(new AutonStrategyNothing());
-		AutonStrategy.addAuton(new AutonStrategyDriveEncoded());		
+		AutonStrategy.addAuton(new AutonStrategyDriveEncoded());
+		AutonStrategy.addAuton(new AutonStrategyDrive());
 	}
 
 	@Override

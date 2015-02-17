@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Static class for basic robot operation calls.
  * @author Domenic
  *
+ * TODO: Use distanceFrontToBack encoder to measure distance traveled instead of left and right encoders
  */
 public class RobotOperation 
 {	
@@ -95,6 +96,8 @@ public class RobotOperation
 			SmartDashboard.putNumber("Lift Speed Ratio", hardware.liftSpeedRatio);
 			SmartDashboard.putNumber("Drive Speed Ratio", hardware.driverSpeedRatio);
 			SmartDashboard.putNumber("Current Set Position", RobotOperationCompbot.currentSetPosition);
+			SmartDashboard.putNumber("Left to Right Distance (inches)", hardware.distanceLeftToRight.getDistance());
+			SmartDashboard.putNumber("Front to Back Distance (inches)", hardware.distanceFrontToBack.getDistance());
 		}
 		
 		Robot.bot.accelerometer.startLiveWindowMode();
