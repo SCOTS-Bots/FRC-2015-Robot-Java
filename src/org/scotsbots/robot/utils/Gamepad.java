@@ -77,6 +77,8 @@ public class Gamepad
 	 */
 	private static final int AXIS_RIGHT_Y = 5;
 
+	private static final int BUTTON_R3 = 12;
+	
 	private Gamepad(int port)
 	{
 		joystick = new Joystick(port);
@@ -209,5 +211,10 @@ public class Gamepad
 	public boolean getBack()
 	{
 		return joystick.getRawButton(BUTTON_BACK);
+	}
+	
+	public boolean getR3()
+	{
+		return joystick.getRawButton(BUTTON_R3);
 	}
 }

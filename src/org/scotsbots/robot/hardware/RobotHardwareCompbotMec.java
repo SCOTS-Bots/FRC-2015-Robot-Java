@@ -61,7 +61,7 @@ public class RobotHardwareCompbotMec extends RobotHardware
 		//DIO 3
 		//liftEncoder = new Encoder(0, 1, false, EncodingType.k4X);
 		//transmission = new Servo(7);
-		driveEncoder = new Encoder(8, 9, false, EncodingType.k4X);
+		//driveEncoder = new Encoder(8, 9, false, EncodingType.k4X);
 
 		
 		//ANALOG

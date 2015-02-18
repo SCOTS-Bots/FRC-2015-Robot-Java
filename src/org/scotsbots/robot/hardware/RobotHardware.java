@@ -24,7 +24,8 @@ public abstract class RobotHardware
 	/**
 	 * Single encoder for measuring driving.
 	 */
-	public Encoder driveEncoder;
+	public Encoder forwardDriveEncoder;
+	public Encoder sideDriveEncoder;
 	
 	public abstract void initialize();
 	public abstract void teleop();

@@ -18,11 +18,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Static class for basic robot operation calls.
  * @author Domenic
  *
- * TODO: Use distanceFrontToBack encoder to measure distance traveled instead of left and right encoders
  */
 public class RobotOperation 
 {	
-	public static PIDController encoderControl = new PIDController(4, 0, 0, new PIDSource() 
+	public static PIDController encoderControl = new PIDController(.1, .001, 0, new PIDSource() 
 	{
 		public double pidGet() 
 		{
@@ -32,10 +31,9 @@ public class RobotOperation
 	{
 		public void pidWrite(double d) 
 		{
-			Robot.bot.drivetrain.tankDrive(d, d);
+			Robot.bot.drivetrain.tankDrive(-d * 0.5, -d * 0.5);
 		}
 	});
-	
 	
 	/**
 	 * Sets up Encoders and adds monitors to LiveWindow.
@@ -44,14 +42,17 @@ public class RobotOperation
 	{	
 		Robot.bot.gyro.initGyro();		
 		
+		encoderControl.setPercentTolerance(10);
+		
 		if(Robot.bot.leftDriveEncoder != null && Robot.bot.rightDriveEncoder != null)
 		{
 			Robot.bot.leftDriveEncoder.setDistancePerPulse(0.042);
 			Robot.bot.rightDriveEncoder.setDistancePerPulse(0.042);
 		}		
-		if(Robot.bot.driveEncoder != null)
+		if(Robot.bot.forwardDriveEncoder != null && Robot.bot.sideDriveEncoder != null)
 		{
-			Robot.bot.driveEncoder.setDistancePerPulse(0.042);
+			Robot.bot.forwardDriveEncoder.setDistancePerPulse(0.042);
+			Robot.bot.sideDriveEncoder.setDistancePerPulse(0.042);
 		}
 		
 		if(Robot.bot instanceof RobotHardwareWoodbot)
@@ -96,8 +97,12 @@ public class RobotOperation
 			SmartDashboard.putNumber("Lift Speed Ratio", hardware.liftSpeedRatio);
 			SmartDashboard.putNumber("Drive Speed Ratio", hardware.driverSpeedRatio);
 			SmartDashboard.putNumber("Current Set Position", RobotOperationCompbot.currentSetPosition);
-			SmartDashboard.putNumber("Left to Right Distance (inches)", hardware.distanceLeftToRight.getDistance());
-			SmartDashboard.putNumber("Front to Back Distance (inches)", hardware.distanceFrontToBack.getDistance());
+		}
+		
+		if(Robot.bot.forwardDriveEncoder != null && Robot.bot.sideDriveEncoder != null)
+		{
+			SmartDashboard.putNumber("Forward Drive Encoder", Robot.bot.forwardDriveEncoder.getDistance());
+			SmartDashboard.putNumber("Side Drive Encoder", Robot.bot.sideDriveEncoder.getDistance());
 		}
 		
 		Robot.bot.accelerometer.startLiveWindowMode();
@@ -215,9 +220,9 @@ public class RobotOperation
 	public static void turn(float angle)
 	{
 	    double targetHeading = Robot.bot.gyro.getAngle() + angle;
-	    while (Math.abs(targetHeading - Robot. bot.gyro.getAngle()) > 0.5)
+	    while (Math.abs(targetHeading - Robot.bot.gyro.getAngle()) > 0.5)
 	    {
-	        Robot.bot.drivetrain.arcadeDrive(0.0, (angle < 0.0)? -0.5: 0.5);
+	        Robot.bot.drivetrain.arcadeDrive(0.0, (angle < 0.0)? 0.75: -0.75);
 	    }
 	}
 	
@@ -229,7 +234,7 @@ public class RobotOperation
 	public static boolean driveEncoded(double distance)
 	{		
 		//Checks for dual or single drive encoders
-		if((Robot.bot.leftDriveEncoder != null && Robot.bot.rightDriveEncoder != null) || Robot.bot.driveEncoder != null)
+		if((Robot.bot.leftDriveEncoder != null && Robot.bot.rightDriveEncoder != null) || (Robot.bot.forwardDriveEncoder != null && Robot.bot.sideDriveEncoder != null))
 		{
 			encoderControl.enable();
 			encoderControl.setAbsoluteTolerance(0.01);
@@ -253,8 +258,6 @@ public class RobotOperation
 			RobotOperationCompbot.reset();
 		}
 		
-		Robot.bot.gyro.initGyro();
-
 		if(Robot.bot.leftDriveEncoder != null && Robot.bot.rightDriveEncoder != null)
 		{
 			Robot.bot.leftDriveEncoder.reset();
@@ -265,10 +268,11 @@ public class RobotOperation
 				encoderControl.reset();
 			}
 		}	
-		if(Robot.bot.driveEncoder != null)
+		if(Robot.bot.forwardDriveEncoder != null && Robot.bot.sideDriveEncoder != null)
 		{
-			Robot.bot.driveEncoder.reset();
-			
+			Robot.bot.forwardDriveEncoder.reset();
+			Robot.bot.sideDriveEncoder.reset();
+
 			if(encoderControl != null)
 			{
 				encoderControl.reset();
@@ -279,7 +283,7 @@ public class RobotOperation
 	
 	/**
 	 * Gets distance of drive encoder(s).
-	 * @return
+	 * @returns negative 1 if there are no encoders initialized.
 	 */
 	public static double getDistance()
 	{
@@ -287,9 +291,9 @@ public class RobotOperation
 		{
 			return (Robot.bot.leftDriveEncoder.getDistance() + Robot.bot.rightDriveEncoder.getDistance())/2;
 		}
-		if(Robot.bot.driveEncoder != null)
+		if(Robot.bot.forwardDriveEncoder != null && Robot.bot.sideDriveEncoder != null)
 		{
-			return Robot.bot.driveEncoder.getDistance();
+			return Robot.bot.forwardDriveEncoder.getDistance();
 		}
 		return -1;
 	}

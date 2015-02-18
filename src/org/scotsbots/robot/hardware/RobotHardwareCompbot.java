@@ -39,8 +39,6 @@ public class RobotHardwareCompbot extends RobotHardware
 	public static DigitalInput backupLiftBottomLimit;
 	public static DigitalInput liftTopLimit;
 	public static DigitalInput armBottomLimit;
-	public static Encoder distanceFrontToBack;
-	public static Encoder distanceLeftToRight;
 	
 	public double liftSpeedRatio;
 	public int liftGear;
@@ -68,13 +66,8 @@ public class RobotHardwareCompbot extends RobotHardware
 		liftTopLimit = new DigitalInput(3);
 		backupLiftBottomLimit = new DigitalInput(4);
 		
-		distanceLeftToRight = new Encoder(5, 6, false, EncodingType.k4X);
-		distanceFrontToBack = new Encoder(7, 8, false, EncodingType.k4X);
-		
-		distanceFrontToBack.setDistancePerPulse(2.36); //inches per pulse
-		distanceLeftToRight.setDistancePerPulse(2.36); //inches per pulse
-		//driveEncoder = new Encoder(8, 9, false, EncodingType.k4X);
-		
+		forwardDriveEncoder = new Encoder(7, 8, false, EncodingType.k4X);
+		sideDriveEncoder = new Encoder(5,6, false, EncodingType.k4X);
 		
 		//ANALOG
 		gyro = new Gyro(0);
@@ -169,6 +162,11 @@ public class RobotHardwareCompbot extends RobotHardware
 			RobotOperationCompbot.pickupTote();
 		}
 		
+		//resets encoder
+		if(Gamepad.secondaryAttackJoystick.getR3())
+		{
+			RobotOperationCompbot.liftEncoder.reset();
+		}
 		
 		//driver
 		if(Gamepad.primaryRightAttackJoystick.getButton(4))

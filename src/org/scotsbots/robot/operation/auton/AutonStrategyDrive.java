@@ -17,9 +17,7 @@ public class AutonStrategyDrive extends AutonStrategy
 	{
 		if(step == 1)
 		{
-			Timer.delay(3);
-			RobotOperation.driveTimed(3);
-			step = 2;
+			RobotOperation.turn(90);
 		}
 	}
 
