@@ -1,11 +1,10 @@
 package org.scotsbots.robot.utils;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Joystick.AxisType;
 
 /**
- * Originally adapted from Adambots code.
- * 
+ * Replaces WPILib joystick class for easily acessing buttons.
+ * <br> Originally adapted from Adambots code.
  * @author Nathan Fenner - Modified by Domenic
  *
  */
@@ -14,20 +13,20 @@ public class Gamepad
 	public Joystick joystick;
 
 	/**
-	 * XBOX 360 South Face Button
-	 */
-	private static final int BUTTON_A = 2;
-
-	/**
-	 * XBOX 360 East Face Button
-	 */
-	private static final int BUTTON_B = 3;
-
-	/**
 	 * XBOX 360 West Face Button
 	 */
 	private static final int BUTTON_X = 1;
 
+	/**
+	 * XBOX 360 South Face Button
+	 */
+	private static final int BUTTON_A = 2;
+	
+	/**
+	 * XBOX 360 East Face Button
+	 */
+	private static final int BUTTON_B = 3;
+	
 	/**
 	 * XBOX 360 North Face Button
 	 */
@@ -63,11 +62,6 @@ public class Gamepad
 	private static final int AXIS_LEFT_Y = 1;
 
 	/**
-	 * XBOX 360 Trigger Axis (right - left)
-	 */
-	private static final int AXIS_TRIGGERS = 4;
-
-	/**
 	 * XBOX 360 Right Horizontal Axis (Left=-1, Right=1)
 	 */
 	private static final int AXIS_RIGHT_X = 4;
@@ -79,6 +73,8 @@ public class Gamepad
 
 	private static final int BUTTON_R3 = 12;
 	
+	private static final int BUTTON_L3 = 11;
+
 	private Gamepad(int port)
 	{
 		joystick = new Joystick(port);
@@ -98,11 +94,6 @@ public class Gamepad
 	public static double createDeadzone(double triggerValue)
 	{
 		return Math.abs(triggerValue) < 0.15 ? 0 : triggerValue;
-	}
-
-	public double getTriggers()
-	{
-		return createDeadzone(joystick.getRawAxis(AXIS_TRIGGERS) * 2) / 2;
 	}
 
 	/**
@@ -216,5 +207,10 @@ public class Gamepad
 	public boolean getR3()
 	{
 		return joystick.getRawButton(BUTTON_R3);
+	}
+	
+	public boolean getL3()
+	{
+		return joystick.getRawButton(BUTTON_L3);
 	}
 }

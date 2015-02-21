@@ -6,7 +6,7 @@ package org.scotsbots.robot.utils;
 
 /**
  * Has a collection of math functions and constants.
- * Originally adapted from Adambots code.
+ * <br> Originally adapted from Adambots code.
  * @author Ben - Modified by Domenic
  */
 public class MathUtils

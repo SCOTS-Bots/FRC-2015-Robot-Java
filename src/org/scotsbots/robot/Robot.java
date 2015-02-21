@@ -1,6 +1,5 @@
 /*----------------------------------------------------------------------------*/
-
-/* Copyright (c) FIRST 2008. All Rights Reserved.                             */
+/* Copyright (c) FIRST 2015. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -10,16 +9,9 @@
 
 package org.scotsbots.robot;
 
-import org.scotsbots.robot.hardware.RobotHardware;
-import org.scotsbots.robot.hardware.RobotHardwareCompbot;
-import org.scotsbots.robot.hardware.RobotHardwareCompbotMec;
-import org.scotsbots.robot.hardware.RobotHardwarePracticebot;
-import org.scotsbots.robot.hardware.RobotHardwareWoodbot;
-import org.scotsbots.robot.operation.auton.AutonStrategy;
+import org.scotsbots.robot.recyclerush.RobotHardwareCompbot;
 import org.scotsbots.robot.utils.Logger;
 
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -35,8 +27,9 @@ public class Robot extends IterativeRobot
 	public static SendableChooser autoChooser;
 	public static AutonStrategy selectedAuton = null;
 	public static RobotHardware bot = null;
-	public DigitalInput switch1;
-	public DigitalInput switch2;
+	//TODO: Add auton switches
+	//public DigitalInput switch1;
+	//public DigitalInput switch2;
 	
     public void robotInit() 
     {
@@ -51,8 +44,8 @@ public class Robot extends IterativeRobot
     	}
     	bot.addAutons();
 		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
-		switch1 = new DigitalInput(10);
-		switch2 = new DigitalInput(11);
+		//switch1 = new DigitalInput(10);
+		//switch2 = new DigitalInput(11);
 		Logger.riolog("S.C.O.T.S. Bots 2015 Robot intialized.");
     }
     
@@ -69,7 +62,7 @@ public class Robot extends IterativeRobot
     	{
     		selectedAuton.update();
     	}
-		RobotOperation.logSmartDashboard();
+    	bot.logSmartDashboard();
     }
     
     public void teleopInit()
@@ -79,15 +72,15 @@ public class Robot extends IterativeRobot
     
     public void teleopPeriodic() 
     {
-    	SmartDashboard.putBoolean("Switch 1", switch1.get());
-    	SmartDashboard.putBoolean("Switch 2", switch2.get());
+    	//SmartDashboard.putBoolean("Switch 1", switch1.get());
+    	//SmartDashboard.putBoolean("Switch 2", switch2.get());
 
     	if(bot.usesCamera())
     	{
     		RobotVision.stream();
     	}
-		RobotOperation.logSmartDashboard();
 		bot.teleop();
+    	bot.logSmartDashboard();
     }
 
     public void testInit()
@@ -98,7 +91,7 @@ public class Robot extends IterativeRobot
     public void testPeriodic() 
     {
     	LiveWindow.run();
-    	RobotOperation.logSmartDashboard();
+    	bot.logSmartDashboard();
     }
     
     public void disabledInit() 
