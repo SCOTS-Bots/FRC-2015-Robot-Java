@@ -4,6 +4,8 @@ Howell S.C.O.T.S Bots
 Java project for 2015 Robot.
 www.scotsbots.org
 
+Any info/help that is needed can be found on the [[wiki]].
+
 Programming Team
 -------------------
 Programming Mentor - Eric Miller <br>
