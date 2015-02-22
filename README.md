@@ -4,7 +4,7 @@ Howell S.C.O.T.S Bots
 Java project for 2015 Robot.
 www.scotsbots.org
 
-Any info/help that is needed can be found on the [[wiki]].
+Any info/help that is needed can be found on the [[wiki]]. <br>
 Issues can be found on the [[issues]] page.
 
 Programming Team
