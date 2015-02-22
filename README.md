@@ -5,6 +5,7 @@ Java project for 2015 Robot.
 www.scotsbots.org
 
 Any info/help that is needed can be found on the [[wiki]].
+Issues can be found on the [[issues]] page.
 
 Programming Team
 -------------------
