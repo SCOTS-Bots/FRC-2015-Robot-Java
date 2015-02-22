@@ -191,11 +191,6 @@ public class RobotOperation
 	
 	public static void reset()
 	{
-		if(Robot.bot instanceof RobotHardwareCompbot)
-		{
-			RobotOperationCompbot.reset();
-		}
-		
 		if(Robot.bot.leftDriveEncoder != null && Robot.bot.rightDriveEncoder != null)
 		{
 			Robot.bot.leftDriveEncoder.reset();

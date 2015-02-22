@@ -3,7 +3,7 @@ package org.scotsbots.robot.recyclerush;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Timer;
 
-public class RobotOperationCompbot extends RobotHardwareCompbot
+public class RobotOperationPracticebot extends RobotHardwarePracticebot
 {
 	//TODO Create and modify arm position constants
 	public static final int POSITION_0 = 0;

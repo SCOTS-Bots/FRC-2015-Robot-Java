@@ -90,7 +90,7 @@ public class RobotHardwareCompbot extends RobotHardware
 	@Override
 	public void teleop()
 	{
-		
+		failsafe();
 		RobotOperation.driveTank(1, driverSpeedRatio); //Change this when switching drive mode		
 		RobotOperationCompbot.moveLift(Gamepad.secondaryAttackJoystick.getLeftY() * liftSpeedRatio);
 		
@@ -177,7 +177,10 @@ public class RobotHardwareCompbot extends RobotHardware
 		{
 			driverSpeedRatio = 1;
 		}
-		
+	}
+	
+	private void failsafe()
+	{
 		//failsafe
 		if(!liftBottomLimit.get() || !backupLiftBottomLimit.get())
 		{

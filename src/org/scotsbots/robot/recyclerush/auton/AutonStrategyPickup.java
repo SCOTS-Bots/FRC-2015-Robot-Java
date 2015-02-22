@@ -30,7 +30,7 @@ public class AutonStrategyPickup extends AutonStrategy
 			Timer.delay(2);
 			RobotOperation.turn(90);
 			Timer.delay(2);
-			while(RobotOperation.driveEncoded(1))
+			while(RobotOperation.driveEncoded(10))
 			{
 				step = 2;
 			}
