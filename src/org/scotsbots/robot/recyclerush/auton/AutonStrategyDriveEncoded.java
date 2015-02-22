@@ -16,7 +16,7 @@ public class AutonStrategyDriveEncoded extends AutonStrategy
 	{
 		if(step == 1)
 		{
-			while(RobotOperation.driveEncoded(24))
+			while(RobotOperation.driveEncoded(123))
 			{
 				step = 2;
 			}

@@ -16,8 +16,10 @@ public class AutonStrategyDrive extends AutonStrategy
 	{
 		if(step == 1)
 		{
-			RobotOperation.turn(90);
-		}
+			
+			RobotOperation.turnTimedMillis(2000);
+			step = 2;
+		}	
 	}
 
 	@Override

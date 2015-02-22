@@ -3,6 +3,7 @@ package org.scotsbots.robot;
 import org.scotsbots.robot.recyclerush.RobotHardwareCompbot;
 import org.scotsbots.robot.recyclerush.RobotOperationCompbot;
 import org.scotsbots.robot.utils.Gamepad;
+import org.scotsbots.robot.utils.Logger;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -16,7 +17,7 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class RobotOperation 
 {	
-	public static PIDController encoderControl = new PIDController(.1, .001, 0, new PIDSource() 
+	public static PIDController encoderControl = new PIDController(.1, .003,0, new PIDSource() 
 	{
 		public double pidGet() 
 		{
@@ -26,7 +27,7 @@ public class RobotOperation
 	{
 		public void pidWrite(double d) 
 		{
-			Robot.bot.drivetrain.tankDrive(-d * 0.5, -d * 0.5);
+			Robot.bot.drivetrain.tankDrive(-d * 0.66, -d * 0.66);
 		}
 	});
 	
@@ -37,7 +38,7 @@ public class RobotOperation
 	{	
 		Robot.bot.gyro.initGyro();		
 		
-		encoderControl.setPercentTolerance(10);
+		encoderControl.setPercentTolerance(5);
 		
 		if(Robot.bot.leftDriveEncoder != null && Robot.bot.rightDriveEncoder != null)
 		{
@@ -46,8 +47,8 @@ public class RobotOperation
 		}		
 		if(Robot.bot.forwardDriveEncoder != null && Robot.bot.sideDriveEncoder != null)
 		{
-			Robot.bot.forwardDriveEncoder.setDistancePerPulse(0.042);
-			Robot.bot.sideDriveEncoder.setDistancePerPulse(0.042);
+			Robot.bot.forwardDriveEncoder.setDistancePerPulse(0.037);
+			Robot.bot.sideDriveEncoder.setDistancePerPulse(0.037);
 		}
 	}
 	
@@ -141,18 +142,13 @@ public class RobotOperation
 	 * Drives straight using gyro. Checks if there from accelerometer.
 	 * @param distance
 	 */
-	public static boolean driveTimed(double timeToTravel)
+	public static void driveTimed(double timeToTravel)
 	{
-		if(time/100 <= timeToTravel)
+		while(time/100 <= timeToTravel)
 		{
 			Robot.bot.drivetrain.drive(-1.0, 0);
 		}
-		else
-		{
-			return true;
-		}
 		time++;
-		return false;
 	}
 		
 	public static void turn(float angle)
@@ -162,6 +158,22 @@ public class RobotOperation
 	    {
 	        Robot.bot.drivetrain.arcadeDrive(0.0, (angle < 0.0)? 0.75: -0.75);
 	    }
+	}
+	
+	public static void turnTimedMillis(double timeToTravel)
+	{
+		System.out.println("turnTimedMillis begin");
+		
+		double startTimeMillis = System.currentTimeMillis();
+		System.out.println("startTimeMillis + timeToTravel = " + (startTimeMillis + timeToTravel));		
+		while (System.currentTimeMillis() < (startTimeMillis + timeToTravel))
+		{
+			System.out.println("System.currentTimeMillis = " + System.currentTimeMillis());
+			Robot.bot.drivetrain.arcadeDrive(0, 0.5);
+			Timer.delay(0.5);	// wait .5s to avoid hogging CPU cycles
+		}
+		
+		System.out.println("turnTimedMillis end");		
 	}
 	
 	/**
@@ -175,10 +187,10 @@ public class RobotOperation
 		if((Robot.bot.leftDriveEncoder != null && Robot.bot.rightDriveEncoder != null) || (Robot.bot.forwardDriveEncoder != null && Robot.bot.sideDriveEncoder != null))
 		{
 			encoderControl.enable();
-			encoderControl.setAbsoluteTolerance(0.01);
 			encoderControl.setSetpoint(distance);
 			if(encoderControl.onTarget())
 			{
+				Robot.bot.drivetrain.stopMotor();
 				return true;
 			}
 			else
@@ -228,6 +240,6 @@ public class RobotOperation
 		{
 			return Robot.bot.forwardDriveEncoder.getDistance();
 		}
-		return -1;
+		return 0;
 	}
 }

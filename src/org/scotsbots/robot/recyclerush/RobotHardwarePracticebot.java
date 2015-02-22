@@ -3,6 +3,8 @@ package org.scotsbots.robot.recyclerush;
 import org.scotsbots.robot.AutonStrategy;
 import org.scotsbots.robot.RobotHardware;
 import org.scotsbots.robot.RobotOperation;
+import org.scotsbots.robot.recyclerush.auton.AutonStrategyDrive;
+import org.scotsbots.robot.recyclerush.auton.AutonStrategyDriveEncoded;
 import org.scotsbots.robot.recyclerush.auton.AutonStrategyNothing;
 import org.scotsbots.robot.utils.Gamepad;
 
@@ -222,8 +224,8 @@ public class RobotHardwarePracticebot extends RobotHardware
 	public void addAutons()
 	{
 		AutonStrategy.addAuton(new AutonStrategyNothing());
-		//AutonStrategy.addAuton(new AutonStrategyDriveEncoded());
-		//AutonStrategy.addAuton(new AutonStrategyDrive());
+		AutonStrategy.addAuton(new AutonStrategyDriveEncoded());
+		AutonStrategy.addAuton(new AutonStrategyDrive());
 	}
 
 	@Override
