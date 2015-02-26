@@ -6,7 +6,7 @@ import org.scotsbots.robot.recyclerush.RobotOperationCompbot;
 
 import edu.wpi.first.wpilibj.Timer;
 
-public class AutonStrategyPickup extends AutonStrategy
+public class AutonStrategyPickupComp extends AutonStrategy
 {
 	@Override
 	public void intialize()
@@ -21,18 +21,25 @@ public class AutonStrategyPickup extends AutonStrategy
 		{
 			//TODO This defeats the purpose of the step system, but whatever.
 			RobotOperationCompbot.openArms();
-			Timer.delay(2);
-			RobotOperationCompbot.setLiftPosition(RobotOperationCompbot.POSITION_0);
-			Timer.delay(2);
-			RobotOperationCompbot.closeArms();
-			Timer.delay(2);
-			RobotOperationCompbot.setLiftPosition(RobotOperationCompbot.POSITION_1);
-			Timer.delay(2);
-			RobotOperation.turn(90);
-			Timer.delay(2);
-			while(RobotOperation.driveEncoded(10))
+			Timer.delay(1);
+			while(RobotOperation.driveEncoded(12))
 			{
 				step = 2;
+			}	
+		}
+		
+		if(step == 2)
+		{
+			Timer.delay(2);
+			RobotOperationCompbot.setLiftPosition(RobotOperationCompbot.POSITION_0);
+			Timer.delay(1);
+			RobotOperationCompbot.closeArms();
+			Timer.delay(1);
+			RobotOperationCompbot.setLiftPosition(RobotOperationCompbot.POSITION_1);
+			Timer.delay(1);
+			while(RobotOperation.driveEncoded(123))
+			{
+				step = 3;
 			}
 		}
 	}
@@ -52,7 +59,7 @@ public class AutonStrategyPickup extends AutonStrategy
 	@Override
 	public int amountSteps()
 	{
-		return 1;
+		return 2;
 	}
 
 }

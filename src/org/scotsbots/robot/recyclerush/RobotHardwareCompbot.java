@@ -3,9 +3,9 @@ package org.scotsbots.robot.recyclerush;
 import org.scotsbots.robot.AutonStrategy;
 import org.scotsbots.robot.RobotHardware;
 import org.scotsbots.robot.RobotOperation;
-import org.scotsbots.robot.recyclerush.auton.AutonStrategyDrive;
 import org.scotsbots.robot.recyclerush.auton.AutonStrategyDriveEncoded;
 import org.scotsbots.robot.recyclerush.auton.AutonStrategyNothing;
+import org.scotsbots.robot.recyclerush.auton.AutonStrategyPickupComp;
 import org.scotsbots.robot.utils.Gamepad;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
@@ -225,7 +225,7 @@ public class RobotHardwareCompbot extends RobotHardware
 	{
 		AutonStrategy.addAuton(new AutonStrategyNothing());
 		AutonStrategy.addAuton(new AutonStrategyDriveEncoded());
-		AutonStrategy.addAuton(new AutonStrategyDrive());
+		AutonStrategy.addAuton(new AutonStrategyPickupComp());
 	}
 
 	@Override

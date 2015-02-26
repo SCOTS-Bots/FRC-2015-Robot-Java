@@ -4,7 +4,6 @@ import org.scotsbots.robot.AutonStrategy;
 import org.scotsbots.robot.Robot;
 import org.scotsbots.robot.RobotHardware;
 import org.scotsbots.robot.RobotOperation;
-import org.scotsbots.robot.recyclerush.auton.AutonStrategyDrive;
 import org.scotsbots.robot.utils.Gamepad;
 import org.scotsbots.robot.utils.Logger;
 
@@ -124,7 +123,6 @@ public class RobotHardwareWoodbot extends RobotHardware
 	@Override
 	public void addAutons()
 	{
-		AutonStrategy.addAuton(new AutonStrategyDrive());		
 	}
 	
 	@Override

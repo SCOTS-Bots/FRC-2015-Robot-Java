@@ -160,20 +160,18 @@ public class RobotOperation
 	    }
 	}
 	
+	@Deprecated 
+	/**
+	 * Doesn't work.
+	*/
 	public static void turnTimedMillis(double timeToTravel)
-	{
-		System.out.println("turnTimedMillis begin");
-		
+	{		
 		double startTimeMillis = System.currentTimeMillis();
-		System.out.println("startTimeMillis + timeToTravel = " + (startTimeMillis + timeToTravel));		
 		while (System.currentTimeMillis() < (startTimeMillis + timeToTravel))
 		{
-			System.out.println("System.currentTimeMillis = " + System.currentTimeMillis());
 			Robot.bot.drivetrain.arcadeDrive(0, 0.5);
 			Timer.delay(0.5);	// wait .5s to avoid hogging CPU cycles
 		}
-		
-		System.out.println("turnTimedMillis end");		
 	}
 	
 	/**
