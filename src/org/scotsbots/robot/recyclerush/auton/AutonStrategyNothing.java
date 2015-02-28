@@ -28,11 +28,4 @@ public class AutonStrategyNothing extends AutonStrategy
 	{
 		return true;
 	}
-
-	@Override
-	public int amountSteps()
-	{
-		return 0;
-	}
-	
 }

@@ -1,6 +1,5 @@
 package org.scotsbots.robot.recyclerush;
 
-import org.scotsbots.robot.AutonStrategy;
 import org.scotsbots.robot.Robot;
 import org.scotsbots.robot.RobotHardware;
 import org.scotsbots.robot.RobotOperation;

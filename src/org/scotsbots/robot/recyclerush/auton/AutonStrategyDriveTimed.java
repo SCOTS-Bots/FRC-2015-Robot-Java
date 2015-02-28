@@ -5,6 +5,8 @@ import org.scotsbots.robot.RobotOperation;
 
 public class AutonStrategyDriveTimed extends AutonStrategy
 {
+	public int time = 0;
+	
 	@Override
 	public void intialize()
 	{
@@ -14,12 +16,10 @@ public class AutonStrategyDriveTimed extends AutonStrategy
 	@Override
 	public void update()
 	{
-		if(step == 1)
+		time++;
+		if(time >= 0 && time <= 100)
 		{
-			if(RobotOperation.driveTimed(1.75))
-			{
-				step = 2;
-			}
+			RobotOperation.driveTimed(1);
 		}
 	}
 
@@ -34,11 +34,4 @@ public class AutonStrategyDriveTimed extends AutonStrategy
 	{
 		return false;
 	}
-
-	@Override
-	public int amountSteps()
-	{
-		return 1;
-	}
-
 }
