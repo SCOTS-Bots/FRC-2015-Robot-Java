@@ -74,6 +74,7 @@ public class RobotOperation
 		}
 		if(joystickSet == 1)
 		{
+			//Robot.bot.drivetrain.tankDrive(Gamepad.primaryLeftAttackJoystick.getY()* speedRatio, Gamepad.primaryRightAttackJoystick.getY()* speedRatio, true);
 			Robot.bot.drivetrain.tankDrive(Gamepad.primaryLeftAttackJoystick.getY()* speedRatio, Gamepad.primaryRightAttackJoystick.getY()* speedRatio, true);
 		}
 		
@@ -137,18 +138,33 @@ public class RobotOperation
 		Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
-	static double time = 0;
+	public static double time = 0;
+	public static double timeReverse = 0;
+
 	/**
 	 * Drives straight using gyro. Checks if there from accelerometer.
 	 * @param distance
 	 */
-	public static void driveTimed(double timeToTravel)
+	public static boolean driveTimed(double timeToTravel)
 	{
-		while(time/100 <= timeToTravel)
+		if(time/100 <= timeToTravel)
 		{
-			Robot.bot.drivetrain.drive(-1.0, 0);
+			Robot.bot.drivetrain.drive(-0.5, 0);
+			time++;
+			return false;
 		}
-		time++;
+		return true;
+	}
+	
+	public static boolean driveTimedReverse(double timeToTravel)
+	{
+		if(timeReverse/100 <= timeToTravel)
+		{
+			Robot.bot.drivetrain.drive(0.4, 0);
+			timeReverse++;
+			return false;
+		}
+		return true;
 	}
 		
 	public static void turn(float angle)
@@ -160,18 +176,17 @@ public class RobotOperation
 	    }
 	}
 	
-	@Deprecated 
 	/**
 	 * Doesn't work.
 	*/
 	public static void turnTimedMillis(double timeToTravel)
 	{		
-		double startTimeMillis = System.currentTimeMillis();
-		while (System.currentTimeMillis() < (startTimeMillis + timeToTravel))
+		while (time/100 <= timeToTravel)
 		{
 			Robot.bot.drivetrain.arcadeDrive(0, 0.5);
 			Timer.delay(0.5);	// wait .5s to avoid hogging CPU cycles
 		}
+		time++;
 	}
 	
 	/**
@@ -222,6 +237,7 @@ public class RobotOperation
 			}
 		}
 		time = 0;
+		timeReverse = 0;
 	}
 	
 	/**

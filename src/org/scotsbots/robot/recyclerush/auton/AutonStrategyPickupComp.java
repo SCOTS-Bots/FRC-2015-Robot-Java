@@ -47,7 +47,7 @@ public class AutonStrategyPickupComp extends AutonStrategy
 	@Override
 	public String getName()
 	{
-		return "Pickup Tote";
+		return "Pickup Tote - Encoded";
 	}
 
 	@Override

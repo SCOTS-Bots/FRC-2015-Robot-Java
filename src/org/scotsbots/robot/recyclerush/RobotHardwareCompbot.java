@@ -4,8 +4,10 @@ import org.scotsbots.robot.AutonStrategy;
 import org.scotsbots.robot.RobotHardware;
 import org.scotsbots.robot.RobotOperation;
 import org.scotsbots.robot.recyclerush.auton.AutonStrategyDriveEncoded;
+import org.scotsbots.robot.recyclerush.auton.AutonStrategyDriveTimed;
 import org.scotsbots.robot.recyclerush.auton.AutonStrategyNothing;
 import org.scotsbots.robot.recyclerush.auton.AutonStrategyPickupComp;
+import org.scotsbots.robot.recyclerush.auton.AutonStrategyPickupCompTime;
 import org.scotsbots.robot.utils.Gamepad;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
@@ -49,6 +51,7 @@ public class RobotHardwareCompbot extends RobotHardware
 	
 	@Override
 	public void initialize()
+
 	{
 		//PWM
 		liftMotor = new Victor(0); //2);
@@ -177,6 +180,7 @@ public class RobotHardwareCompbot extends RobotHardware
 		{
 			driverSpeedRatio = 1;
 		}
+		failsafe();
 	}
 	
 	private void failsafe()
@@ -225,7 +229,9 @@ public class RobotHardwareCompbot extends RobotHardware
 	{
 		AutonStrategy.addAuton(new AutonStrategyNothing());
 		AutonStrategy.addAuton(new AutonStrategyDriveEncoded());
+		AutonStrategy.addAuton(new AutonStrategyDriveTimed());
 		AutonStrategy.addAuton(new AutonStrategyPickupComp());
+		AutonStrategy.addAuton(new AutonStrategyPickupCompTime());
 	}
 
 	@Override

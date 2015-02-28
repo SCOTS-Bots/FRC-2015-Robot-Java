@@ -3,7 +3,7 @@ package org.scotsbots.robot.recyclerush.auton;
 import org.scotsbots.robot.AutonStrategy;
 import org.scotsbots.robot.RobotOperation;
 
-public class AutonStrategyDriveEncoded extends AutonStrategy
+public class AutonStrategyDriveTimed extends AutonStrategy
 {
 	@Override
 	public void intialize()
@@ -14,18 +14,19 @@ public class AutonStrategyDriveEncoded extends AutonStrategy
 	@Override
 	public void update()
 	{
-		//TODO Fix this.
-		while(RobotOperation.driveEncoded(123))
+		if(step == 1)
 		{
-			;
+			if(RobotOperation.driveTimed(1.75))
+			{
+				step = 2;
+			}
 		}
-		
 	}
 
 	@Override
 	public String getName()
 	{
-		return "Drive Straight Encoded";
+		return "Drive Straight Timed";
 	}
 
 	@Override
@@ -33,4 +34,11 @@ public class AutonStrategyDriveEncoded extends AutonStrategy
 	{
 		return false;
 	}
+
+	@Override
+	public int amountSteps()
+	{
+		return 1;
+	}
+
 }

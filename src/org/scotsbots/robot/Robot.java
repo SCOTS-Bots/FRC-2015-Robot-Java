@@ -9,6 +9,7 @@
 
 package org.scotsbots.robot;
 
+import org.scotsbots.robot.recyclerush.RobotHardwareCompbot;
 import org.scotsbots.robot.recyclerush.RobotHardwarePracticebot;
 import org.scotsbots.robot.utils.Logger;
 
@@ -36,7 +37,7 @@ public class Robot extends IterativeRobot
     	Logger.riolog("S.C.O.T.S. Bots 2015 Robot intializing...");
     	autoChooser = new SendableChooser();
     	//bot = new RobotHardwareCompbot();   //This changes which bot it loads.
-    	bot = new RobotHardwarePracticebot();
+    	bot = new RobotHardwareCompbot();
     	bot.initialize();
     	RobotOperation.initialize();
     	if(bot.usesCamera())
@@ -59,10 +60,7 @@ public class Robot extends IterativeRobot
     
     public void autonomousPeriodic() 
     {
-    	if(selectedAuton.step <= selectedAuton.amountSteps())
-    	{
-    		selectedAuton.update();
-    	}
+    	selectedAuton.update();
     	bot.logSmartDashboard();
     }
     
