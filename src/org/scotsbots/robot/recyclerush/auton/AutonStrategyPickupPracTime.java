@@ -2,9 +2,9 @@ package org.scotsbots.robot.recyclerush.auton;
 
 import org.scotsbots.robot.AutonStrategy;
 import org.scotsbots.robot.Robot;
-import org.scotsbots.robot.recyclerush.RobotOperationCompbot;
+import org.scotsbots.robot.recyclerush.RobotOperationPracticebot;
 
-public class AutonStrategyPickupCompTime extends AutonStrategy
+public class AutonStrategyPickupPracTime extends AutonStrategy
 {
 	public int time = 0;
 	
@@ -20,7 +20,7 @@ public class AutonStrategyPickupCompTime extends AutonStrategy
 		time++;
 		if(time == 1)
 		{
-			RobotOperationCompbot.openArms();
+			RobotOperationPracticebot.openArms();
 		}
 		
 		if(time >= 100 && time <= 150)
@@ -30,7 +30,7 @@ public class AutonStrategyPickupCompTime extends AutonStrategy
 		
 		if(time == 175)
 		{
-			RobotOperationCompbot.closeArms();
+			RobotOperationPracticebot.closeArms();
 		}
 		
 		if(time >= 200 && time <= 350)
@@ -39,7 +39,7 @@ public class AutonStrategyPickupCompTime extends AutonStrategy
 		}
 		if(time == 351)
 		{
-			RobotOperationCompbot.openArms();
+			RobotOperationPracticebot.openArms();
 		}
 	}
 

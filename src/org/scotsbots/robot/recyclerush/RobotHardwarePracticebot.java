@@ -3,8 +3,9 @@ package org.scotsbots.robot.recyclerush;
 import org.scotsbots.robot.AutonStrategy;
 import org.scotsbots.robot.RobotHardware;
 import org.scotsbots.robot.RobotOperation;
-import org.scotsbots.robot.recyclerush.auton.AutonStrategyDriveEncoded;
+import org.scotsbots.robot.recyclerush.auton.AutonStrategyDriveTimed;
 import org.scotsbots.robot.recyclerush.auton.AutonStrategyNothing;
+import org.scotsbots.robot.recyclerush.auton.AutonStrategyPickupPracTime;
 import org.scotsbots.robot.utils.Gamepad;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
@@ -65,8 +66,8 @@ public class RobotHardwarePracticebot extends RobotHardware
 		liftTopLimit = new DigitalInput(3);
 		backupLiftBottomLimit = new DigitalInput(4);
 		
-		forwardDriveEncoder = new Encoder(7, 8, false, EncodingType.k4X);
-		sideDriveEncoder = new Encoder(5,6, false, EncodingType.k4X);
+		switch1 = new DigitalInput(9);
+		switch2 = new DigitalInput(8);
 		
 		//ANALOG
 		gyro = new Gyro(0);
@@ -176,6 +177,7 @@ public class RobotHardwarePracticebot extends RobotHardware
 		{
 			driverSpeedRatio = 1;
 		}
+		failsafe();
 	}
 	
 	private void failsafe()
@@ -220,15 +222,25 @@ public class RobotHardwarePracticebot extends RobotHardware
 	}
 
 	@Override
-	public void addAutons()
-	{
-		AutonStrategy.addAuton(new AutonStrategyNothing());
-		AutonStrategy.addAuton(new AutonStrategyDriveEncoded());
-	}
-
-	@Override
 	public String getName()
 	{
 		return "Practice Bot";
+	}
+
+	public AutonStrategy getSwitchedAuton()
+	{
+		if(switch1.get() == true && switch2.get() == true) //a1
+		{
+			return new AutonStrategyNothing();
+		}
+		else if(switch1.get() == true && switch2.get() == false) //a2
+		{
+			return new AutonStrategyDriveTimed();
+		}
+		else if(switch1.get() == false && switch2.get() == true) //b1
+		{
+			return new AutonStrategyPickupPracTime();
+		}
+		return null;
 	}
 }

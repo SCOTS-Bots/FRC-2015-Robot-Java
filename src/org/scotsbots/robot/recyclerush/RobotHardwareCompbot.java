@@ -3,7 +3,6 @@ package org.scotsbots.robot.recyclerush;
 import org.scotsbots.robot.AutonStrategy;
 import org.scotsbots.robot.RobotHardware;
 import org.scotsbots.robot.RobotOperation;
-import org.scotsbots.robot.recyclerush.auton.AutonStrategyDriveEncoded;
 import org.scotsbots.robot.recyclerush.auton.AutonStrategyDriveTimed;
 import org.scotsbots.robot.recyclerush.auton.AutonStrategyNothing;
 import org.scotsbots.robot.recyclerush.auton.AutonStrategyPickupCompTime;
@@ -68,8 +67,8 @@ public class RobotHardwareCompbot extends RobotHardware
 		liftTopLimit = new DigitalInput(3);
 		backupLiftBottomLimit = new DigitalInput(4);
 		
-		forwardDriveEncoder = new Encoder(7, 8, false, EncodingType.k4X);
-		sideDriveEncoder = new Encoder(5,6, false, EncodingType.k4X);
+		switch1 = new DigitalInput(9);
+		switch2 = new DigitalInput(8);
 		
 		//ANALOG
 		gyro = new Gyro(0);
@@ -222,14 +221,22 @@ public class RobotHardwareCompbot extends RobotHardware
 		
 		super.logSmartDashboard();
 	}
-
-	@Override
-	public void addAutons()
+	
+	public AutonStrategy getSwitchedAuton()
 	{
-		AutonStrategy.addAuton(new AutonStrategyNothing());
-		AutonStrategy.addAuton(new AutonStrategyDriveEncoded());
-		AutonStrategy.addAuton(new AutonStrategyDriveTimed());
-		AutonStrategy.addAuton(new AutonStrategyPickupCompTime());
+		if(switch1.get() == true && switch2.get() == true) //a1
+		{
+			return new AutonStrategyNothing();
+		}
+		else if(switch1.get() == true && switch2.get() == false) //a2
+		{
+			return new AutonStrategyDriveTimed();
+		}
+		else if(switch1.get() == false && switch2.get() == true) //b1
+		{
+			return new AutonStrategyPickupCompTime();
+		}
+		return null;
 	}
 
 	@Override

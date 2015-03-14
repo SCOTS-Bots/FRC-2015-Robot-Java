@@ -22,10 +22,4 @@ public class AutonStrategyNothing extends AutonStrategy
 	{
 		return "Do Nothing";
 	}
-
-	@Override
-	public boolean isDefault()
-	{
-		return true;
-	}
 }

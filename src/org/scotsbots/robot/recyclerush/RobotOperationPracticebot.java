@@ -131,12 +131,12 @@ public class RobotOperationPracticebot extends RobotHardwarePracticebot
 	
 	public static void openArms()
 	{
-		armSolenoid.set(Value.kForward);
+		armSolenoid.set(Value.kReverse);
 	}
 	
 	public static void closeArms()
 	{
-		armSolenoid.set(Value.kReverse);
+		armSolenoid.set(Value.kForward);
 	}
 	
 	/**

@@ -1,6 +1,7 @@
 package org.scotsbots.robot;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -28,9 +29,12 @@ public abstract class RobotHardware
 	public Encoder forwardDriveEncoder;
 	public Encoder sideDriveEncoder;
 	
+	public static DigitalInput switch1;
+	public static DigitalInput switch2;
+	
 	public abstract void initialize();
 	public abstract void teleop();
-	public abstract void addAutons();
+	public abstract AutonStrategy getSwitchedAuton();
 	public abstract String getName();
 
 	/**

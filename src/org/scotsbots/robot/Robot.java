@@ -9,12 +9,11 @@
 
 package org.scotsbots.robot;
 
-import org.scotsbots.robot.recyclerush.RobotHardwareCompbot;
+import org.scotsbots.robot.recyclerush.RobotHardwarePracticebot;
 import org.scotsbots.robot.utils.Logger;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -24,36 +23,27 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot 
 {
-	public static SendableChooser autoChooser;
 	public static AutonStrategy selectedAuton = null;
-	public static RobotHardware bot = null;
-	//TODO: Add auton switches
-	//public DigitalInput switch1;
-	//public DigitalInput switch2;
+	public static RobotHardware bot = null;	
 	
     public void robotInit() 
     {
     	Logger.riolog("S.C.O.T.S. Bots 2015 Robot intializing...");
-    	autoChooser = new SendableChooser();
-    	//bot = new RobotHardwareCompbot();   //This changes which bot it loads.
-    	bot = new RobotHardwareCompbot();
+    	bot = new RobotHardwarePracticebot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
     	bot.initialize();
     	RobotOperation.initialize();
     	if(bot.usesCamera())
     	{
     		RobotVision.initialize();
     	}
-    	bot.addAutons();
-		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
-		//switch1 = new DigitalInput(10);
-		//switch2 = new DigitalInput(11);
 		Logger.riolog("S.C.O.T.S. Bots 2015 Robot intialized.");
     }
     
     public void autonomousInit()
     {
     	RobotOperation.reset();
-    	selectedAuton = (AutonStrategy) autoChooser.getSelected();
+    	//Switches: A1 = true true
+    	selectedAuton = bot.getSwitchedAuton();
     	selectedAuton.intialize();
     }
     
@@ -70,9 +60,6 @@ public class Robot extends IterativeRobot
     
     public void teleopPeriodic() 
     {
-    	//SmartDashboard.putBoolean("Switch 1", switch1.get());
-    	//SmartDashboard.putBoolean("Switch 2", switch2.get());
-
     	if(bot.usesCamera())
     	{
     		RobotVision.stream();
@@ -94,7 +81,14 @@ public class Robot extends IterativeRobot
     
     public void disabledInit() 
     {
-		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
 		RobotOperation.reset();
+    }
+    
+    public void disabledPeriodic()
+    {
+    	if(bot.getSwitchedAuton() != null)
+    	{
+    		SmartDashboard.putString("Auton Mode Switched", bot.getSwitchedAuton().getName());
+    	}
     }
 }

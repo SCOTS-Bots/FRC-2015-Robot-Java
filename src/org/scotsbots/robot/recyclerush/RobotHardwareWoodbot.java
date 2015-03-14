@@ -1,5 +1,6 @@
 package org.scotsbots.robot.recyclerush;
 
+import org.scotsbots.robot.AutonStrategy;
 import org.scotsbots.robot.Robot;
 import org.scotsbots.robot.RobotHardware;
 import org.scotsbots.robot.RobotOperation;
@@ -120,11 +121,6 @@ public class RobotHardwareWoodbot extends RobotHardware
 	}
 	
 	@Override
-	public void addAutons()
-	{
-	}
-	
-	@Override
 	public boolean usesCamera()
 	{
 		return true;
@@ -134,5 +130,11 @@ public class RobotHardwareWoodbot extends RobotHardware
 	public String getName()
 	{
 		return "Woodbot";
+	}
+
+	@Override
+	public AutonStrategy getSwitchedAuton()
+	{
+		return null;
 	}
 }

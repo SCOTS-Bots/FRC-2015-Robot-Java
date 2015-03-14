@@ -28,10 +28,4 @@ public class AutonStrategyDriveTimed extends AutonStrategy
 	{
 		return "Drive Straight Timed";
 	}
-
-	@Override
-	public boolean isDefault()
-	{
-		return false;
-	}
 }
