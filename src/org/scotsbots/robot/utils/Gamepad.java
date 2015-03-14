@@ -62,6 +62,16 @@ public class Gamepad
 	private static final int AXIS_LEFT_Y = 1;
 
 	/**
+	 * XBOX 360 Left Trigger
+	 */
+	private static final int AXIS_LEFT_T = 2;
+	
+	/**
+	 * XBOX 360 Left Trigger
+	 */
+	private static final int AXIS_RIGHT_T = 3;
+	
+	/**
 	 * XBOX 360 Right Horizontal Axis (Left=-1, Right=1)
 	 */
 	private static final int AXIS_RIGHT_X = 4;
@@ -94,6 +104,11 @@ public class Gamepad
 	public static double createDeadzone(double triggerValue)
 	{
 		return Math.abs(triggerValue) < 0.15 ? 0 : triggerValue;
+	}
+	
+	public static double createDeadzoneTrigger(double triggerValue)
+	{
+		return Math.abs(triggerValue) < .5 ? 0 : triggerValue;
 	}
 
 	/**
@@ -135,7 +150,17 @@ public class Gamepad
 	{
 		return createDeadzone(joystick.getRawAxis(AXIS_RIGHT_Y));
 	}
+	
+	public double getLeftT()
+	{
+		return createDeadzoneTrigger(joystick.getRawAxis(AXIS_LEFT_T));
+	}
 
+	public double getRightT()
+	{
+		return createDeadzoneTrigger(joystick.getRawAxis(AXIS_RIGHT_T));
+	}
+	
 	public boolean getDPadLeft()
 	{
 		return joystick.getPOV() > 260 && joystick.getPOV() < 280;
