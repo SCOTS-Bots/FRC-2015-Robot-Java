@@ -241,6 +241,6 @@ public class RobotHardwarePracticebot extends RobotHardware
 		{
 			return new AutonStrategyPickupPracTime();
 		}
-		return null;
+		return new AutonStrategyNothing();
 	}
 }

@@ -50,11 +50,18 @@ public abstract class RobotHardware
 			SmartDashboard.putNumber("Side Drive Encoder", Robot.bot.sideDriveEncoder.getDistance());
 		}
 		
-		Robot.bot.accelerometer.startLiveWindowMode();
+		if(accelerometer != null)
+		{
+			Robot.bot.accelerometer.startLiveWindowMode();
+		}
 		
 		SmartDashboard.putNumber("Gyro Angle", Robot.bot.gyro.getAngle());
-		SmartDashboard.putNumber("Accelerometer X", Robot.bot.accelerometer.getX());
-		SmartDashboard.putNumber("Accelerometer Y", Robot.bot.accelerometer.getY());
+		
+		if(accelerometer != null)
+		{
+			SmartDashboard.putNumber("Accelerometer X", Robot.bot.accelerometer.getX());
+			SmartDashboard.putNumber("Accelerometer Y", Robot.bot.accelerometer.getY());
+		}
 	}
 	
 	public boolean usesCamera()

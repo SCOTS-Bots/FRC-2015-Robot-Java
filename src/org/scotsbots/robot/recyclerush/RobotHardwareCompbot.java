@@ -236,7 +236,7 @@ public class RobotHardwareCompbot extends RobotHardware
 		{
 			return new AutonStrategyPickupCompTime();
 		}
-		return null;
+		return new AutonStrategyNothing();
 	}
 
 	@Override

@@ -33,7 +33,10 @@ public class RobotOperation
 	 */
 	public static void initialize()
 	{	
-		Robot.bot.gyro.initGyro();		
+		if(Robot.bot.gyro != null)
+		{
+			Robot.bot.gyro.initGyro();	
+		}
 		
 		encoderControl.setPercentTolerance(5);
 		
@@ -129,11 +132,11 @@ public class RobotOperation
 	{
 		if(joystickSet == 0)
 		{
-			Robot.bot.drivetrain.mecanumDrive_Cartesian(Gamepad.primaryGamepad.getLeftX() * speedRatio, Gamepad.primaryGamepad.getLeftY() * speedRatio, Gamepad.primaryGamepad.getRightX() * speedRatio, Robot.bot.gyro.getAngle());       
+			Robot.bot.drivetrain.mecanumDrive_Cartesian(Gamepad.primaryGamepad.getLeftX() * speedRatio, Gamepad.primaryGamepad.getLeftY() * speedRatio, Gamepad.primaryGamepad.getRightY() * speedRatio, 0);       
 		}
 		if(joystickSet == 1)
 		{
-			Robot.bot.drivetrain.mecanumDrive_Cartesian(Gamepad.primaryLeftAttackJoystick.getX() * speedRatio, Gamepad.primaryLeftAttackJoystick.getY() * speedRatio, Gamepad.primaryRightAttackJoystick.getX() * speedRatio, Robot.bot.gyro.getAngle());       
+			Robot.bot.drivetrain.mecanumDrive_Cartesian(Gamepad.primaryLeftAttackJoystick.getX() * speedRatio, Gamepad.primaryLeftAttackJoystick.getY() * speedRatio, Gamepad.primaryRightAttackJoystick.getY() * speedRatio, 0);       
 		}
 		Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
