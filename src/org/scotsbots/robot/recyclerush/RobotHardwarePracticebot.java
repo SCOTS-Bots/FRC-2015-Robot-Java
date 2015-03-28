@@ -5,6 +5,7 @@ import org.scotsbots.robot.RobotHardware;
 import org.scotsbots.robot.RobotOperation;
 import org.scotsbots.robot.recyclerush.auton.AutonStrategyDriveTimed;
 import org.scotsbots.robot.recyclerush.auton.AutonStrategyNothing;
+import org.scotsbots.robot.recyclerush.auton.AutonStrategyPickupCanPracTime;
 import org.scotsbots.robot.recyclerush.auton.AutonStrategyPickupPracTime;
 import org.scotsbots.robot.utils.Gamepad;
 
@@ -171,7 +172,11 @@ public class RobotHardwarePracticebot extends RobotHardware
 		//driver
 		if(Gamepad.primaryRightAttackJoystick.getButton(4))
 		{
-			driverSpeedRatio = 0.5;
+			driverSpeedRatio = 0.6;
+		}
+		if(Gamepad.primaryRightAttackJoystick.getButton(3))
+		{
+			driverSpeedRatio = 0.8;
 		}
 		if(Gamepad.primaryRightAttackJoystick.getButton(5))
 		{
@@ -240,6 +245,10 @@ public class RobotHardwarePracticebot extends RobotHardware
 		else if(switch1.get() == false && switch2.get() == true) //b1
 		{
 			return new AutonStrategyPickupPracTime();
+		}
+		else if(switch1.get() == false && switch2.get() == false) //b2
+		{
+			return new AutonStrategyPickupCanPracTime();
 		}
 		return new AutonStrategyNothing();
 	}
