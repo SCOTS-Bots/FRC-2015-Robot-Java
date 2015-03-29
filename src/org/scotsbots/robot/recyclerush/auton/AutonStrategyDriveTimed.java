@@ -1,6 +1,7 @@
 package org.scotsbots.robot.recyclerush.auton;
 
 import org.scotsbots.robot.AutonStrategy;
+import org.scotsbots.robot.Robot;
 import org.scotsbots.robot.RobotOperation;
 
 public class AutonStrategyDriveTimed extends AutonStrategy
@@ -19,7 +20,7 @@ public class AutonStrategyDriveTimed extends AutonStrategy
 		time++;
 		if(time >= 0 && time <= 100)
 		{
-			RobotOperation.driveTimed(1);
+			Robot.bot.drivetrain.drive(-0.5, 0);
 		}
 	}
 

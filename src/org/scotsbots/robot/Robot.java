@@ -29,7 +29,7 @@ public class Robot extends IterativeRobot
     public void robotInit() 
     {
     	Logger.riolog("S.C.O.T.S. Bots 2015 Robot intializing...");
-    	bot = new RobotHardwareMecbot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
+    	bot = new RobotHardwarePracticebot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
     	bot.initialize();
     	RobotOperation.initialize();
     	if(bot.usesCamera())
