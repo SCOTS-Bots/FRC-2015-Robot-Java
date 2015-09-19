@@ -25,8 +25,8 @@ public class RobotOperationPracticebot extends RobotHardwarePracticebot
 		{
 			moveLift(0.75);	
 		}*/
-		liftEncoder.reset();
-		setLiftPosition(POSITION_0);  
+		//liftEncoder.reset();
+		//setLiftPosition(POSITION_0);  
 		closeArms();
 	}
 	

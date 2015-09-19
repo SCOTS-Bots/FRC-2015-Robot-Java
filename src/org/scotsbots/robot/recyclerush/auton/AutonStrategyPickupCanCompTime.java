@@ -3,8 +3,7 @@ package org.scotsbots.robot.recyclerush.auton;
 import org.scotsbots.robot.AutonStrategy;
 import org.scotsbots.robot.Robot;
 import org.scotsbots.robot.recyclerush.RobotHardwareCompbot;
-import org.scotsbots.robot.recyclerush.RobotHardwarePracticebot;
-import org.scotsbots.robot.recyclerush.RobotOperationPracticebot;
+import org.scotsbots.robot.recyclerush.RobotOperationCompbot;
 
 public class AutonStrategyPickupCanCompTime extends AutonStrategy
 {
@@ -22,14 +21,20 @@ public class AutonStrategyPickupCanCompTime extends AutonStrategy
 	@Override
 	public void intialize()
 	{
-		RobotHardwarePracticebot.liftEncoder.reset();
+		RobotHardwareCompbot.liftEncoder.reset();
 	}
 
 	@Override
 	public void update()
 	{
 		time++;
-		if(time >= 1 && time <= 150)
+		if(time >= 1 && time <= 25)
+		{
+			RobotOperationCompbot.openArms();
+			
+		}
+		
+		if(time >= 26 && time <= 176)
 		{
 			if (RobotHardwareCompbot.liftEncoder.get() < CAN_LIFT_POSITION)
 			{
@@ -41,12 +46,17 @@ public class AutonStrategyPickupCanCompTime extends AutonStrategy
 			}
 		}
 		
-		if(time >= 151 && time <= 175)
+		if(time >= 176 && time <= 200)
 		{
-			RobotOperationPracticebot.closeArms();
+			Robot.bot.drivetrain.drive(-0.5, 0);
 		}
 		
-		if(time >= 176 && time <= 400)
+		if(time >= 201 && time <= 226)
+		{
+			RobotOperationCompbot.closeArms();
+		}
+		
+		if(time >= 227 && time <= 450)
 		{
 			if (RobotHardwareCompbot.liftEncoder.get() < CAN_LOAD_POSITION)
 			{
@@ -58,7 +68,7 @@ public class AutonStrategyPickupCanCompTime extends AutonStrategy
 			}
 		}
 		
-		if(time >= 401 && time <= 430)
+		if(time >= 451 && time <= 481)
 		{
 			Robot.bot.drivetrain.drive(-0.5, 0);
 		}

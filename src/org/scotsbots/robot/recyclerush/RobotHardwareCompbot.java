@@ -3,6 +3,7 @@ package org.scotsbots.robot.recyclerush;
 import org.scotsbots.robot.AutonStrategy;
 import org.scotsbots.robot.RobotHardware;
 import org.scotsbots.robot.RobotOperation;
+import org.scotsbots.robot.recyclerush.auton.AutonStrategyCleanComp;
 import org.scotsbots.robot.recyclerush.auton.AutonStrategyDriveTimed;
 import org.scotsbots.robot.recyclerush.auton.AutonStrategyNothing;
 import org.scotsbots.robot.recyclerush.auton.AutonStrategyPickupCanCompTime;
@@ -66,7 +67,7 @@ public class RobotHardwareCompbot extends RobotHardware
 		liftEncoder = new Encoder(0, 1, false, EncodingType.k4X);
 		liftBottomLimit = new DigitalInput(2);
 		liftTopLimit = new DigitalInput(3);
-		backupLiftBottomLimit = new DigitalInput(4);
+		backupLiftBottomLimit = new DigitalInput(5);
 		
 		switch1 = new DigitalInput(9);
 		switch2 = new DigitalInput(8);
@@ -175,6 +176,10 @@ public class RobotHardwareCompbot extends RobotHardware
 		{
 			driverSpeedRatio = 0.6;
 		}
+		if(Gamepad.primaryRightAttackJoystick.getButton(3))
+		{
+			driverSpeedRatio = 0.8;
+		}
 		if(Gamepad.primaryRightAttackJoystick.getButton(5))
 		{
 			driverSpeedRatio = 1;
@@ -227,11 +232,11 @@ public class RobotHardwareCompbot extends RobotHardware
 	{
 		if(switch1.get() == true && switch2.get() == true) //a1
 		{
-			return new AutonStrategyNothing();
+			return new AutonStrategyCleanComp();
 		}
 		else if(switch1.get() == true && switch2.get() == false) //a2
 		{
-			return new AutonStrategyDriveTimed();
+			return new AutonStrategyNothing();
 		}
 		else if(switch1.get() == false && switch2.get() == true) //b1
 		{
@@ -241,7 +246,7 @@ public class RobotHardwareCompbot extends RobotHardware
 		{
 			return new AutonStrategyPickupCanCompTime();
 		}
-		return new AutonStrategyNothing();
+		return new AutonStrategyPickupCanCompTime();
 	}
 
 	@Override

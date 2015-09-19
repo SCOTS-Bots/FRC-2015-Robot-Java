@@ -62,13 +62,13 @@ public class RobotHardwarePracticebot extends RobotHardware
 		armSolenoid = new DoubleSolenoid(4,5);
 		
 		//DIO
-		liftEncoder = new Encoder(0, 1, false, EncodingType.k4X);
+		/*liftEncoder = new Encoder(0, 1, false, EncodingType.k4X);
 		liftBottomLimit = new DigitalInput(2);
 		liftTopLimit = new DigitalInput(3);
 		backupLiftBottomLimit = new DigitalInput(4);
 		
 		switch1 = new DigitalInput(9);
-		switch2 = new DigitalInput(8);
+		switch2 = new DigitalInput(8);*/
 		
 		//ANALOG
 		gyro = new Gyro(0);
@@ -188,7 +188,7 @@ public class RobotHardwarePracticebot extends RobotHardware
 	private void failsafe()
 	{
 		//failsafe
-		if(!liftBottomLimit.get() || !backupLiftBottomLimit.get())
+		/*if(!liftBottomLimit.get() || !backupLiftBottomLimit.get())
 		{
 			 liftEncoder.reset();
 			 if(liftMotor.getSpeed() > 0)
@@ -209,15 +209,15 @@ public class RobotHardwarePracticebot extends RobotHardware
 		if(liftEncoder.get() == RobotOperationCompbot.MAX_HEIGHT)
 		{
 			liftMotor.set(0);
-		}
+		}*/
 	}
 	
 	@Override
 	public void logSmartDashboard()
 	{
 		SmartDashboard.putNumber("Winch Encoder", liftEncoder.get());
-		SmartDashboard.putBoolean("Lift bottom?", (!liftBottomLimit.get() || !backupLiftBottomLimit.get()));
-		SmartDashboard.putBoolean("Lift top?", (!liftTopLimit.get()));
+		//SmartDashboard.putBoolean("Lift bottom?", (!liftBottomLimit.get() || !backupLiftBottomLimit.get()));
+		//SmartDashboard.putBoolean("Lift top?", (!liftTopLimit.get()));
 		SmartDashboard.putNumber("Lift Gear", liftGear);
 		SmartDashboard.putNumber("Lift Speed Ratio", liftSpeedRatio);
 		SmartDashboard.putNumber("Drive Speed Ratio", driverSpeedRatio);
@@ -234,7 +234,7 @@ public class RobotHardwarePracticebot extends RobotHardware
 
 	public AutonStrategy getSwitchedAuton()
 	{
-		if(switch1.get() == true && switch2.get() == true) //a1
+		/*if(switch1.get() == true && switch2.get() == true) //a1
 		{
 			return new AutonStrategyNothing();
 		}
@@ -249,7 +249,7 @@ public class RobotHardwarePracticebot extends RobotHardware
 		else if(switch1.get() == false && switch2.get() == false) //b2
 		{
 			return new AutonStrategyPickupCanPracTime();
-		}
+		}*/
 		return new AutonStrategyNothing();
 	}
 }
