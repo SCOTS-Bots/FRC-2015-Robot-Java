@@ -35,7 +35,7 @@ public class RobotHardwareMecbot extends RobotHardware
 	@Override
 	public void teleop()
 	{
-		RobotOperation.driveMecanum(0);
+		RobotOperation.driveMecanum(0, 0.5);
 	}
 
 	@Override

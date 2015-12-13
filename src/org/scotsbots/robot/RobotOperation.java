@@ -132,7 +132,7 @@ public class RobotOperation
 	{
 		if(joystickSet == 0)
 		{
-			Robot.bot.drivetrain.mecanumDrive_Cartesian(Gamepad.primaryGamepad.getLeftX() * speedRatio, Gamepad.primaryGamepad.getLeftY() * speedRatio, Gamepad.primaryGamepad.getRightY() * speedRatio, 0);       
+			Robot.bot.drivetrain.mecanumDrive_Cartesian(Gamepad.primaryGamepad.joystick.getRawAxis(2) * speedRatio, Gamepad.primaryGamepad.getLeftY() * speedRatio, Gamepad.primaryGamepad.getRightY() * speedRatio, 0);       
 		}
 		if(joystickSet == 1)
 		{
@@ -140,6 +140,20 @@ public class RobotOperation
 		}
 		Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
+	
+	public static void driveMecanum(int joystickSet, double x, double y, double rotate, double speedRatio)
+	{
+		if(joystickSet == 0)
+		{
+			Robot.bot.drivetrain.mecanumDrive_Cartesian(x * speedRatio, y * speedRatio, rotate * speedRatio, 0);       
+		}
+		if(joystickSet == 1)
+		{
+			Robot.bot.drivetrain.mecanumDrive_Cartesian(Gamepad.primaryLeftAttackJoystick.getX() * speedRatio, Gamepad.primaryLeftAttackJoystick.getY() * speedRatio, Gamepad.primaryRightAttackJoystick.getY() * speedRatio, 0);       
+		}
+		Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
+	}
+	
 	
 	public static double time = 0;
 	public static double timeReverse = 0;
